@@ -20,6 +20,7 @@ namespace CMF
 
         public Transform cameraTransform;
         InputAction moveAction;
+        InputAction jumpAction;
         Transform tr;
 
         // Use this for initialization
@@ -28,6 +29,7 @@ namespace CMF
             tr = transform;
             mover = GetComponent<Mover>();
             moveAction = InputSystem.actions.FindAction("Move");
+            jumpAction = InputSystem.actions.FindAction("Jump");
         }
 
         void FixedUpdate()
@@ -58,13 +60,13 @@ namespace CMF
                     currentVerticalSpeed = 0f;
             }
 
-            //Handle jumping;
-            //if ((characterInput != null) && isGrounded && characterInput.IsJumpKeyPressed())
-            //{
-                //OnJumpStart();
-                //currentVerticalSpeed = jumpSpeed;
-                //isGrounded = false;
-            //}
+            // Handle jumping;
+            if (isGrounded && jumpAction.IsPressed())
+           {
+                OnJumpStart();
+                currentVerticalSpeed = jumpSpeed;
+                isGrounded = false;
+            }
 
             //Add vertical velocity;
             _velocity += tr.up * currentVerticalSpeed;

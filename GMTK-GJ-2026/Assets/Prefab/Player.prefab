@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CMF.SimpleWalkerController
   movementSpeed: 7
-  jumpSpeed: 10
+  jumpSpeed: 5
   gravity: 10
   cameraTransform: {fileID: 0}
 --- !u!114 &2132564976584129316

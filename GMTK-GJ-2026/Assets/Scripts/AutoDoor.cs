@@ -1,11 +1,26 @@
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
 
-public class AutoDoor : IInteractable
+public class AutoDoor : MonoBehaviour, IInteractable
 {
     [SerializeField]
     Animator _animator;
     [SerializeField]
     string _boolParameterName = "IsOpen";
+
+    void Awake()
+    {
+        if (_animator == null)
+        {
+            _animator = GetComponent<Animator>();
+        }
+
+        if (_animator == null)
+        {
+            Debug.LogError("No Animator Assigned to Door");
+            enabled = false;
+        }
+    }
 
     public void OnInteractorDown(Transform interactor)
     {   
