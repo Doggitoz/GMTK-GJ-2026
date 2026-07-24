@@ -4,12 +4,16 @@ using UnityEngine.InputSystem;
 public class CursorInteractor : MonoBehaviour
 {
     [SerializeField]
+    private float _interactionDistance = 10f;
+
+    [SerializeField]
     LayerMask _interactionMask;
 
     [SerializeField]
     QueryTriggerInteraction _triggerInteraction;
 
     IInteractable _currentInteractable;
+    IInteractable _selectedInteractable;
 
     private Camera _camera;
     
@@ -34,17 +38,19 @@ public class CursorInteractor : MonoBehaviour
             hoveredThisFrame = true;
         }
 
-        if (_currentInteractable == null) return;
-
         if (!hoveredThisFrame)
-            _currentInteractable.OnInteractorStay(transform);
+            _selectedInteractable?.OnInteractorStay(transform);
 
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
-            _currentInteractable.OnInteractorDown(transform);
+            _selectedInteractable = _currentInteractable;
+            _selectedInteractable?.OnInteractorDown(transform);
+            
+           
         } else if (Mouse.current.leftButton.wasReleasedThisFrame)
         {
-            _currentInteractable.OnInteractorUp(transform);
+            _selectedInteractable?.OnInteractorUp(transform);
+            _selectedInteractable = null;
         }
     }
 
@@ -54,7 +60,7 @@ public class CursorInteractor : MonoBehaviour
         {
             RaycastHit hit;
             Ray rayOrigin = _camera.ScreenPointToRay(Pointer.current.position.value, Camera.MonoOrStereoscopicEye.Mono);
-            if (Physics.Raycast(rayOrigin.origin, rayOrigin.direction, out hit, 10f, _interactionMask, _triggerInteraction)) {
+            if (Physics.Raycast(rayOrigin.origin, rayOrigin.direction, out hit, _interactionDistance, _interactionMask, _triggerInteraction)) {
                 return hit.transform.GetComponent<IInteractable>();
             }
         }
