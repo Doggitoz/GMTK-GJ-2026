@@ -52,7 +52,11 @@ public class DragInteractable : MonoBehaviour, IInteractable
         }
     }
 
-    [SerializeField] private float dragSpeed = 15f;
+    [SerializeField] private float positionStrength = 250f;
+    [SerializeField] private float positionDamping = 35f;
+    [SerializeField] private float maxForce = 1000f;
+
+    [SerializeField] private float angularDamping = 25f;
 
     private Vector3 targetPosition;
 
@@ -80,12 +84,20 @@ public class DragInteractable : MonoBehaviour, IInteractable
         if (!usePhysics || !isDragging)
             return;
 
-        Vector3 newPosition = Vector3.MoveTowards(
-            rb.position,
-            targetPosition,
-            dragSpeed * Time.fixedDeltaTime);
+        Vector3 error = targetPosition - rb.position;
 
-        rb.MovePosition(newPosition);
+        // PD controller
+        Vector3 force = error * positionStrength
+                      - rb.linearVelocity * positionDamping;
+
+        // Prevent ridiculous impulses
+        if (force.sqrMagnitude > maxForce * maxForce)
+            force = force.normalized * maxForce;
+
+        rb.AddForce(force, ForceMode.Force);
+
+        // Damp rotation so it doesn't spin uncontrollably.
+        rb.AddTorque(-rb.angularVelocity * angularDamping, ForceMode.Acceleration);
     }
 
     public void OnInteractorUp(Transform interactor)

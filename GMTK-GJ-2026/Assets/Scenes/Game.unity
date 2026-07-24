@@ -766,7 +766,7 @@ GameObject:
   - component: {fileID: 1724031523}
   - component: {fileID: 1724031524}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: DraggableCube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -880,7 +880,10 @@ MonoBehaviour:
   targetCamera: {fileID: 0}
   planeNormal: {x: 0, y: 0, z: 1}
   usePhysics: 1
-  originalUseGravity: 0
+  positionStrength: 300
+  positionDamping: 40
+  maxForce: 1500
+  angularDamping: 25
 --- !u!54 &1724031524
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -903,7 +906,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
