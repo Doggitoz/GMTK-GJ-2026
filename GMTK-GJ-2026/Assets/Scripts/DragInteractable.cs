@@ -51,28 +51,36 @@ public class DragInteractable : MonoBehaviour, IInteractable
         }
     }
 
-    public void OnInteractorStay(Transform interactor)
+    [SerializeField] private float dragSpeed = 15f;
+
+private Vector3 targetPosition;
+
+public void OnInteractorStay(Transform interactor)
+{
+    if (!isDragging)
+        return;
+
+    Vector2 pointerPos = InputSystem.actions.FindAction("Point").ReadValue<Vector2>();
+    Ray ray = targetCamera.ScreenPointToRay(pointerPos);
+
+    if (dragPlane.Raycast(ray, out float enter))
     {
-        if (!isDragging)
-            return;
-
-        Vector2 pointerPos = InputSystem.actions.FindAction("Point").ReadValue<Vector2>();
-        Ray ray = targetCamera.ScreenPointToRay(pointerPos);
-
-        if (!dragPlane.Raycast(ray, out float enter))
-            return;
-
-        Vector3 targetPosition = ray.GetPoint(enter) + dragOffset;
-
-        if (usePhysics)
-        {
-            rb.MovePosition(targetPosition);
-        }
-        else
-        {
-            transform.position = targetPosition;
-        }
+        targetPosition = ray.GetPoint(enter) + dragOffset;
     }
+}
+
+private void FixedUpdate()
+{
+    if (!usePhysics || !isDragging)
+        return;
+
+    Vector3 newPosition = Vector3.MoveTowards(
+        rb.position,
+        targetPosition,
+        dragSpeed * Time.fixedDeltaTime);
+
+    rb.MovePosition(newPosition);
+}
 
     public void OnInteractorUp(Transform interactor)
     {
