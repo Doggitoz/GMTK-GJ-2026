@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,6 +13,8 @@ public class TriggerInteractor : MonoBehaviour
 
     InputAction _interactAction;
 
+    HashSet<IInteractable> _currentInteractables;
+
     private void Awake()
     {
         _interactAction = InputSystem.actions.FindAction("Interact");
@@ -22,22 +25,28 @@ public class TriggerInteractor : MonoBehaviour
         if (!other.TryGetComponent<IInteractable>(out var interactable)) return;
 
         interactable.OnInteractorHover();
+        _currentInteractables.Add(interactable);
     }
 
-    private void OnTriggerStay(Collider other)
+    private void Update()
     {
-        if (!other.TryGetComponent<IInteractable>(out var interactable)) return;
+        bool wasPressedThisFrame = _interactAction.WasPressedThisFrame();
+        bool wasReleasedThisFrame = _interactAction.WasReleasedThisFrame();
 
-        if (_interactAction.WasPressedThisFrame())
+        foreach (var interactable in _currentInteractables)
         {
-            interactable.OnInteractorDown(transform);
-        }
+            if (wasPressedThisFrame)
+            {
+                interactable.OnInteractorDown(transform);
 
-        interactable.OnInteractorStay(transform);
+            }
 
-        if (_interactAction.WasReleasedThisFrame())
-        {
-            interactable.OnInteractorUp(transform);
+            interactable.OnInteractorStay(transform);
+
+            if (wasReleasedThisFrame)
+            {
+                interactable.OnInteractorUp(transform);
+            }
         }
     }
 
@@ -46,5 +55,6 @@ public class TriggerInteractor : MonoBehaviour
         if (!other.TryGetComponent<IInteractable>(out var interactable)) return;
 
         interactable.OnInteractorLeave();
+        _currentInteractables.Remove(interactable);
     }
 }
