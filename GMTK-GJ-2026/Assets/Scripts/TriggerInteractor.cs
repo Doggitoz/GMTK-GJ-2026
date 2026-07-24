@@ -8,6 +8,7 @@ public class TriggerInteractor : MonoBehaviour
     InputAction _interactAction;
 
     HashSet<IInteractable> _currentInteractables = new();
+    HashSet<IInteractable> _selectedInteractables = new();
 
     private void Awake()
     {
@@ -27,20 +28,27 @@ public class TriggerInteractor : MonoBehaviour
         bool wasPressedThisFrame = _interactAction.WasPressedThisFrame();
         bool wasReleasedThisFrame = _interactAction.WasReleasedThisFrame();
 
-        foreach (var interactable in _currentInteractables)
+        if (wasPressedThisFrame)
         {
-            if (wasPressedThisFrame)
+            foreach (var interactable in _currentInteractables)
             {
                 interactable.OnInteractorDown(transform);
-
+                _selectedInteractables.Add(interactable);
             }
+        }
 
+        foreach (var interactable in _selectedInteractables)
+        {
             interactable.OnInteractorStay(transform);
+        }
 
-            if (wasReleasedThisFrame)
+        if (wasReleasedThisFrame)
+        {
+            foreach (var interactable in _selectedInteractables)
             {
                 interactable.OnInteractorUp(transform);
             }
+            _selectedInteractables.Clear();
         }
     }
 
