@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,11 +8,18 @@ public class DragInteractable : MonoBehaviour, IInteractable
     [SerializeField] private Vector3 planeNormal = Vector3.up;
     [SerializeField] private bool usePhysics = true;
 
-    private bool originalUseGravity;
-    private Plane dragPlane;
+    [SerializeField] private float positionStrength = 250f;
+    [SerializeField] private float positionDamping = 35f;
+    [SerializeField] private float maxForce = 1000f;
+
+    [SerializeField] private float angularDamping = 25f;
+
+    private Vector3 targetPosition;
     private Vector3 dragOffset;
-    private bool isDragging;
+    private Plane dragPlane;
     
+    private bool isDragging;
+    private bool originalUseGravity;
 
     private Rigidbody rb;
 
@@ -34,8 +40,6 @@ public class DragInteractable : MonoBehaviour, IInteractable
 
     public void OnInteractorLeave() { }
 
-   
-
     public void OnInteractorDown(Transform interactor)
     {
         isDragging = true;
@@ -52,13 +56,6 @@ public class DragInteractable : MonoBehaviour, IInteractable
         }
     }
 
-    [SerializeField] private float positionStrength = 250f;
-    [SerializeField] private float positionDamping = 35f;
-    [SerializeField] private float maxForce = 1000f;
-
-    [SerializeField] private float angularDamping = 25f;
-
-    private Vector3 targetPosition;
 
     public void OnInteractorStay(Transform interactor)
     {
