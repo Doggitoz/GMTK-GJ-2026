@@ -1,16 +1,36 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] 
+    private float moveSpeed = 5f;
+
+    [SerializeField]
+    private float runSpeed = 10f;
+    
+    InputAction _moveAction;
+    InputAction _sprintAction;
+    CharacterController _controller;
+
+    private void Awake()
     {
-        
+        _controller = GetComponent<CharacterController>();
+
+        _moveAction = InputSystem.actions.FindAction("Move");
+        _sprintAction = InputSystem.actions.FindAction("Sprint");
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        Vector2 input = _moveAction.ReadValue<Vector2>();
+
+        float speedMultiplier = _sprintAction.IsPressed() ? runSpeed : moveSpeed;
+
+        // Convert 2D input into 3D movement (X/Z)
+        Vector3 movement = new Vector3(input.x, Physics.gravity.y, input.y);
+
+        _controller.Move(movement * speedMultiplier * Time.deltaTime);
     }
 }
