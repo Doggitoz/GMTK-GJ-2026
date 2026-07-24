@@ -764,6 +764,7 @@ GameObject:
   - component: {fileID: 1724031520}
   - component: {fileID: 1724031519}
   - component: {fileID: 1724031523}
+  - component: {fileID: 1724031524}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -876,7 +877,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44549f033f9ec534da8ee5eefa5d268f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DragInteractable
-  planeNormal: {x: 0, y: 1, z: 0}
+  targetCamera: {fileID: 0}
+  planeNormal: {x: 0, y: 0, z: 1}
+  usePhysics: 1
+  originalUseGravity: 0
+--- !u!54 &1724031524
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724031518}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1983262168
 GameObject:
   m_ObjectHideFlags: 0

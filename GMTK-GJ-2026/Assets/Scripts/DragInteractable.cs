@@ -1,44 +1,53 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Collider))]
 public class DragInteractable : MonoBehaviour, IInteractable
 {
+    [SerializeField] private Camera targetCamera;
     [SerializeField] private Vector3 planeNormal = Vector3.up;
-
-    private bool isDragging;
-    private Transform currentInteractor;
+    [SerializeField] private bool usePhysics = true;
+    [SerializeField] private bool originalUseGravity;
 
     private Plane dragPlane;
     private Vector3 dragOffset;
+    private bool isDragging;
+    
 
-    public void OnInteractorHover()
+    private Rigidbody rb;
+
+    private void Awake()
     {
-        // Optional: Highlight object
+        targetCamera = Camera.main;
+
+        rb = GetComponent<Rigidbody>();
+
+        if (usePhysics && rb == null)
+        {
+            Debug.LogWarning($"{name}: Use Physics is enabled but no Rigidbody was found.");
+            usePhysics = false;
+        }
     }
 
-    public void OnInteractorLeave()
-    {
-        // Optional: Remove highlight
-    }
+    public void OnInteractorHover() { }
+
+    public void OnInteractorLeave() { }
+
+   
 
     public void OnInteractorDown(Transform interactor)
     {
-        currentInteractor = interactor;
         isDragging = true;
 
-        // Plane passing through the object's current position.
         dragPlane = new Plane(planeNormal, transform.position);
+        UpdateDragOffset();
 
-        Ray ray = new Ray(interactor.position, interactor.forward);
-
-        if (dragPlane.Raycast(ray, out float enter))
+        if (usePhysics)
         {
-            Vector3 hitPoint = ray.GetPoint(enter);
-            dragOffset = transform.position - hitPoint;
-        }
-        else
-        {
-            dragOffset = Vector3.zero;
+            originalUseGravity = rb.useGravity;
+            rb.useGravity = false;
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
         }
     }
 
@@ -47,23 +56,46 @@ public class DragInteractable : MonoBehaviour, IInteractable
         if (!isDragging)
             return;
 
-        Ray ray = new Ray(interactor.position, interactor.forward);
+        Vector2 pointerPos = InputSystem.actions.FindAction("Point").ReadValue<Vector2>();
+        Ray ray = targetCamera.ScreenPointToRay(pointerPos);
 
-        if (dragPlane.Raycast(ray, out float enter))
+        if (!dragPlane.Raycast(ray, out float enter))
+            return;
+
+        Vector3 targetPosition = ray.GetPoint(enter) + dragOffset;
+
+        if (usePhysics)
         {
-            Vector3 hitPoint = ray.GetPoint(enter);
-            transform.position = hitPoint + dragOffset;
+            rb.MovePosition(targetPosition);
+        }
+        else
+        {
+            transform.position = targetPosition;
         }
     }
 
     public void OnInteractorUp(Transform interactor)
     {
-        ResetDrag();
+        isDragging = false;
+
+        if (usePhysics)
+        {
+            rb.useGravity = originalUseGravity;
+        }
     }
 
-    private void ResetDrag()
+    private void UpdateDragOffset()
     {
-        isDragging = false;
-        currentInteractor = null;
+        Vector2 mousePos = Mouse.current.position.ReadValue();
+        Ray ray = targetCamera.ScreenPointToRay(mousePos);
+
+        if (dragPlane.Raycast(ray, out float enter))
+        {
+            dragOffset = transform.position - ray.GetPoint(enter);
+        }
+        else
+        {
+            dragOffset = Vector3.zero;
+        }
     }
 }
