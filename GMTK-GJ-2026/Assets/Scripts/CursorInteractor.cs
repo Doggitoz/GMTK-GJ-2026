@@ -28,23 +28,23 @@ public class CursorInteractor : MonoBehaviour
 
         if (hoveredInteractable != _currentInteractable)
         {
-            _currentInteractable?.OnMouseLeave();
+            _currentInteractable?.OnInteractorLeave();
             _currentInteractable = hoveredInteractable;
-            _currentInteractable?.OnMouseHover();
+            _currentInteractable?.OnInteractorHover();
             hoveredThisFrame = true;
         }
 
         if (_currentInteractable == null) return;
 
         if (!hoveredThisFrame)
-            _currentInteractable.OnMouseStay(transform);
+            _currentInteractable.OnInteractorStay(transform);
 
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
-            _currentInteractable.OnMouseDown(transform);
+            _currentInteractable.OnInteractorDown(transform);
         } else if (Mouse.current.leftButton.wasReleasedThisFrame)
         {
-            _currentInteractable.OnMouseUp(transform);
+            _currentInteractable.OnInteractorUp(transform);
         }
     }
 

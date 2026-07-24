@@ -2,9 +2,9 @@ using UnityEngine;
 
 public interface IInteractable
 {
-    void OnMouseHover();
-    void OnMouseLeave();
-    void OnMouseDown(Transform interactor);
-    void OnMouseUp(Transform interactor);
-    void OnMouseStay(Transform interactor);
+    void OnInteractorHover();
+    void OnInteractorLeave();
+    void OnInteractorDown(Transform interactor);
+    void OnInteractorUp(Transform interactor);
+    void OnInteractorStay(Transform interactor);
 }
