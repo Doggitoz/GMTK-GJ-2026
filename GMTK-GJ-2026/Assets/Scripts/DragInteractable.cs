@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,8 +8,8 @@ public class DragInteractable : MonoBehaviour, IInteractable
     [SerializeField] private Camera targetCamera;
     [SerializeField] private Vector3 planeNormal = Vector3.up;
     [SerializeField] private bool usePhysics = true;
-    [SerializeField] private bool originalUseGravity;
 
+    private bool originalUseGravity;
     private Plane dragPlane;
     private Vector3 dragOffset;
     private bool isDragging;
@@ -53,34 +54,39 @@ public class DragInteractable : MonoBehaviour, IInteractable
 
     [SerializeField] private float dragSpeed = 15f;
 
-private Vector3 targetPosition;
+    private Vector3 targetPosition;
 
-public void OnInteractorStay(Transform interactor)
-{
-    if (!isDragging)
-        return;
-
-    Vector2 pointerPos = InputSystem.actions.FindAction("Point").ReadValue<Vector2>();
-    Ray ray = targetCamera.ScreenPointToRay(pointerPos);
-
-    if (dragPlane.Raycast(ray, out float enter))
+    public void OnInteractorStay(Transform interactor)
     {
-        targetPosition = ray.GetPoint(enter) + dragOffset;
+        if (!isDragging)
+            return;
+
+        Vector2 pointerPos = InputSystem.actions.FindAction("Point").ReadValue<Vector2>();
+        Ray ray = targetCamera.ScreenPointToRay(pointerPos);
+
+        if (dragPlane.Raycast(ray, out float enter))
+        {
+            targetPosition = ray.GetPoint(enter) + dragOffset;
+        }
+
+        if (!usePhysics)
+        {
+            transform.position = targetPosition; 
+        }
     }
-}
 
-private void FixedUpdate()
-{
-    if (!usePhysics || !isDragging)
-        return;
+    private void FixedUpdate()
+    {
+        if (!usePhysics || !isDragging)
+            return;
 
-    Vector3 newPosition = Vector3.MoveTowards(
-        rb.position,
-        targetPosition,
-        dragSpeed * Time.fixedDeltaTime);
+        Vector3 newPosition = Vector3.MoveTowards(
+            rb.position,
+            targetPosition,
+            dragSpeed * Time.fixedDeltaTime);
 
-    rb.MovePosition(newPosition);
-}
+        rb.MovePosition(newPosition);
+    }
 
     public void OnInteractorUp(Transform interactor)
     {
