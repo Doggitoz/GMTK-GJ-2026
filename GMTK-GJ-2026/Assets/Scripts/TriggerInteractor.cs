@@ -5,15 +5,9 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Collider))]
 public class TriggerInteractor : MonoBehaviour
 {
-    [SerializeField]
-    LayerMask _interactionMask;
-
-    [SerializeField]
-    QueryTriggerInteraction _triggerInteraction;
-
     InputAction _interactAction;
 
-    HashSet<IInteractable> _currentInteractables;
+    HashSet<IInteractable> _currentInteractables = new();
 
     private void Awake()
     {

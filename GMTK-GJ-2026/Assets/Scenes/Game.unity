@@ -189,7 +189,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TriggerInteractor
   _interactionMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   _triggerInteraction: 0
 --- !u!1 &330585543
 GameObject:
