@@ -44,7 +44,6 @@ public class DragInteractable : MonoBehaviour, IInteractable
 
     public void OnInteractorStay(Transform interactor)
     {
-        Debug.Log("test");
         if (!isDragging)
             return;
 
