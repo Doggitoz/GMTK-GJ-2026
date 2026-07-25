@@ -10,12 +10,16 @@ public class GameManager : MonoBehaviour
     public event Action OnGameReset;
     public event Action OnGameStop;
     public event Action OnGameStart;
+    public event Action OnTutorialStart;
 
     public static GameManager Instance { get; private set; }
     public bool GameActive => _gameActive;
     private bool _gameActive;
     public Clock.Condition ClockCondition => _clockCondition ??= new Clock.Condition();
     private Clock.Condition _clockCondition;
+
+    public bool PlayerControllerEnabled => _playerControllerEnabled;
+    private bool _playerControllerEnabled;
 
     void Awake()
     {
@@ -25,6 +29,14 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         _gameActive = _startOnRuntime;
+        if (_startOnRuntime) return;
+        OnTutorialStart?.Invoke();
+    }
+
+    [ContextMenu("Start Tutorial")]
+    public void StartTutorial()
+    {
+        OnTutorialStart?.Invoke();
     }
 
     [ContextMenu("Start Game")]
@@ -56,6 +68,11 @@ public class GameManager : MonoBehaviour
         StartGame();
     }
 
+    public void SetPlayerActive(bool isActive)
+    {
+        _playerControllerEnabled = isActive;
+    }
+
     public void TriggerLoseGame()
     {
         StopGame();
@@ -66,7 +83,6 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
