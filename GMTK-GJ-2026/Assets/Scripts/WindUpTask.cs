@@ -22,13 +22,23 @@ public class WindUpTask : MonoBehaviour, IInteractable
     public float DangerNormalized => danger / 100f; // 0..1 for the UI
 
     private bool _holdingInteract;
+    private bool _windupStarted;
     private InputAction _moveAction;
     private GameManager _gameManager => GameManager.Instance;
     private Clock.Condition _clockCondition => _gameManager.ClockCondition;
 
+    [SerializeField] private FMODUnity.EventReference windupSoundEvent;
+    private FMOD.Studio.EventInstance windupSound;
+
     private void Awake()
     {
         _moveAction = InputSystem.actions.FindAction("Move");
+    }
+
+    private void Start()
+    {
+        windupSound = FMODUnity.RuntimeManager.CreateInstance(windupSoundEvent);
+        _windupStarted = false;
     }
 
     private void Update()
@@ -37,10 +47,20 @@ public class WindUpTask : MonoBehaviour, IInteractable
         float deteriorationScale = (useGameTimeScale) ? _clockCondition.DeteriorationTimeScale: 1f;
         bool standingStill = _moveAction == null || _moveAction.ReadValue<Vector2>().magnitude <= standStillThreshold;
         if (_holdingInteract && standingStill)
+        {
             danger -= windDownPerSecond * Time.deltaTime * _clockCondition.RepairTimeScale; //winding down pauses the danger rise
+            if (!_windupStarted)
+            {
+                windupSound.start();
+                _windupStarted = true;
+            }
+        }
         else
+        {
             danger += dangerPerSecond * deteriorationScale * Time.deltaTime;
-
+            windupSound.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            _windupStarted = false;
+        }
         danger = Mathf.Clamp(danger, 0f, 100f);
 
         if (danger >= 100f)

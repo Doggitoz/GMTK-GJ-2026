@@ -16,6 +16,9 @@ public class RustSpot : MonoBehaviour, IInteractable
     [SerializeField] private float cleanRate = 0.75f;
     [SerializeField] private float minScale = 0.05f;
 
+    [SerializeField] private FMODUnity.EventReference rustCleaningSoundEvent;
+    private FMOD.Studio.EventInstance rustCleaningSound;
+
     public void Initialize(ObjectPool<GameObject> pool)
     {
         _pool = pool;
@@ -29,6 +32,7 @@ public class RustSpot : MonoBehaviour, IInteractable
     public static float growthRate => GameItems.HasItem("RustSlow") ? 0.1f : 0.3f;
 
     private bool _isBeingCleaned;
+    private bool _cleaningStarted;
 
     private float _currentDamageWorth = 0;
     private int damageIncreaseTarget = 2;
@@ -40,17 +44,21 @@ public class RustSpot : MonoBehaviour, IInteractable
         _currentDamageWorth = 1;
         damageIncreaseTarget = 2;
         _isBeingCleaned = false;
+        _cleaningStarted = false;
 
         ClockCondition.AddDamagePercentage(1);
+        rustCleaningSound = FMODUnity.RuntimeManager.CreateInstance(rustCleaningSoundEvent);
     }
 
     private void OnDisable()
     {
         ClockCondition.AddDamagePercentage(-_currentDamageWorth);
+        rustCleaningSound.release();
 
         _currentDamageWorth = 0;
         damageIncreaseTarget = 2;
         _isBeingCleaned = false;
+        _cleaningStarted = false;
     }
 
     public void OnInteractorHover(Transform interactor)
@@ -66,7 +74,12 @@ public class RustSpot : MonoBehaviour, IInteractable
     {
         if (!_isBeingCleaned)
             return;
-
+        if (!_cleaningStarted)
+        {
+            rustCleaningSound.start();
+            _cleaningStarted = true;
+        }
+            
         float delta = cleanRate * Time.deltaTime * ClockCondition.RepairTimeScale;
 
         _visuals.localScale -= Vector3.one * delta;
@@ -80,11 +93,15 @@ public class RustSpot : MonoBehaviour, IInteractable
     public void OnInteractorUp(Transform interactor)
     {
         _isBeingCleaned = false;
+        rustCleaningSound.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        _cleaningStarted = false;
     }
 
     public void OnInteractorLeave(Transform interactor)
     {
         _isBeingCleaned = false;
+        rustCleaningSound.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        _cleaningStarted = false;
     }
 
     private void Update()
@@ -109,6 +126,8 @@ public class RustSpot : MonoBehaviour, IInteractable
     private void CleanRust()
     {
         _isBeingCleaned = false;
+        rustCleaningSound.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        _cleaningStarted = false;
         ReturnToPool();
     }
 }
