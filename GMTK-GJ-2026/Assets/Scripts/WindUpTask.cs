@@ -34,7 +34,7 @@ public class WindUpTask : MonoBehaviour, IInteractable
     {
         if (Triggered) return;
 
-        float scale = (useGameTimeScale && GameManager.Instance != null) ? GameManager.Instance.TimeScale : 1f;
+        float scale = (useGameTimeScale && GameManager.Instance != null) ? GameManager.Instance.DeteriorationTimeScale: 1f;
         bool standingStill = _moveAction == null || _moveAction.ReadValue<Vector2>().magnitude <= standStillThreshold;
         if (_holdingInteract && standingStill)
             danger -= windDownPerSecond * Time.deltaTime; //winding down pauses the danger rise
