@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem; // new Input System package
 using TMPro; // remove this line and swap TMP_Text -> Text if not using TextMeshPro
+using System;
 
 // most of this is claude vibe code
 
@@ -61,6 +62,8 @@ public class DialogueManager : MonoBehaviour
     private Coroutine typingRoutine;
     private bool isTyping;
     private int dialogueStartFrame = -1; // guards against the same click that opened dialogue also advancing it
+
+    public event Action OnDialogEnd;
 
     public bool IsDialogueActive => dialogueBoxRoot != null && dialogueBoxRoot.activeSelf;
 
@@ -149,6 +152,8 @@ public class DialogueManager : MonoBehaviour
 
         if (dialogueBoxRoot != null)
             dialogueBoxRoot.SetActive(false);
+
+        OnDialogEnd?.Invoke();
     }
 
     private void DisplayLine(DialogueLine line)

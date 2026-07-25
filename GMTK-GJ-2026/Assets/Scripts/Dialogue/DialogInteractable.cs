@@ -1,19 +1,31 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class DialogInteractable : MonoBehaviour, IInteractable
 {
-
-[SerializeField]
+    [SerializeField]
     private DialogueLine[] lines;
+
+    public UnityEvent OnDialogueEnd;
 
     public void Interact()
     {
         if (DialogueManager.Instance != null)
+        {
             DialogueManager.Instance.StartDialogue(lines);
+            DialogueManager.Instance.OnDialogEnd += EndDialog;
+        }
+            
     }
     public void OnInteractorDown(Transform interactor)
     {
         Interact();
+    }
+
+    public void EndDialog()
+    {
+        DialogueManager.Instance.OnDialogEnd -= EndDialog;
+        OnDialogueEnd?.Invoke();
     }
 
     public void OnInteractorHover(Transform interactor)
