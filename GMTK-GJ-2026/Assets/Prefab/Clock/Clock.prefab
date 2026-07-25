@@ -218,6 +218,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3263581204728751616, guid: 7b890f6c227674bd6bae39070cc227a5, type: 3}
+      propertyPath: m_VersionIndex
+      value: 1459
+      objectReference: {fileID: 0}
     - target: {fileID: 7949480966458003522, guid: 7b890f6c227674bd6bae39070cc227a5, type: 3}
       propertyPath: m_Name
       value: 3D Clock Centerpiece

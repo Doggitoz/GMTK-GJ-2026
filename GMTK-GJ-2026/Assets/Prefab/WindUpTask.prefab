@@ -72,6 +72,13 @@ MonoBehaviour:
   windDownPerSecond: 12
   standStillThreshold: 0.1
   useGameTimeScale: 1
+  windupSoundEvent:
+    Guid:
+      Data1: 1191937662
+      Data2: 1075156601
+      Data3: -1378945090
+      Data4: 468146423
+    Path: event:/SFX/WindUp
 --- !u!1 &8202979203443813820
 GameObject:
   m_ObjectHideFlags: 0
