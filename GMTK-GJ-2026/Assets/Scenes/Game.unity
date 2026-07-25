@@ -753,30 +753,6 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1862788273}
-    - target: {fileID: 544335210410693067, guid: 7a1f155d9d4836443bb7a4e115ebb6d9, type: 3}
-      propertyPath: m_VersionIndex
-      value: 1506
-      objectReference: {fileID: 0}
-    - target: {fileID: 897755530156030617, guid: 7a1f155d9d4836443bb7a4e115ebb6d9, type: 3}
-      propertyPath: smooth
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 897755530156030617, guid: 7a1f155d9d4836443bb7a4e115ebb6d9, type: 3}
-      propertyPath: secondsPerStep
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 897755530156030617, guid: 7a1f155d9d4836443bb7a4e115ebb6d9, type: 3}
-      propertyPath: counterClockwise
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1091880254573584169, guid: 7a1f155d9d4836443bb7a4e115ebb6d9, type: 3}
-      propertyPath: secondsPerStep
-      value: 0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 1091880254573584169, guid: 7a1f155d9d4836443bb7a4e115ebb6d9, type: 3}
-      propertyPath: counterClockwise
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1586519780757502070, guid: 7a1f155d9d4836443bb7a4e115ebb6d9, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -785,10 +761,6 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1123390481}
-    - target: {fileID: 2023040049767839928, guid: 7a1f155d9d4836443bb7a4e115ebb6d9, type: 3}
-      propertyPath: m_VersionIndex
-      value: 2423
-      objectReference: {fileID: 0}
     - target: {fileID: 2624684774627340823, guid: 7a1f155d9d4836443bb7a4e115ebb6d9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -833,10 +805,6 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1291361575}
-    - target: {fileID: 2630836012930557179, guid: 7a1f155d9d4836443bb7a4e115ebb6d9, type: 3}
-      propertyPath: m_VersionIndex
-      value: 1677
-      objectReference: {fileID: 0}
     - target: {fileID: 3001292825943861270, guid: 7a1f155d9d4836443bb7a4e115ebb6d9, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -877,26 +845,6 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1494014876}
-    - target: {fileID: 7355533903245870005, guid: 7a1f155d9d4836443bb7a4e115ebb6d9, type: 3}
-      propertyPath: m_VersionIndex
-      value: 1477
-      objectReference: {fileID: 0}
-    - target: {fileID: 8428306127556136844, guid: 7a1f155d9d4836443bb7a4e115ebb6d9, type: 3}
-      propertyPath: smooth
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8428306127556136844, guid: 7a1f155d9d4836443bb7a4e115ebb6d9, type: 3}
-      propertyPath: stepDegrees
-      value: 3.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 8428306127556136844, guid: 7a1f155d9d4836443bb7a4e115ebb6d9, type: 3}
-      propertyPath: secondsPerStep
-      value: 3.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 8428306127556136844, guid: 7a1f155d9d4836443bb7a4e115ebb6d9, type: 3}
-      propertyPath: counterClockwise
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1989,10 +1937,6 @@ PrefabInstance:
     - target: {fileID: 5670464994393129521, guid: 470e873949a048b408ed2b4cc7d57a22, type: 3}
       propertyPath: m_Name
       value: Audio
-      objectReference: {fileID: 0}
-    - target: {fileID: 5670464994393129521, guid: 470e873949a048b408ed2b4cc7d57a22, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8746804945805381081, guid: 470e873949a048b408ed2b4cc7d57a22, type: 3}
       propertyPath: m_LocalPosition.x
