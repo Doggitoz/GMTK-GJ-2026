@@ -56,6 +56,11 @@ public class GameManager : MonoBehaviour
         StartGame();
     }
 
+    public void TriggerLoseGame()
+    {
+        StopGame();
+    }
+
     private void VerifySingleton()
     {
         if (Instance == null)

@@ -20,10 +20,11 @@ public class WindUpTask : MonoBehaviour, IInteractable
 
     public float Danger => danger;
     public float DangerNormalized => danger / 100f; // 0..1 for the UI
-    public bool Triggered { get; private set; }
 
     private bool _holdingInteract;
     private InputAction _moveAction;
+    private GameManager _gameManager => GameManager.Instance;
+    private ClockCondition _clockCondition => _gameManager.ClockCondition;
 
     private void Awake()
     {
@@ -32,30 +33,21 @@ public class WindUpTask : MonoBehaviour, IInteractable
 
     private void Update()
     {
-        if (Triggered) return;
-
-        float scale = (useGameTimeScale && GameManager.Instance != null) ? GameManager.Instance.DeteriorationTimeScale: 1f;
+        if (!_gameManager.GameActive) return;
+        Debug.Log(danger);
+        float deteriorationScale = (useGameTimeScale) ? _clockCondition.DeteriorationTimeScale: 1f;
         bool standingStill = _moveAction == null || _moveAction.ReadValue<Vector2>().magnitude <= standStillThreshold;
         if (_holdingInteract && standingStill)
-            danger -= windDownPerSecond * Time.deltaTime; //winding down pauses the danger rise
+            danger -= windDownPerSecond * Time.deltaTime * _clockCondition.RepairTimeScale; //winding down pauses the danger rise
         else
-            danger += dangerPerSecond * scale * Time.deltaTime;
+            danger += dangerPerSecond * deteriorationScale * Time.deltaTime;
 
         danger = Mathf.Clamp(danger, 0f, 100f);
 
         if (danger >= 100f)
-            Trigger();
+            _clockCondition.AddDamagePercentage(100f);
 
     }
-
-    private void Trigger()
-    {
-        Triggered = true;
-        danger = 100f;
-        if (GameManager.Instance != null)
-            GameManager.Instance.AddDamagePercentage(100f);
-    }
-
 
     public void OnInteractorDown(Transform interactor) => _holdingInteract = true;
     public void OnInteractorUp(Transform interactor) => _holdingInteract = false;

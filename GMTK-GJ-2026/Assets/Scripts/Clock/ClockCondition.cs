@@ -21,6 +21,10 @@ public class ClockCondition
     {
         DamagePercentage = Mathf.Clamp(DamagePercentage + damagePercentage, 0, 100);
         OnDamagePercentageChanged?.Invoke(DamagePercentage);
+        if (DamagePercentage == 100)
+        {
+            GameManager.Instance.TriggerLoseGame();
+        }
     }
 
     public void SetDeteriorationTimeScale(float newScale)
