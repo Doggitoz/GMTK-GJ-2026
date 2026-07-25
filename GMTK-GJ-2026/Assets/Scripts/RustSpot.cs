@@ -10,6 +10,7 @@ public class RustSpot : MonoBehaviour, IInteractable
 
     private Clock.Condition ClockCondition =>
         GameManager.Instance.ClockCondition;
+    private GameManager _gameManager => GameManager.Instance;
 
     [Header("Cleaning")]
     [SerializeField] private float cleanRate = 0.75f;
@@ -88,6 +89,7 @@ public class RustSpot : MonoBehaviour, IInteractable
 
     private void Update()
     {
+        if (!_gameManager.GameActive) return;
         // Don't grow while actively cleaning.
         if (!_isBeingCleaned)
         {
