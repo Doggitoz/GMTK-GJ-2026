@@ -5,6 +5,9 @@ public class RustSpot : MonoBehaviour, IInteractable
 {
     private ObjectPool<GameObject> _pool;
 
+    private ClockCondition ClockCondition =>
+        GameManager.Instance.ClockCondition;
+
     [Header("Cleaning")]
     [SerializeField] private float cleanRate = 0.75f;
     [SerializeField] private float minScale = 0.05f;
@@ -33,12 +36,12 @@ public class RustSpot : MonoBehaviour, IInteractable
         damageIncreaseTarget = 2;
         _isBeingCleaned = false;
 
-        GameManager.Instance.AddDamagePercentage(1);
+        ClockCondition.AddDamagePercentage(1);
     }
 
     private void OnDisable()
     {
-        GameManager.Instance.AddDamagePercentage(-_currentDamageWorth);
+        ClockCondition.AddDamagePercentage(-_currentDamageWorth);
 
         _currentDamageWorth = 0;
         damageIncreaseTarget = 2;
@@ -59,7 +62,7 @@ public class RustSpot : MonoBehaviour, IInteractable
         if (!_isBeingCleaned)
             return;
 
-        float delta = cleanRate * Time.deltaTime * GameManager.Instance.RepairTimeScale;
+        float delta = cleanRate * Time.deltaTime * ClockCondition.RepairTimeScale;
 
         transform.localScale -= Vector3.one * delta;
 
@@ -85,11 +88,11 @@ public class RustSpot : MonoBehaviour, IInteractable
         if (!_isBeingCleaned)
         {
             transform.localScale += Vector3.one *
-                (growthRate * Time.deltaTime * GameManager.Instance.DeteriorationTimeScale);
+                (growthRate * Time.deltaTime * ClockCondition.DeteriorationTimeScale);
 
             if (transform.localScale.x > damageIncreaseTarget)
             {
-                GameManager.Instance.AddDamagePercentage(1);
+                ClockCondition.AddDamagePercentage(1);
                 _currentDamageWorth++;
                 damageIncreaseTarget++;
             }

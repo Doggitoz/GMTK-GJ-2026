@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 743065961053470577}
   - component: {fileID: 239932300050423015}
+  - component: {fileID: 76893192130283}
   m_Layer: 0
   m_Name: ClockHands
   m_TagString: Untagged
@@ -48,6 +49,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ClockTimeManager
   startingSeconds: 3600
+--- !u!114 &76893192130283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 146404982236747284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4177b30f915d024408372837eeee45c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ClockHandsController
+  _clockHands:
+  - {fileID: 4659418570667125990}
+  - {fileID: 4898720311776659798}
+  - {fileID: 4047531694525520371}
 --- !u!1 &606558738356692925
 GameObject:
   m_ObjectHideFlags: 0
