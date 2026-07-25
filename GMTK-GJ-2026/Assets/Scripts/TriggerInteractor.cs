@@ -19,7 +19,7 @@ public class TriggerInteractor : MonoBehaviour
     {
         if (!other.TryGetComponent<IInteractable>(out var interactable)) return;
 
-        interactable.OnInteractorHover();
+        interactable.OnInteractorHover(transform);
         _currentInteractables.Add(interactable);
     }
 
@@ -56,7 +56,7 @@ public class TriggerInteractor : MonoBehaviour
     {
         if (!other.TryGetComponent<IInteractable>(out var interactable)) return;
 
-        interactable.OnInteractorLeave();
+        interactable.OnInteractorLeave(transform);
         _currentInteractables.Remove(interactable);
     }
 }

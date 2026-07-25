@@ -15,13 +15,13 @@ public class BasicInteractable : MonoBehaviour, IInteractable
         MouseDown?.Invoke();
     }
 
-    public void OnInteractorHover()
+    public void OnInteractorHover(Transform interactor)
     {
         if (SHOULD_LOG) Debug.Log("Mouse Hover");
         MouseHover?.Invoke();
     }
 
-    public void OnInteractorLeave()
+    public void OnInteractorLeave(Transform interactor)
     {
         if (SHOULD_LOG) Debug.Log("Mouse Leave");
         MouseLeave?.Invoke();
