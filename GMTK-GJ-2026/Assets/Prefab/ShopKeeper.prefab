@@ -330,7 +330,7 @@ MonoBehaviour:
   m_fontSizeMax: 30.9
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 512
+  m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_characterHorizontalScale: 1
@@ -361,7 +361,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: -9.858398, y: 30.821777, z: -145.2887, w: -140.25876}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -401,8 +401,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -155, y: 0}
-  m_SizeDelta: {x: 822, y: 498.5}
+  m_AnchoredPosition: {x: -143, y: 0}
+  m_SizeDelta: {x: 1079.9, y: 498.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1343092995414412395
 CanvasRenderer:
@@ -558,8 +558,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 599, y: -58}
-  m_SizeDelta: {x: 822, y: 498.5}
+  m_AnchoredPosition: {x: 599, y: 67}
+  m_SizeDelta: {x: 822, y: 1000.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3145370180151657965
 CanvasRenderer:
@@ -583,7 +583,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -656,6 +656,7 @@ MonoBehaviour:
   - "Toss a coin to your Watcher\u2026."
   - "I\u2019m waiting\u2026. "
   - "I\u2019ll wait\u2026. "
+  _selectedItem: {fileID: 0}
 --- !u!1 &3408585480333574074
 GameObject:
   m_ObjectHideFlags: 0
@@ -689,10 +690,10 @@ RectTransform:
   - {fileID: 6329209973245904988}
   - {fileID: 5790159527612611935}
   - {fileID: 2058609220981966806}
-  - {fileID: 4352163832425956089}
   - {fileID: 4379585876140604354}
   - {fileID: 2364136598084221826}
   - {fileID: 2244454433777113786}
+  - {fileID: 4352163832425956089}
   m_Father: {fileID: 6485140244313561617}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1181,7 +1182,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: -3.916626, y: 0, z: -21.424805, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1734,13 +1735,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 5940633641645013891}
     m_Modifications:
     - target: {fileID: 977673693230294893, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: ItemName
+      value: Eye of Horus
+      objectReference: {fileID: 0}
+    - target: {fileID: 977673693230294893, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: ItemDescription
+      value: "\u201CIt feels like a grape\u2026 or does a grape feel like an eye\u2026.\u201D\n\r\nYou
+        get the feeling that using this will\u2026 \u2192 [RESULT]\r\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 977673693230294893, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
       propertyPath: _purchaseDialogObject
       value: 
       objectReference: {fileID: 6869541315004086446}
-    - target: {fileID: 2354436961582818358, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4175968466768849548, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
       propertyPath: m_Name
       value: Item
@@ -1824,10 +1830,6 @@ PrefabInstance:
     - target: {fileID: 6256989026563469693, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7385839552452383525, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1980,6 +1982,15 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 3f98b56fb6eb9934ab45bbae02031dfc, type: 3}
+    - target: {fileID: 977673693230294893, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: ItemName
+      value: "God\u2019s Femur"
+      objectReference: {fileID: 0}
+    - target: {fileID: 977673693230294893, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: ItemDescription
+      value: "It\u2019s cracked\u2026 you didn\u2019t know divine bones could break.\n\r\nYou
+        get the feeling that using this will\u2026 \u2192 [RESULT]\r\n"
+      objectReference: {fileID: 0}
     - target: {fileID: 977673693230294893, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
       propertyPath: _purchaseDialogObject
       value: 
@@ -2248,6 +2259,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 67c062465229a284a98bd6ef77a3984b, type: 3}
     - target: {fileID: 977673693230294893, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: ItemName
+      value: Tortoise Totem
+      objectReference: {fileID: 0}
+    - target: {fileID: 977673693230294893, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: ItemDescription
+      value: "\u201CWhat a cute turtle. I like tortols.\u201D\n\r\nYou get the feeling
+        that using this will\u2026 \u2192 [RESULT]\r\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 977673693230294893, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
       propertyPath: _purchaseDialogObject
       value: 
       objectReference: {fileID: 6869541315004086446}
@@ -2368,6 +2388,15 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 77f45f2216a4a9349b9ee628a9f29c40, type: 3}
+    - target: {fileID: 977673693230294893, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: ItemName
+      value: "Gambler\u2019s Bet"
+      objectReference: {fileID: 0}
+    - target: {fileID: 977673693230294893, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: ItemDescription
+      value: "\u201CI love aces.\u201D\n\r\nYou get the feeling that using this will\u2026
+        \u2192 [Result]\r\n"
+      objectReference: {fileID: 0}
     - target: {fileID: 977673693230294893, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
       propertyPath: _purchaseDialogObject
       value: 
@@ -2490,6 +2519,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: f611578c5168daf4b818fa5f2619748b, type: 3}
     - target: {fileID: 977673693230294893, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: ItemName
+      value: Disembodied Right-hand
+      objectReference: {fileID: 0}
+    - target: {fileID: 977673693230294893, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: ItemDescription
+      value: "\u201CI thought the right hand was the most important one\u2026?\u201D\n\r\nYou
+        get the feeling that using this will\u2026 \u2192 [RESULT]\r\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 977673693230294893, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
       propertyPath: _purchaseDialogObject
       value: 
       objectReference: {fileID: 6869541315004086446}
@@ -2610,6 +2648,15 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 328a78e9c94b05e449aad8c5eee3d28c, type: 3}
+    - target: {fileID: 977673693230294893, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: ItemName
+      value: Lucky Break
+      objectReference: {fileID: 0}
+    - target: {fileID: 977673693230294893, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: ItemDescription
+      value: "Is this what you\u2019ve been looking for? Maybe it\u2019s\u2026 your
+        lucky break.\n\r\nYou get the feeling that using this will\u2026 ??????\r\n"
+      objectReference: {fileID: 0}
     - target: {fileID: 977673693230294893, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
       propertyPath: _purchaseDialogObject
       value: 
@@ -2739,6 +2786,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Item (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 4175968466768849548, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6256989026563469693, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -2753,7 +2804,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6256989026563469693, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6256989026563469693, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
       propertyPath: m_AnchorMin.x
@@ -2761,7 +2812,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6256989026563469693, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6256989026563469693, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
       propertyPath: m_SizeDelta.x
@@ -2801,11 +2852,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6256989026563469693, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 1401.0713
       objectReference: {fileID: 0}
     - target: {fileID: 6256989026563469693, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -1080
       objectReference: {fileID: 0}
     - target: {fileID: 6256989026563469693, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

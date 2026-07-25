@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class ShopItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler 
 {
     public string ItemName;
+    [TextArea]
     public string ItemDescription;
     
     public RectTransform ItemIcon;
