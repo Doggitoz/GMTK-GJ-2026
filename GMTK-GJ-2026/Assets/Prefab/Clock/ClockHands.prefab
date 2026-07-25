@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 743065961053470577}
+  - component: {fileID: 239932300050423015}
   m_Layer: 0
   m_Name: ClockHands
   m_TagString: Untagged
@@ -34,6 +35,19 @@ Transform:
   - {fileID: 4575879510869418083}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &239932300050423015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 146404982236747284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd906ea58d1d4094aac9b4afa1ca762c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ClockTimeManager
+  startingSeconds: 3600
 --- !u!1 &606558738356692925
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,12 +401,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eef2973ac8cf8b4f8612a4fcdae90ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ClockHand
-  secondsPerStep: 60
+  secondsPerStep: 0.6
   stepDegrees: 6
   rotationAxis: {x: 0, y: 1, z: 0}
   counterClockwise: 1
   smooth: 1
-  useGameTimeScale: 1
 --- !u!65 &5045092991806671731
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1412,12 +1425,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eef2973ac8cf8b4f8612a4fcdae90ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ClockHand
-  secondsPerStep: 1
+  secondsPerStep: 0.1
   stepDegrees: 6
   rotationAxis: {x: 0, y: 1, z: 0}
   counterClockwise: 1
-  smooth: 1
-  useGameTimeScale: 1
+  smooth: 0
 --- !u!65 &8308627231992565311
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2208,12 +2220,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eef2973ac8cf8b4f8612a4fcdae90ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ClockHand
-  secondsPerStep: 720
+  secondsPerStep: 3.6
   stepDegrees: 6
   rotationAxis: {x: 0, y: 1, z: 0}
   counterClockwise: 1
   smooth: 1
-  useGameTimeScale: 1
 --- !u!1 &8589687805846000568
 GameObject:
   m_ObjectHideFlags: 0
