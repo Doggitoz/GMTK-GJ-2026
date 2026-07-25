@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     private Clock.Condition _clockCondition;
 
     public bool PlayerControllerEnabled => _playerControllerEnabled;
-    private bool _playerControllerEnabled;
+    private bool _playerControllerEnabled = true;
 
     void Awake()
     {
