@@ -34,7 +34,6 @@ public class WindUpTask : MonoBehaviour, IInteractable
     private void Update()
     {
         if (!_gameManager.GameActive) return;
-        Debug.Log(danger);
         float deteriorationScale = (useGameTimeScale) ? _clockCondition.DeteriorationTimeScale: 1f;
         bool standingStill = _moveAction == null || _moveAction.ReadValue<Vector2>().magnitude <= standStillThreshold;
         if (_holdingInteract && standingStill)
