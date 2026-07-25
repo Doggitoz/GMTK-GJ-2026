@@ -1791,6 +1791,10 @@ PrefabInstance:
       propertyPath: _startOnRuntime
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7247346492674936263, guid: a807daa90524e104db1d402091a38f18, type: 3}
+      propertyPath: TutorialDisabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3073,8 +3077,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1893746881543069174, guid: 5244d7ff201fe1b43a4d7b904897ac1e, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -3144,6 +3147,7 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1308870735}
   - {fileID: 874127942}
   - {fileID: 330585546}
   - {fileID: 410087041}
@@ -3157,7 +3161,6 @@ SceneRoots:
   - {fileID: 1329094940}
   - {fileID: 337209715}
   - {fileID: 1240675547}
-  - {fileID: 1308870735}
   - {fileID: 1020629623}
   - {fileID: 2003358460}
   - {fileID: 482273416273555276}
