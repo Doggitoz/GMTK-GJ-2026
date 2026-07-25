@@ -11,6 +11,14 @@ public class ImmortalTurtle : MonoBehaviour,IInteractable
     [SerializeField]
     private NavMeshAgent _agent;
 
+    private void Awake()
+    {
+        if (_playerTransform == null)
+        {
+            _playerTransform = GameObject.FindGameObjectsWithTag("Player")[0].transform;
+        }
+    }
+
     private void Update()
     {
         _agent.SetDestination(GetTargetPosition());
