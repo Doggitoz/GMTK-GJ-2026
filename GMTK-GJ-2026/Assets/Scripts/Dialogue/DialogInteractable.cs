@@ -16,12 +16,12 @@ public class DialogInteractable : MonoBehaviour, IInteractable
         Interact();
     }
 
-    public void OnInteractorHover()
+    public void OnInteractorHover(Transform interactor)
     {
         //throw new System.NotImplementedException();
     }
 
-    public void OnInteractorLeave()
+    public void OnInteractorLeave(Transform interactor)
     {
         //throw new System.NotImplementedException();
     }
