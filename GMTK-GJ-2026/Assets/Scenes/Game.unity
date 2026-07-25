@@ -151,6 +151,8 @@ MonoBehaviour:
   prefab: {fileID: 3797462763680878405, guid: f3469034c9c7526479706b07f004fa0a, type: 3}
   spawnRadius: 16.7
   spawnFrequencyRange: {x: 5, y: 15}
+  defaultCapacity: 20
+  maxPoolSize: 100
 --- !u!4 &116963385
 Transform:
   m_ObjectHideFlags: 0
@@ -492,6 +494,50 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4030991464879814777, guid: 5244d7ff201fe1b43a4d7b904897ac1e, type: 3}
   m_PrefabInstance: {fileID: 6062487136002437812}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &493139788
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 493139790}
+  - component: {fileID: 493139789}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &493139789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 493139788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fe67a12b7904304e94b1d6f64fdd3ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameManager
+--- !u!4 &493139790
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 493139788}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1667,6 +1713,7 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 493139790}
   - {fileID: 330585546}
   - {fileID: 410087041}
   - {fileID: 832575519}
