@@ -7,10 +7,10 @@ namespace Clock
     {
         public event Action<float> OnDamagePercentageChanged;
         public float DamagePercentage { get; private set; }
-        public float DeteriorationTimeScale => _deteriorationTimeScale;
+        public float DeteriorationTimeScale => _deteriorationTimeScale * GameItems.GetMultiplier(ItemStat.Deterioration);
         private float _deteriorationTimeScale;
 
-        public float RepairTimeScale => _repairTimeScale;
+        public float RepairTimeScale => _repairTimeScale * GameItems.GetMultiplier(ItemStat.Repair);
         private float _repairTimeScale;
         public Condition()
         {
