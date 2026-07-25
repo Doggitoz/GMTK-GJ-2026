@@ -5,6 +5,10 @@ public class RustSpot : MonoBehaviour, IInteractable
 {
     private ObjectPool<GameObject> _pool;
 
+    [Header("Cleaning")]
+    [SerializeField] private float cleanRate = 0.75f;
+    [SerializeField] private float minScale = 0.05f;
+
     public void Initialize(ObjectPool<GameObject> pool)
     {
         _pool = pool;
@@ -14,82 +18,89 @@ public class RustSpot : MonoBehaviour, IInteractable
     {
         _pool.Release(gameObject);
     }
+
     public static float growthRate = .02f;
-    bool FullClick = false;
 
-    float _currentDamageWorth = 0;
-    int damageIncreaseTarget = 2;
+    private bool _isBeingCleaned;
 
-    private void Awake()
-    {     
-    }
-    void OnEnable()
+    private float _currentDamageWorth = 0;
+    private int damageIncreaseTarget = 2;
+
+    private void OnEnable()
     {
         transform.localScale = Vector3.one;
         _currentDamageWorth = 1;
+        damageIncreaseTarget = 2;
+        _isBeingCleaned = false;
+
         GameManager.Instance.AddDamagePercentage(1);
     }
 
-    void OnDisable()
+    private void OnDisable()
     {
-        // Reduce damage to watch
         GameManager.Instance.AddDamagePercentage(-_currentDamageWorth);
-        damageIncreaseTarget = 2;
-        _currentDamageWorth = 0;
-        FullClick = false;
-    }
 
-    public void OnInteractorDown(Transform interactor)
-    {
-        FullClick = true;
+        _currentDamageWorth = 0;
+        damageIncreaseTarget = 2;
+        _isBeingCleaned = false;
     }
 
     public void OnInteractorHover(Transform interactor)
     {
-        
     }
 
-    public void OnInteractorLeave(Transform interactor)
+    public void OnInteractorDown(Transform interactor)
     {
-        FullClick = false;
+        _isBeingCleaned = true;
     }
 
     public void OnInteractorStay(Transform interactor)
     {
-       
+        if (!_isBeingCleaned)
+            return;
+
+        float delta = cleanRate * Time.deltaTime * GameManager.Instance.TimeScale;
+
+        transform.localScale -= Vector3.one * delta;
+
+        if (transform.localScale.x <= minScale)
+        {
+            CleanRust();
+        }
     }
 
     public void OnInteractorUp(Transform interactor)
     {
-        if (FullClick)
-        {
-            StartClean();
-        }
+        _isBeingCleaned = false;
     }
 
-    public void StartClean()
+    public void OnInteractorLeave(Transform interactor)
     {
-        // Add logic here for minigame; have minigame call "CleanRust"
-        CleanRust();
+        _isBeingCleaned = false;
     }
 
-
-    public void Update()
+    private void Update()
     {
         growthRate = GameItems.HasItem("RustSlow") ? 0.1f : 0.5f;
-        transform.localScale = transform.localScale + (Vector3.one * (growthRate * Time.deltaTime * GameManager.Instance.TimeScale));
-        if (transform.localScale.x > damageIncreaseTarget)
-        {
-            GameManager.Instance.AddDamagePercentage(1);
-            _currentDamageWorth += 1;
-            damageIncreaseTarget += 1;
-        }
 
+        // Don't grow while actively cleaning.
+        if (!_isBeingCleaned)
+        {
+            transform.localScale += Vector3.one *
+                (growthRate * Time.deltaTime * GameManager.Instance.TimeScale);
+
+            if (transform.localScale.x > damageIncreaseTarget)
+            {
+                GameManager.Instance.AddDamagePercentage(1);
+                _currentDamageWorth++;
+                damageIncreaseTarget++;
+            }
+        }
     }
 
-    public void CleanRust()
+    private void CleanRust()
     {
-        
+        _isBeingCleaned = false;
         ReturnToPool();
     }
 }
