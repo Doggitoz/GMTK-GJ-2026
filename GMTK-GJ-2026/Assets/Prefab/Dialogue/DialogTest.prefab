@@ -1,0 +1,141 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &425704250842321883
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6456212904818845951}
+  - component: {fileID: 8364749159953174552}
+  - component: {fileID: 8922453697570238728}
+  - component: {fileID: 4088933990513858963}
+  - component: {fileID: 3658600859710636664}
+  m_Layer: 0
+  m_Name: DialogTest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6456212904818845951
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 425704250842321883}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.29, y: 0.66, z: -2.17}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &8364749159953174552
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 425704250842321883}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &8922453697570238728
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 425704250842321883}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &4088933990513858963
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 425704250842321883}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3658600859710636664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 425704250842321883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1725e93459a727743986bbdd861a2775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogInteractable
+  lines:
+  - speaker: 1
+    text: HELLO I AM RAT
+  - speaker: 1
+    text: RAT RAT RAT
+  - speaker: 2
+    text: you are so cool
+  - speaker: 3
+    text: I AM COOOL TOO
+  - speaker: 0
+    text: "G\u030C\u0308i\u0303v\u0355\u0311\u0303\u0313\u0361\u0302\u031C\u0364\u0301\u0300\u036F\u0321\u0346\u0366\u0355\u034E\u0328\u033B\u0338\u036D\u030B\u035E\u0301\u0308\u0320\u034A\u0301\u0359\u0349\u0327\u0305\u034A\u031E\u035A\u0329\u033C\u033A\u036F\u0364\u0349\u032C\u0355\u0301\u0304\u033Ce\u0318\u0315\u031A\u034D\u033F\u035B\u033D\u036A\u033F\u030A\u0359\u0338\u030B\u031F_
+      m\u0368\u030B\u0364\u0302\u030F\u0362\u0347\u035B\u036A\u033C\u0366\u035D\u030D\u0347\u0360\u032D\u0329\u033F\u035A\u035F\u0321\u030F\u030C\u0330\u0345\u030F\u0304\u032B\u031F\u0326\u0339\u0337\u0351\u036B\u0318\u0360\u0364\u034D\u0308\u0314\u0354e\u034D\u036E\u0333\u033F\u0326\u032E\u0350\u0306\u036C
+      y\u036B\u0338\u0360\u0323o\u030E\u034A\u030D\u0301\u035E\u0304u\u033A\u0323\u030B\u030B\u0330\u0358\u0319\u0338\u0338\u0318\u030C\u0364\u0332\u0347\u0306\u0358\u0369\u033C\u0369\u0314\u0321\u0313\u036Ar\u0358\u0304\u034B\u034A\u030B\u030F\u030E\u0305
+      m\u0339\u036F\u0359\u0346\u0336\u032A\u0308\u0301\u0306\u036E\u0326\u0300\u0360\u0318\u031A\u0327\u030Ao\u0326\u0345\u0366\u032E\u036E\u0348\u0321\u031F\u0347\u0367\u035D\u0356\u031F\u034D\u0358\u031Bn\u034E\u0369\u031A\u030F\u0351\u034C\u0361\u0307\u0334\u0312\u033C\u032D\u0317\u0326\u0359\u030B\u030F\u0308\u033B\u0314\u034Ce\u0310\u034C\u035A\u0312\u0342\u0350\u0327\u036B\u031F\u0321\u0304\u033A\u0354\u0306_\u0348\u033D\u0353\u034Cy\u0302\u0327\u0301\u0300\u0367\u0330\u0325\u033E\u0365\u036C\u032D\u036C\u033B\u034D\u0320\u031C\u0353\u0329_\u032A_\u030A\u0300\u033F\u0361\u030C\u0303\u036F\u0309\u0339\u033B\u0368\u0318\u034C\u033C\u0305\u030D\u031A\u032B"
