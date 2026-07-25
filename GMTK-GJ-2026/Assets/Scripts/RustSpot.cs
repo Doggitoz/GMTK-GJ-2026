@@ -59,7 +59,7 @@ public class RustSpot : MonoBehaviour, IInteractable
         if (!_isBeingCleaned)
             return;
 
-        float delta = cleanRate * Time.deltaTime;
+        float delta = cleanRate * Time.deltaTime * GameManager.Instance.RepairTimeScale;
 
         transform.localScale -= Vector3.one * delta;
 
