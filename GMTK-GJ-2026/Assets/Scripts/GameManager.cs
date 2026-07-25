@@ -3,13 +3,14 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public event Action<float> OnTimeScaleChanged;
     public event Action<float> OnDamagePercentageChanged;
-    public float TimeScale { get; private set; } = 1f;
     public float DamagePercentage { get; private set; } = 0f;
     public static GameManager Instance { get; private set; }
+    public float DeteriorationTimeScale => _deteriorationTimeScale;
+    private float _deteriorationTimeScale = 1f;
 
-    private float _timer;
+    public float RepairTimeScale => _repairTimeScale;
+    private float _repairTimeScale = 1f;
 
     void Awake()
     {
@@ -24,25 +25,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        _timer = Mathf.Clamp(SubtractTime(), 0f, Mathf.Infinity); // This lowkey sucks but idk how to do this anymore LOL
-    }
-
-    float SubtractTime()
-    {
-        return _timer -= Time.deltaTime * TimeScale;
-    }
-
-    public void SetTimeScale(float newTimeScale)
-    {
-        TimeScale = newTimeScale;
-        OnTimeScaleChanged?.Invoke(newTimeScale);
-    }
-
     public void AddDamagePercentage(float damagePercentage)
     {
         DamagePercentage = Mathf.Clamp(DamagePercentage + damagePercentage, 0, 100);
         OnDamagePercentageChanged?.Invoke(DamagePercentage);
+    }
+
+    public void SetDeteriorationTimeScale(float newScale)
+    {
+        _deteriorationTimeScale = newScale;
+    }
+
+    public void SetRepairTimeScale(float newScale)
+    {
+        _deteriorationTimeScale = newScale;
     }
 }

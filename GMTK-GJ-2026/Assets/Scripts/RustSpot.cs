@@ -59,7 +59,7 @@ public class RustSpot : MonoBehaviour, IInteractable
         if (!_isBeingCleaned)
             return;
 
-        float delta = cleanRate * Time.deltaTime * GameManager.Instance.TimeScale;
+        float delta = cleanRate * Time.deltaTime;
 
         transform.localScale -= Vector3.one * delta;
 
@@ -85,7 +85,7 @@ public class RustSpot : MonoBehaviour, IInteractable
         if (!_isBeingCleaned)
         {
             transform.localScale += Vector3.one *
-                (growthRate * Time.deltaTime * GameManager.Instance.TimeScale);
+                (growthRate * Time.deltaTime * GameManager.Instance.DeteriorationTimeScale);
 
             if (transform.localScale.x > damageIncreaseTarget)
             {
