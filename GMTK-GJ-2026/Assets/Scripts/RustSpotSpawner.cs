@@ -12,6 +12,8 @@ public class RustSpotSpawner : MonoBehaviour
     [SerializeField] private int defaultCapacity = 20;
     [SerializeField] private int maxPoolSize = 100;
 
+    [SerializeField] private Transform _parentObject;
+
     private ObjectPool<GameObject> _pool;
     private float _currentSpawnFrequency;
     private float _timer;
@@ -58,7 +60,7 @@ public class RustSpotSpawner : MonoBehaviour
 
     private GameObject CreateObject()
     {
-        GameObject obj = Instantiate(prefab);
+        GameObject obj = Instantiate(prefab, _parentObject);
 
         // Allows the object to return itself to the pool.
         var pooled = obj.GetComponent<RustSpot>();
