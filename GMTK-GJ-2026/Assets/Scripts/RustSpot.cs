@@ -18,12 +18,25 @@ public class RustSpot : MonoBehaviour, IInteractable
     bool FullClick = false;
 
     float _currentDamageWorth = 0;
+    int damageIncreaseTarget = 2;
 
     private void Awake()
+    {     
+    }
+    void OnEnable()
     {
-        // Add itself to damage pool
+        transform.localScale = Vector3.one;
+        _currentDamageWorth = 1;
         GameManager.Instance.AddDamagePercentage(1);
-        _currentDamageWorth += 1;
+    }
+
+    void OnDisable()
+    {
+        // Reduce damage to watch
+        GameManager.Instance.AddDamagePercentage(-_currentDamageWorth);
+        damageIncreaseTarget = 2;
+        _currentDamageWorth = 0;
+        FullClick = false;
     }
 
     public void OnInteractorDown(Transform interactor)
@@ -59,7 +72,7 @@ public class RustSpot : MonoBehaviour, IInteractable
         // Add logic here for minigame; have minigame call "CleanRust"
         CleanRust();
     }
-    int damageIncreaseTarget = 2;
+
 
     public void Update()
     {
@@ -75,8 +88,7 @@ public class RustSpot : MonoBehaviour, IInteractable
 
     public void CleanRust()
     {
-        // Reduce damage to watch
-        GameManager.Instance.AddDamagePercentage(-_currentDamageWorth);
+        
         ReturnToPool();
     }
 }
