@@ -1,39 +1,42 @@
 using UnityEngine;
 using System;
 
-public class ClockCondition
+namespace Clock
 {
-    public event Action<float> OnDamagePercentageChanged;
-    public float DamagePercentage { get; private set; }
-    public float DeteriorationTimeScale => _deteriorationTimeScale;
-    private float _deteriorationTimeScale;
-
-    public float RepairTimeScale => _repairTimeScale;
-    private float _repairTimeScale;
-    public ClockCondition()
+    public class Condition
     {
-        _deteriorationTimeScale = 1f;
-        _repairTimeScale = 1f;
-        DamagePercentage = 0f;
-    }
+        public event Action<float> OnDamagePercentageChanged;
+        public float DamagePercentage { get; private set; }
+        public float DeteriorationTimeScale => _deteriorationTimeScale;
+        private float _deteriorationTimeScale;
 
-    public void AddDamagePercentage(float damagePercentage)
-    {
-        DamagePercentage = Mathf.Clamp(DamagePercentage + damagePercentage, 0, 100);
-        OnDamagePercentageChanged?.Invoke(DamagePercentage);
-        if (DamagePercentage == 100)
+        public float RepairTimeScale => _repairTimeScale;
+        private float _repairTimeScale;
+        public Condition()
         {
-            GameManager.Instance.TriggerLoseGame();
+            _deteriorationTimeScale = 1f;
+            _repairTimeScale = 1f;
+            DamagePercentage = 0f;
         }
-    }
 
-    public void SetDeteriorationTimeScale(float newScale)
-    {
-        _deteriorationTimeScale = newScale;
-    }
+        public void AddDamagePercentage(float damagePercentage)
+        {
+            DamagePercentage = Mathf.Clamp(DamagePercentage + damagePercentage, 0, 100);
+            OnDamagePercentageChanged?.Invoke(DamagePercentage);
+            if (DamagePercentage == 100)
+            {
+                GameManager.Instance.TriggerLoseGame();
+            }
+        }
 
-    public void SetRepairTimeScale(float newScale)
-    {
-        _deteriorationTimeScale = newScale;
+        public void SetDeteriorationTimeScale(float newScale)
+        {
+            _deteriorationTimeScale = newScale;
+        }
+
+        public void SetRepairTimeScale(float newScale)
+        {
+            _deteriorationTimeScale = newScale;
+        }
     }
 }

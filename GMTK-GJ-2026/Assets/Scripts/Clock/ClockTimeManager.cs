@@ -1,87 +1,90 @@
 using UnityEngine;
 using System;
 
-public class ClockTimeManager : MonoBehaviour
+namespace Clock
 {
-    public static ClockTimeManager Instance { get; private set; }
-
-    public event Action<int> OnSecondChanged;
-    public event Action<int> OnMinuteChanged;
-    public event Action OnTimeExpired;
-
-    [SerializeField]
-    private int startingSeconds = 3600;
-
-    private float _timer;
-    private int _previousSecond = -1;
-    private float _timeScale = 1f;
-
-    public int RemainingSeconds => Mathf.CeilToInt(_timer);
-    public int Hours => RemainingSeconds / 3600;
-    public int Minutes => (RemainingSeconds % 3600) / 60;
-    public int Seconds => RemainingSeconds % 60;
-    public float TimeScale => _timeScale;
-    public float RemainingTimer => _timer;
-    public float ElapsedTime => startingSeconds - _timer;
-    public float NormalizedTime => Mathf.Clamp01(ElapsedTime / startingSeconds);
-    public float TotalSecondsElapsed => ElapsedTime;
-    public float CurrentSecondFraction => _timer % 60f;
-
-    private GameManager _gameManager => GameManager.Instance;
-
-    private void Awake()
+    public class TimeManager : MonoBehaviour
     {
-        VerifySingleton();
-        _timer = startingSeconds;
-    }
+        public static TimeManager Instance { get; private set; }
 
-    private void Start()
-    {
-        _gameManager.OnGameReset += () => { _timer = startingSeconds; };
-    }
+        public event Action<int> OnSecondChanged;
+        public event Action<int> OnMinuteChanged;
+        public event Action OnTimeExpired;
 
-    private void Update()
-    {
-        if (!_gameManager.GameActive) return;
-        if (_timer <= 0)
-            return;
+        [SerializeField]
+        private int startingSeconds = 3600;
 
-        _timer -= Time.deltaTime * _timeScale;
+        private float _timer;
+        private int _previousSecond = -1;
+        private float _timeScale = 1f;
 
-        int currentSecond = Mathf.CeilToInt(_timer);
+        public int RemainingSeconds => Mathf.CeilToInt(_timer);
+        public int Hours => RemainingSeconds / 3600;
+        public int Minutes => (RemainingSeconds % 3600) / 60;
+        public int Seconds => RemainingSeconds % 60;
+        public float TimeScale => _timeScale;
+        public float RemainingTimer => _timer;
+        public float ElapsedTime => startingSeconds - _timer;
+        public float NormalizedTime => Mathf.Clamp01(ElapsedTime / startingSeconds);
+        public float TotalSecondsElapsed => ElapsedTime;
+        public float CurrentSecondFraction => _timer % 60f;
 
-        if (currentSecond != _previousSecond)
+        private GameManager _gameManager => GameManager.Instance;
+
+        private void Awake()
         {
-            _previousSecond = currentSecond;
-            OnSecondChanged?.Invoke(Seconds);
-            if (Seconds == 59)
-                OnMinuteChanged?.Invoke(Minutes);
-
-            if (currentSecond <= 0)
-                OnTimeExpired?.Invoke();
+            VerifySingleton();
+            _timer = startingSeconds;
         }
-    }
 
-    private void OnDestroy()
-    {
-        if (Instance == this) Instance = null;
-    }
-
-    public void SetTimeScale(float newScale)
-    {
-        _timeScale = newScale;
-    }
-
-    private void VerifySingleton()
-    {
-        if (Instance == null)
+        private void Start()
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
+            _gameManager.OnGameReset += () => { _timer = startingSeconds; };
         }
-        else
+
+        private void Update()
         {
-            Destroy(gameObject);
+            if (!_gameManager.GameActive) return;
+            if (_timer <= 0)
+                return;
+
+            _timer -= Time.deltaTime * _timeScale;
+
+            int currentSecond = Mathf.CeilToInt(_timer);
+
+            if (currentSecond != _previousSecond)
+            {
+                _previousSecond = currentSecond;
+                OnSecondChanged?.Invoke(Seconds);
+                if (Seconds == 59)
+                    OnMinuteChanged?.Invoke(Minutes);
+
+                if (currentSecond <= 0)
+                    OnTimeExpired?.Invoke();
+            }
+        }
+
+        private void OnDestroy()
+        {
+            if (Instance == this) Instance = null;
+        }
+
+        public void SetTimeScale(float newScale)
+        {
+            _timeScale = newScale;
+        }
+
+        private void VerifySingleton()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

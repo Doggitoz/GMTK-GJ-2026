@@ -1,19 +1,21 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class ClockHandsController : MonoBehaviour
-{
-    [SerializeField]
-    private List<ClockHand> _clockHands;
-
-    private GameManager _gameManager => GameManager.Instance;
-
-    private void FixedUpdate()
+namespace Clock {
+    public class HandsController : MonoBehaviour
     {
-        if (!_gameManager.GameActive) return;
-        foreach (ClockHand hand in _clockHands)
+        [SerializeField]
+        private List<Clock.Hand> _clockHands;
+
+        private GameManager _gameManager => GameManager.Instance;
+
+        private void FixedUpdate()
         {
-            hand.FixedUpdateListener();
+            if (!_gameManager.GameActive) return;
+            foreach (Clock.Hand hand in _clockHands)
+            {
+                hand.FixedUpdateListener();
+            }
         }
     }
 }

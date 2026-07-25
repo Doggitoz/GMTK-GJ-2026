@@ -5,7 +5,7 @@ public class RustSpot : MonoBehaviour, IInteractable
 {
     private ObjectPool<GameObject> _pool;
 
-    private ClockCondition ClockCondition =>
+    private Clock.Condition ClockCondition =>
         GameManager.Instance.ClockCondition;
 
     [Header("Cleaning")]
