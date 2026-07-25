@@ -16,7 +16,7 @@ public class TurtleSpawner : MonoBehaviour
 
     private void SpawnTurtle()
     {
-        Instantiate(_turtlePrefab, _turtleSpawn, Quaternion.identity);
+        _spawnedTurtle = Instantiate(_turtlePrefab, _turtleSpawn, Quaternion.identity);
     }
 
     private void DestroyTurtle()
