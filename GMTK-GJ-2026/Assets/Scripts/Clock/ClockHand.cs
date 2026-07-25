@@ -28,6 +28,8 @@ public class ClockHand : MonoBehaviour
     private Rigidbody _rb;
     private Quaternion _startingRotation;
 
+    GameManager _gameManager => GameManager.Instance;
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
@@ -37,7 +39,12 @@ public class ClockHand : MonoBehaviour
         _startingRotation = _rb.rotation;
     }
 
-    private void FixedUpdate()
+    private void Start()
+    {
+        _gameManager.OnGameReset += ResetClock;
+    }
+
+    public void FixedUpdateListener()
     {
         if (ClockTimeManager.Instance == null)
             return;
@@ -71,5 +78,10 @@ public class ClockHand : MonoBehaviour
         int completedSteps = Mathf.FloorToInt(elapsedSeconds / secondsPerStep);
 
         return completedSteps * stepDegrees;
+    }
+
+    private void ResetClock()
+    {
+        _rb.MoveRotation(_startingRotation);
     }
 }

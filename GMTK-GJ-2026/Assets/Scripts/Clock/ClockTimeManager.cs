@@ -27,21 +27,22 @@ public class ClockTimeManager : MonoBehaviour
     public float TotalSecondsElapsed => ElapsedTime;
     public float CurrentSecondFraction => _timer % 60f;
 
+    private GameManager _gameManager => GameManager.Instance;
+
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        VerifySingleton();
         _timer = startingSeconds;
+    }
+
+    private void Start()
+    {
+        _gameManager.OnGameReset += () => { _timer = startingSeconds; };
     }
 
     private void Update()
     {
+        if (!_gameManager.GameActive) return;
         if (_timer <= 0)
             return;
 
@@ -69,5 +70,18 @@ public class ClockTimeManager : MonoBehaviour
     public void SetTimeScale(float newScale)
     {
         _timeScale = newScale;
+    }
+
+    private void VerifySingleton()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }

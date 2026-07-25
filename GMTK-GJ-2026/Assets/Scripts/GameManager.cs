@@ -3,16 +3,60 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public event Action<float> OnDamagePercentageChanged;
-    public float DamagePercentage { get; private set; } = 0f;
-    public static GameManager Instance { get; private set; }
-    public float DeteriorationTimeScale => _deteriorationTimeScale;
-    private float _deteriorationTimeScale = 1f;
+    // Remove this later
+    [SerializeField]
+    private bool _startOnRuntime;
 
-    public float RepairTimeScale => _repairTimeScale;
-    private float _repairTimeScale = 1f;
+    public event Action OnGameReset;
+    public event Action OnGameStop;
+    public event Action OnGameStart;
+
+    public static GameManager Instance { get; private set; }
+    public bool GameActive => _gameActive;
+    private bool _gameActive;
+    public ClockCondition ClockCondition => _clockCondition ??= new ClockCondition();
+    private ClockCondition _clockCondition;
 
     void Awake()
+    {
+        VerifySingleton();
+    }
+
+    private void Start()
+    {
+        _gameActive = _startOnRuntime;
+    }
+
+    [ContextMenu("Start Game")]
+    public void StartGame()
+    {
+        _gameActive = true;
+        OnGameStart?.Invoke();
+    }
+
+    [ContextMenu("Stop Game")]
+    public void StopGame()
+    {
+        _gameActive = false;
+        OnGameStop?.Invoke();
+    }
+
+    [ContextMenu("Reset Game")]
+    public void ResetGame()
+    {
+        _clockCondition = null;
+        OnGameReset?.Invoke();
+    }
+
+    [ContextMenu("Restart Game")]
+    public void RestartGame()
+    {
+        StopGame();
+        ResetGame();
+        StartGame();
+    }
+
+    private void VerifySingleton()
     {
         if (Instance == null)
         {
@@ -23,21 +67,5 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-
-    public void AddDamagePercentage(float damagePercentage)
-    {
-        DamagePercentage = Mathf.Clamp(DamagePercentage + damagePercentage, 0, 100);
-        OnDamagePercentageChanged?.Invoke(DamagePercentage);
-    }
-
-    public void SetDeteriorationTimeScale(float newScale)
-    {
-        _deteriorationTimeScale = newScale;
-    }
-
-    public void SetRepairTimeScale(float newScale)
-    {
-        _deteriorationTimeScale = newScale;
     }
 }
