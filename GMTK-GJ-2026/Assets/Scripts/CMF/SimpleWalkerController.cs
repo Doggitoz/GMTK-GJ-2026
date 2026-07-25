@@ -36,8 +36,6 @@ namespace CMF
 
         void FixedUpdate()
         {
-            if (!GameManager.Instance.PlayerControllerEnabled) return;
-
             //Run initial mover ground check;
             mover.CheckForGround();
 
