@@ -19,7 +19,7 @@ public class RustSpot : MonoBehaviour, IInteractable
         _pool.Release(gameObject);
     }
 
-    public static float growthRate = .02f;
+    public static float growthRate => GameItems.HasItem("RustSlow") ? 0.1f : 0.3f;
 
     private bool _isBeingCleaned;
 
@@ -81,8 +81,6 @@ public class RustSpot : MonoBehaviour, IInteractable
 
     private void Update()
     {
-        growthRate = GameItems.HasItem("RustSlow") ? 0.1f : 0.5f;
-
         // Don't grow while actively cleaning.
         if (!_isBeingCleaned)
         {
