@@ -46,6 +46,7 @@ public class TriggerInteractor : MonoBehaviour
         {
             foreach (var interactable in _selectedInteractables)
             {
+                if (interactable == null) continue;
                 interactable.OnInteractorUp(transform);
             }
             _selectedInteractables.Clear();

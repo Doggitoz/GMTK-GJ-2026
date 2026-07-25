@@ -1,0 +1,93 @@
+using UnityEngine;
+using UnityEngine.Pool;
+
+public class RustSpotSpawner : MonoBehaviour
+{
+    [Header("Spawn Settings")]
+    [SerializeField] private GameObject prefab;
+    [SerializeField] private float spawnRadius = 5f;
+    [SerializeField] private Vector2 spawnFrequencyRange = new(2f, 5f);
+
+    [Header("Pool Settings")]
+    [SerializeField] private int defaultCapacity = 20;
+    [SerializeField] private int maxPoolSize = 100;
+
+    private ObjectPool<GameObject> _pool;
+    private float _currentSpawnFrequency;
+    private float _timer;
+
+    private void Awake()
+    {
+        _pool = new ObjectPool<GameObject>(
+            CreateObject,
+            OnGetFromPool,
+            OnReleaseToPool,
+            OnDestroyPoolObject,
+            collectionCheck: false,
+            defaultCapacity: defaultCapacity,
+            maxSize: maxPoolSize);
+
+        _currentSpawnFrequency = Random.Range(
+            spawnFrequencyRange.x,
+            spawnFrequencyRange.y);
+    }
+
+    private void Update()
+    {
+        _timer += Time.deltaTime;
+
+        if (_timer >= _currentSpawnFrequency)
+        {
+            Spawn();
+            _timer = 0f;
+            _currentSpawnFrequency = Random.Range(
+                spawnFrequencyRange.x,
+                spawnFrequencyRange.y);
+        }
+    }
+
+    private void Spawn()
+    {
+        Vector2 randomPoint = Random.insideUnitCircle * spawnRadius;
+        Vector3 spawnPosition = transform.position +
+                                new Vector3(randomPoint.x, 0f, randomPoint.y);
+
+        GameObject rustSpot = _pool.Get();
+        rustSpot.transform.SetPositionAndRotation(spawnPosition, Quaternion.identity);
+    }
+
+    private GameObject CreateObject()
+    {
+        GameObject obj = Instantiate(prefab);
+
+        // Allows the object to return itself to the pool.
+        var pooled = obj.GetComponent<RustSpot>();
+        if (pooled == null)
+            pooled = obj.AddComponent<RustSpot>();
+
+        pooled.Initialize(_pool);
+
+        return obj;
+    }
+
+    private void OnGetFromPool(GameObject obj)
+    {
+        obj.SetActive(true);
+    }
+
+    private void OnReleaseToPool(GameObject obj)
+    {
+        obj.SetActive(false);
+    }
+
+    private void OnDestroyPoolObject(GameObject obj)
+    {
+        Destroy(obj);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, spawnRadius);
+    }
+}
