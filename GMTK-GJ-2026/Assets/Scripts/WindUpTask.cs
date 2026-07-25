@@ -24,7 +24,7 @@ public class WindUpTask : MonoBehaviour, IInteractable
     private bool _holdingInteract;
     private InputAction _moveAction;
     private GameManager _gameManager => GameManager.Instance;
-    private ClockCondition _clockCondition => _gameManager.ClockCondition;
+    private Clock.Condition _clockCondition => _gameManager.ClockCondition;
 
     private void Awake()
     {

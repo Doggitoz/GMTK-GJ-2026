@@ -8,7 +8,7 @@ public class RustSpot : MonoBehaviour, IInteractable
     [SerializeField]
     private Transform _visuals;
 
-    private ClockCondition ClockCondition =>
+    private Clock.Condition ClockCondition =>
         GameManager.Instance.ClockCondition;
 
     [Header("Cleaning")]

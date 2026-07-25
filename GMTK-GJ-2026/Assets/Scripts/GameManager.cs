@@ -14,8 +14,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     public bool GameActive => _gameActive;
     private bool _gameActive;
-    public ClockCondition ClockCondition => _clockCondition ??= new ClockCondition();
-    private ClockCondition _clockCondition;
+    public Clock.Condition ClockCondition => _clockCondition ??= new Clock.Condition();
+    private Clock.Condition _clockCondition;
 
     void Awake()
     {
