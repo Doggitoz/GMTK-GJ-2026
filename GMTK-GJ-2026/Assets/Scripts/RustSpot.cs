@@ -76,6 +76,7 @@ public class RustSpot : MonoBehaviour, IInteractable
 
     public void Update()
     {
+        growthRate = GameItems.HasItem("RustSlow") ? 0.1f : 0.5f;
         transform.localScale = transform.localScale + (Vector3.one * (growthRate * Time.deltaTime * GameManager.Instance.TimeScale));
         if (transform.localScale.x > damageIncreaseTarget)
         {
