@@ -5,8 +5,11 @@ using UnityEngine.UI;
 public class ShopItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler 
 {
     public string ItemName;
+    public string ItemDescription;
+    
     public RectTransform ItemIcon;
-    bool isPurchased = false;
+    
+    public bool IsPurchased = false;
     public float Cost;
 
     public RectTransform _purchaseDialogObject;
@@ -18,7 +21,7 @@ public class ShopItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnItemClicked()
     {
-        if (isPurchased)
+        if (IsPurchased)
         {
             ToggleItem(ItemName);
             return;
@@ -34,13 +37,13 @@ public class ShopItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void PurchaseItem()
     {
-        if (isPurchased) return;
+        if (IsPurchased) return;
 
         // Subtract Cost from Resource
 
         GameItems.AddItem(ItemName);
-        
-        isPurchased = true;
+
+        IsPurchased = true;
         var dialogYesButton = _purchaseDialogObject.GetChild(0).GetComponent<Button>();
         dialogYesButton.onClick.RemoveAllListeners();
         _purchaseDialogObject?.gameObject.SetActive(false);
@@ -63,7 +66,7 @@ public class ShopItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     private void UpdateVisual()
     {
-        if (!isPurchased)
+        if (!IsPurchased)
         {
             ItemIcon.GetComponent<Image>().color = Color.black;
             return;
