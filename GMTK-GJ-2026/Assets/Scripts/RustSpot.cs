@@ -35,6 +35,7 @@ public class RustSpot : MonoBehaviour, IInteractable
     private void OnEnable()
     {
         _visuals.localScale = Vector3.one;
+        GetComponent<BoxCollider>().size = Vector3.one;
         _currentDamageWorth = 1;
         damageIncreaseTarget = 2;
         _isBeingCleaned = false;
@@ -68,7 +69,7 @@ public class RustSpot : MonoBehaviour, IInteractable
         float delta = cleanRate * Time.deltaTime * ClockCondition.RepairTimeScale;
 
         _visuals.localScale -= Vector3.one * delta;
-
+ 
         if (_visuals.localScale.x <= minScale)
         {
             CleanRust();
@@ -92,6 +93,7 @@ public class RustSpot : MonoBehaviour, IInteractable
         {
             _visuals.localScale += Vector3.one *
                 (growthRate * Time.deltaTime * ClockCondition.DeteriorationTimeScale);
+            GetComponent<BoxCollider>().size = _visuals.localScale;
 
             if (_visuals.localScale.x > damageIncreaseTarget)
             {
