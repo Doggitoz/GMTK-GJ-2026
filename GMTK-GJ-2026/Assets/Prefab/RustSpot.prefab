@@ -46,8 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4ced72c76f58914d84ef225fc66d1d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RustSpot
+  _visuals: {fileID: 2909458250678621633}
   cleanRate: 0.75
-  minScale: 0.25
+  minScale: 2
 --- !u!65 &7969104858466468738
 BoxCollider:
   m_ObjectHideFlags: 0
