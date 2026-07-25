@@ -805,7 +805,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5242664606375873205, guid: 1fb696826ecf8d7449b3601a9c820ebe, type: 3}
       propertyPath: m_text
-      value: Accept Trial
+      value: Reveal Trial
       objectReference: {fileID: 0}
     - target: {fileID: 5843182463183742556, guid: 1fb696826ecf8d7449b3601a9c820ebe, type: 3}
       propertyPath: m_Pivot.x
@@ -1033,7 +1033,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5242664606375873205, guid: 1fb696826ecf8d7449b3601a9c820ebe, type: 3}
       propertyPath: m_text
-      value: Decline Trial
+      value: Remain Ignorant
       objectReference: {fileID: 0}
     - target: {fileID: 5843182463183742556, guid: 1fb696826ecf8d7449b3601a9c820ebe, type: 3}
       propertyPath: m_Pivot.x
