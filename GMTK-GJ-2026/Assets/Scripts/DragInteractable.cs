@@ -36,9 +36,9 @@ public class DragInteractable : MonoBehaviour, IInteractable
         }
     }
 
-    public void OnInteractorHover() { }
+    public void OnInteractorHover(Transform interactor) { }
 
-    public void OnInteractorLeave() { }
+    public void OnInteractorLeave(Transform interactor) { }
 
     public void OnInteractorDown(Transform interactor)
     {

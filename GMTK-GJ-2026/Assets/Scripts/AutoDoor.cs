@@ -26,12 +26,12 @@ public class AutoDoor : MonoBehaviour, IInteractable
     {   
     }
 
-    public void OnInteractorHover()
+    public void OnInteractorHover(Transform interactor)
     {
         OpenDoors();
     }
 
-    public void OnInteractorLeave()
+    public void OnInteractorLeave(Transform interactor)
     {
         CloseDoors();
     }

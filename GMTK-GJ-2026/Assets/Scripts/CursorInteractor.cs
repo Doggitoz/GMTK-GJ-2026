@@ -32,9 +32,9 @@ public class CursorInteractor : MonoBehaviour
 
         if (hoveredInteractable != _currentInteractable)
         {
-            _currentInteractable?.OnInteractorLeave();
+            _currentInteractable?.OnInteractorLeave(transform);
             _currentInteractable = hoveredInteractable;
-            _currentInteractable?.OnInteractorHover();
+            _currentInteractable?.OnInteractorHover(transform);
             hoveredThisFrame = true;
         }
 
