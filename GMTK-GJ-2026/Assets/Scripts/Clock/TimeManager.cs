@@ -22,7 +22,7 @@ namespace Clock
         public int Hours => RemainingSeconds / 3600;
         public int Minutes => (RemainingSeconds % 3600) / 60;
         public int Seconds => RemainingSeconds % 60;
-        public float TimeScale => _timeScale;
+        public float TimeScale => _timeScale * GameItems.GetMultiplier(ItemStat.ClockSpeed);
         public float RemainingTimer => _timer;
         public float ElapsedTime => startingSeconds - _timer;
         public float NormalizedTime => Mathf.Clamp01(ElapsedTime / startingSeconds);
@@ -48,7 +48,7 @@ namespace Clock
             if (_timer <= 0)
                 return;
 
-            _timer -= Time.deltaTime * _timeScale;
+            _timer -= Time.deltaTime * TimeScale;
 
             int currentSecond = Mathf.CeilToInt(_timer);
 
