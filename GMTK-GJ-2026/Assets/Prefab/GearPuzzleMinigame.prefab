@@ -1,0 +1,119 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3276619570064118614
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5280550714773897964}
+  - component: {fileID: 3367355112237109312}
+  - component: {fileID: 4213532975438365611}
+  m_Layer: 0
+  m_Name: GearPuzzleMinigame
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5280550714773897964
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3276619570064118614}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3367355112237109312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3276619570064118614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e84bcbf869fd4b2aa4ffbd2e59b75c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GearPuzzleGame
+  rowCount: 10
+  cellHeight: 44.2
+  boardWidth: 220
+  panelWidth: 300
+  panelHeight: 700
+  panelColor: {r: 0.08, g: 0.09, b: 0.12, a: 0.97}
+  backdropColor: {r: 0, g: 0, b: 0, a: 0.6}
+  canvasSortingOrder: 999
+  manageCursorState: 1
+  colorNormal: {r: 0.8, g: 0.82, b: 0.88, a: 1}
+  colorPartial: {r: 0.95, g: 0.8, b: 0.35, a: 1}
+  colorConnected: {r: 0.4, g: 0.85, b: 0.5, a: 1}
+  colorOverlap: {r: 0.9, g: 0.3, b: 0.3, a: 1}
+  colorIn: {r: 1, g: 1, b: 1, a: 1}
+  colorOut: {r: 1, g: 1, b: 1, a: 1}
+  colorIconInactive: {r: 0.45, g: 0.45, b: 0.48, a: 0.7}
+  turnSpeedDegPerSec: 140
+  minClickDiameter: 64
+  customGearSprite: {fileID: 21300000, guid: 17d2caa90da9a4b2d986ab1bb9507080, type: 3}
+  gearTextureSize: 128
+  gearTeeth: 6
+  customInIconSprite: {fileID: 21300000, guid: a0721aee33fcb40b58a1523305bfb546, type: 3}
+  customOutIconSprite: {fileID: 21300000, guid: fccf3415184cc4be2b702235ee7f8367, type: 3}
+  arrowTextureSize: 124
+  iconSize: 30
+  titleText: 
+  inLabelText: IN
+  outLabelText: OUT
+  winMessageText: WIN!
+  showSizeLabel: 0
+  sizeLabelFormat: 
+  rowsFilledLabel: rows connected
+  customFont: {fileID: 12800000, guid: b1a5557f6207f42938720b20526cc593, type: 3}
+  titleFontSize: 26
+  markerLabelFontSize: 18
+  statusFontSize: 15
+  winFontSize: 40
+  gearSizeLabelFontSize: 13
+  titleColor: {r: 1, g: 1, b: 1, a: 1}
+  statusColor: {r: 0.85, g: 0.85, b: 0.9, a: 1}
+  gearLabelColor: {r: 0, g: 0, b: 0, a: 1}
+  winOverlayColor: {r: 0, g: 0, b: 0, a: 0.65}
+  winTextColor: {r: 1, g: 1, b: 1, a: 1}
+  maxAnchorDistance: 4
+  onMinigameComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  onMinigameClosed:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &4213532975438365611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3276619570064118614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e65f8ca7ef6d4eb2b0fa6101772653b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GearMinigameSpawner
+  prefab: {fileID: 2534256758743580197, guid: fab233ba30b6843cebff13fe51717e46, type: 3}
+  spawnRadius: 16.7
+  spawnFrequencyRange: {x: 2, y: 5}
+  minigame: {fileID: 3367355112237109312}
+  autoCloseOnWin: 1
+  autoCloseDelay: 1
+  defaultCapacity: 3
+  maxPoolSize: 100
+  framesToDelayReuse: 2
+  _parentObject: {fileID: 0}
