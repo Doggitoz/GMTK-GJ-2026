@@ -30,6 +30,8 @@ namespace CMF
             mover = GetComponent<Mover>();
             moveAction = InputSystem.actions.FindAction("Move");
             jumpAction = InputSystem.actions.FindAction("Jump");
+
+            GameEvents.OnTeleportRequested += Teleport;
         }
 
         void FixedUpdate()
@@ -76,6 +78,13 @@ namespace CMF
 
             mover.SetExtendSensorRange(isGrounded);
             mover.SetVelocity(_velocity);
+        }
+
+        private void Teleport(Vector3 newPosition)
+        {
+            transform.position = newPosition;
+            currentVerticalSpeed = 0f;
+            lastVelocity = Vector3.zero;
         }
 
         private Vector3 CalculateMovementDirection()
@@ -139,6 +148,11 @@ namespace CMF
         public override bool IsGrounded()
         {
             return isGrounded;
+        }
+
+        private void OnDestroy()
+        {
+            GameEvents.OnTeleportRequested -= Teleport;
         }
 
     }

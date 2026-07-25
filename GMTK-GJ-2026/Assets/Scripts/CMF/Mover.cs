@@ -378,6 +378,5 @@ namespace CMF
         {
             return sensor.GetCollider();
         }
-
     }
 }
