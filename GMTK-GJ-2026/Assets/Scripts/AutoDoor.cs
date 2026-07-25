@@ -28,11 +28,13 @@ public class AutoDoor : MonoBehaviour, IInteractable
 
     public void OnInteractorHover(Transform interactor)
     {
+        if (!interactor.TryGetComponent<TriggerInteractor>(out var _)) return;
         OpenDoors();
     }
 
     public void OnInteractorLeave(Transform interactor)
     {
+        if (!interactor.TryGetComponent<TriggerInteractor>(out var _)) return;
         CloseDoors();
     }
 
