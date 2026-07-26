@@ -172,7 +172,7 @@ public class GearMinigameSpawner : MonoBehaviour
                                 new Vector3(randomPoint.x, 0f, randomPoint.y);
 
         GameObject trigger = _pool.Get();
-        trigger.transform.SetPositionAndRotation(spawnPosition, Quaternion.identity);
+        trigger.transform.position = spawnPosition;
     }
 
     private GameObject CreateObject()
