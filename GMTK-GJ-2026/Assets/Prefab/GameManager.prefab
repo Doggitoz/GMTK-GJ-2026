@@ -721,6 +721,10 @@ PrefabInstance:
       propertyPath: m_Alpha
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 398199619988815335, guid: da933c6163e131540bee155a5497d238, type: 3}
+      propertyPath: m_BlocksRaycasts
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 785940160817680282, guid: da933c6163e131540bee155a5497d238, type: 3}
       propertyPath: TutorialDisabled
       value: 1
