@@ -43,6 +43,7 @@ public class WindUpTask : MonoBehaviour, IInteractable
         windupSound = FMODUnity.RuntimeManager.CreateInstance(windupSoundEvent);
         _windupStarted = false;
     }
+    bool _hasDamaged;
 
     private void Update()
     {
@@ -59,6 +60,7 @@ public class WindUpTask : MonoBehaviour, IInteractable
             danger -= windDownPerSecond * Time.deltaTime * _clockCondition.RepairTimeScale; //winding down pauses the danger rise
             if (!_windupStarted)
             {
+                _hasDamaged = false;
                 windupSound.start();
                 _windupStarted = true;
             }
@@ -71,8 +73,12 @@ public class WindUpTask : MonoBehaviour, IInteractable
         }
         danger = Mathf.Clamp(danger, 0f, 100f);
 
-        if (danger >= 100f)
+        if (danger >= 100f && !_hasDamaged)
+        {
             _clockCondition.AddDamagePercentage(damageOnFail);
+            _hasDamaged = true;
+        }
+            
 
     }
 

@@ -89,4 +89,9 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    public float _damagePercent;
+    private void Update()
+    {
+        _damagePercent = ClockCondition.DamagePercentage;
+    }
 }
