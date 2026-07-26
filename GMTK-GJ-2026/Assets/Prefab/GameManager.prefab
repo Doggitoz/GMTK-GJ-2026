@@ -561,6 +561,7 @@ GameObject:
   - component: {fileID: 5404847735641391672}
   - component: {fileID: 4813284144588708629}
   - component: {fileID: 8073512909954330855}
+  - component: {fileID: 9147454876559426282}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -682,6 +683,18 @@ MonoBehaviour:
   OnGameReset:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &9147454876559426282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5299819189394008759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0465d7d73f43a9469c0bf6b42875f2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AWARDMONEEY
 --- !u!1 &5547538501925757029
 GameObject:
   m_ObjectHideFlags: 0
@@ -1283,7 +1296,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 785940160817680282, guid: da933c6163e131540bee155a5497d238, type: 3}
       propertyPath: TutorialDisabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 811706662113903938, guid: da933c6163e131540bee155a5497d238, type: 3}
       propertyPath: m_Name
