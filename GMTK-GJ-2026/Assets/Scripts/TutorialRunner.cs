@@ -24,18 +24,6 @@ public class TutorialRunner : MonoBehaviour
     private Clock.Hand _secondHand;
 
     [SerializeField]
-    private DialogueLine[] _introDialogue;
-
-    [SerializeField]
-    private DialogueLine[] _hourHandDialogue;
-
-    [SerializeField]
-    private DialogueLine[] _minuteHandDialogue;
-
-    [SerializeField]
-    private DialogueLine[] _secondHandDialogue;
-
-    [SerializeField]
     private CinemachineCamera _centerZoomCam;
     GameManager _gameManager => GameManager.Instance;
     void Start()
