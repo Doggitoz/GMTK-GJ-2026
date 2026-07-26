@@ -496,7 +496,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RustSpotSpawner
   prefab: {fileID: 3797462763680878405, guid: f3469034c9c7526479706b07f004fa0a, type: 3}
   spawnRadius: 16.7
-  spawnFrequencyRange: {x: 2, y: 5}
+  spawnFrequencyRange: {x: 5, y: 7}
   defaultCapacity: 20
   maxPoolSize: 100
   _parentObject: {fileID: 819390095}
@@ -5017,6 +5017,14 @@ PrefabInstance:
     - target: {fileID: 3276619570064118614, guid: 4cad6b1d098d34fa4a4f684e96b613d0, type: 3}
       propertyPath: m_Name
       value: GearPuzzleMinigame
+      objectReference: {fileID: 0}
+    - target: {fileID: 4213532975438365611, guid: 4cad6b1d098d34fa4a4f684e96b613d0, type: 3}
+      propertyPath: spawnFrequencyRange.x
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4213532975438365611, guid: 4cad6b1d098d34fa4a4f684e96b613d0, type: 3}
+      propertyPath: spawnFrequencyRange.y
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5280550714773897964, guid: 4cad6b1d098d34fa4a4f684e96b613d0, type: 3}
       propertyPath: m_LocalPosition.x
