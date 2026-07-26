@@ -3,6 +3,7 @@ public class WindupUI : MonoBehaviour
 {
     [SerializeField] private Sprite[] slices;
 
+    [SerializeField]
     private WindUpTask task;
     [SerializeField]
     private SpriteRenderer spriteRenderer;

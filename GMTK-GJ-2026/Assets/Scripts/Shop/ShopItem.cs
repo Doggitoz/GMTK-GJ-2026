@@ -24,6 +24,7 @@ public class ShopItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         if (IsPurchased)
         {
+            _purchaseDialogObject?.gameObject.SetActive(false);
             ToggleItem(ItemName);
             return;
         }
