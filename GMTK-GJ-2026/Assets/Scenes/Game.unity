@@ -3446,7 +3446,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5404847735641391672, guid: a807daa90524e104db1d402091a38f18, type: 3}
       propertyPath: _startOnRuntime
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7247346492674936263, guid: a807daa90524e104db1d402091a38f18, type: 3}
       propertyPath: TutorialDisabled
