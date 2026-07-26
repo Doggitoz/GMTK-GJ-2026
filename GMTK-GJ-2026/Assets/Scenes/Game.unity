@@ -4128,6 +4128,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 943157315453919438, guid: a807daa90524e104db1d402091a38f18, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 943157315453919438, guid: a807daa90524e104db1d402091a38f18, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3903987253406224321, guid: a807daa90524e104db1d402091a38f18, type: 3}
       propertyPath: _hourHand
       value: 
@@ -4191,6 +4199,30 @@ PrefabInstance:
     - target: {fileID: 5299819189394008759, guid: a807daa90524e104db1d402091a38f18, type: 3}
       propertyPath: m_Name
       value: GameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 6489177796634189220, guid: a807daa90524e104db1d402091a38f18, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6489177796634189220, guid: a807daa90524e104db1d402091a38f18, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6489177796634189220, guid: a807daa90524e104db1d402091a38f18, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6489177796634189220, guid: a807daa90524e104db1d402091a38f18, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 145.20001
+      objectReference: {fileID: 0}
+    - target: {fileID: 6489177796634189220, guid: a807daa90524e104db1d402091a38f18, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -45
+      objectReference: {fileID: 0}
+    - target: {fileID: 6489177796634189220, guid: a807daa90524e104db1d402091a38f18, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -52.06
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5680,6 +5712,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 171e57d98d76f21449a7bf770627cd4a, type: 3}
+    - target: {fileID: 4232977888709144033, guid: 17445af17aa4f4d489efe59b1eb24b5a, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4232977888709144033, guid: 17445af17aa4f4d489efe59b1eb24b5a, type: 3}
       propertyPath: m_RaycastTarget
       value: 0
