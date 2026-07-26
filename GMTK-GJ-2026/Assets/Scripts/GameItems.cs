@@ -10,7 +10,6 @@ public static class GameItems
     private static readonly Dictionary<string, Dictionary<ItemStat, float>> Effects = new()
     {
         ["Gambler’s Bet"] = new() { [ItemStat.ClockSpeed] = 2f, [ItemStat.Repair] = 2f },
-        ["Tortoise Totem"] = new() { [ItemStat.ClockSpeed] = 0.5f, [ItemStat.Repair] = 2f },
     };
 
     public static IReadOnlyDictionary<ItemStat, float> GetEffects(string name) => Effects.TryGetValue(name, out var e) ? e : null;
