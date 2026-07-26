@@ -3170,10 +3170,6 @@ PrefabInstance:
       propertyPath: lockYAxis
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6753732344209035485, guid: 5244d7ff201fe1b43a4d7b904897ac1e, type: 3}
-      propertyPath: m_Interpolate
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
