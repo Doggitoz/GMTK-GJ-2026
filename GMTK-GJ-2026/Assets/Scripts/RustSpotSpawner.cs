@@ -20,6 +20,11 @@ public class RustSpotSpawner : MonoBehaviour
     private float _timer;
     private readonly List<GameObject> _activeObjects = new();
 
+    private float CurrentSpawnFrequency =>
+        _currentSpawnFrequency / SpawnRateMultiplier;
+
+    private float SpawnRateMultiplier =>
+    GameItems.HasItem("Eye of Horus") ? 2f : 1f;
     private GameManager _gameManager => GameManager.Instance;
 
     private void Awake()
@@ -48,7 +53,7 @@ public class RustSpotSpawner : MonoBehaviour
         if (!_gameManager.GameActive) return;
         _timer += Time.deltaTime;
 
-        if (_timer >= _currentSpawnFrequency)
+        if (_timer >= CurrentSpawnFrequency)
         {
             Spawn();
             _timer = 0f;

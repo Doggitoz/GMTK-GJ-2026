@@ -14,6 +14,7 @@ public class GameTimer : MonoBehaviour
 
     public void UpdateTimer(int minutes,int seconds)
     {
+        Debug.Log("meow");
         int mtens = (minutes / 10) % 10;
         int mones = (minutes % 10);
 
