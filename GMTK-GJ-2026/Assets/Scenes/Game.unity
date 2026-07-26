@@ -3416,6 +3416,10 @@ PrefabInstance:
       propertyPath: _playerAnimator
       value: 
       objectReference: {fileID: 1245427630}
+    - target: {fileID: 4813284144588708629, guid: a807daa90524e104db1d402091a38f18, type: 3}
+      propertyPath: _pauseMenuObject
+      value: 
+      objectReference: {fileID: 965042513}
     - target: {fileID: 5044883708130341365, guid: a807daa90524e104db1d402091a38f18, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.74281
@@ -3460,7 +3464,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1012595823327790135, guid: a807daa90524e104db1d402091a38f18, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
