@@ -82,23 +82,24 @@ public class TutorialRunner : MonoBehaviour
          * here ill teach ya"
          */
 
-        // "This is the hour hand. It has to make a full rotation
+        // Yield Dialogue: "This is the hour hand. It has to make a full rotation
         yield return _hourHand.TutorialSpin();
 
-        // "This is the minute hand. It creates an impassable barrier"
+        // Yield Dialogue: "This is the minute hand. It creates an impassable barrier"
         yield return _minuteHand.TutorialSpin();
 
-        // "This is the second hand. It can be hopped for your convenience"
+        // Yield Dialogue: "This is the second hand. It can be hopped for your convenience"
         yield return _secondHand.TutorialSpin();
 
         _gameManager.SetPlayerActive(true);
 
         // "The clock will deteriorate over time. You must maintain it"
+        // "You may interact with the environment to make repairs."
 
-        // "You need to maintain the winding of the clock throughout the day.
+        // "Its urgent that you tend to the winding of the clock throughout the day.
         // enable wind up task
 
-        // "You may interact with the environment to make repairs. See this rust buildup for example."
+        // "Be weary of rust buildup."
         // spawn in a single rust spot
         // "It is important that you clean it up before it overruns the clock."
         // yield until user cleans up rust

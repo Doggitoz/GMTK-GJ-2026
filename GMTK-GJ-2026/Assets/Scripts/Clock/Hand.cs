@@ -90,7 +90,7 @@ namespace Clock
             return completedSteps * stepDegrees;
         }
 
-        public IEnumerator TutorialSpin(float duration = 2f)
+        public IEnumerator TutorialSpin(float duration = 4f)
         {
             _tutorialMode = true;
 
