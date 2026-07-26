@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Unity.Cinemachine;
 
 namespace CMF
 {
@@ -9,6 +10,20 @@ namespace CMF
     //This script is an example of a very simple walker controller that covers only the basics of character movement;
     public class SimpleWalkerController : Controller
     {
+        [SerializeField]
+        private CinemachineCamera _playerCamera;
+
+        [SerializeField]
+        private CinemachineCamera _fadeCamera;
+
+        [SerializeField]
+        private Animator _playerAnimator;
+
+        [SerializeField]
+        private string _teleportBoolParameter = "IsAsleep";
+
+        private Coroutine _teleportRoutine;
+
         private Mover mover;
         float currentVerticalSpeed = 0f;
         bool isGrounded;
@@ -82,11 +97,78 @@ namespace CMF
 
         private void Teleport(Vector3 newPosition)
         {
+            if (_teleportRoutine != null)
+            {
+                StopCoroutine(_teleportRoutine);
+            }
+
+            _teleportRoutine = StartCoroutine(TeleportRoutine(newPosition));
+        }
+
+        private IEnumerator TeleportRoutine(Vector3 newPosition)
+        {
+            if (_playerAnimator != null)
+            {
+                _playerAnimator.SetBool(_teleportBoolParameter, true);
+            }
+
+            GameManager.Instance.SetPlayerActive(false);
+
+            yield return new WaitForSeconds(0.5f);
+
+            if (_fadeCamera != null)
+            {
+                _fadeCamera.Priority = 2;
+                _fadeCamera.Prioritize();
+            }
+
+            yield return new WaitForSeconds(1.5f);
+
+
+            // Actual teleport
             transform.position = newPosition;
+
             currentVerticalSpeed = 0f;
             lastVelocity = Vector3.zero;
+
             mover.SetVelocity(Vector3.zero);
-            GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
+
+            Rigidbody rb = GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.linearVelocity = Vector3.zero;
+            }
+
+
+            // Reset camera position
+            if (_playerCamera != null)
+            {
+                Vector3 targetPos = new Vector3(
+                    0,
+                    transform.position.y + 5,
+                    transform.position.z - 10
+                );
+
+                _playerCamera.ForceCameraPosition(
+                    targetPos,
+                    _playerCamera.transform.rotation
+                );
+            }
+
+
+            yield return new WaitForSeconds(0.5f);
+
+            if (_fadeCamera != null)
+            {
+                _fadeCamera.Priority = -1;
+            }
+
+            if (_playerAnimator != null)
+            {
+                _playerAnimator.SetBool(_teleportBoolParameter, false);
+            }
+
+            GameManager.Instance.SetPlayerActive(true);
         }
 
         private Vector3 CalculateMovementDirection()
