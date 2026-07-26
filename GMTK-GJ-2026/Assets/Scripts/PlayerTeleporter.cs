@@ -16,6 +16,11 @@ public class PlayerTeleporter : MonoBehaviour
     [SerializeField]
     CinemachineCamera _fadeCamera;
 
+    [SerializeField]
+    private Animator _playerAnimator;
+
+    [SerializeField]
+    private string _teleportBoolParameter = "IsAsleep";
     IEnumerator _routine;
 
     // Fade Out
@@ -35,6 +40,13 @@ public class PlayerTeleporter : MonoBehaviour
 
     IEnumerator TeleportRoutine()
     {
+        if (_playerAnimator != null)
+        {
+            _playerAnimator.SetBool(_teleportBoolParameter, true);
+        }
+        
+        GameManager.Instance.SetPlayerActive(false);
+        yield return new WaitForSeconds(0.5f);
         _fadeCamera.Priority = 2;
         _fadeCamera.Prioritize();
         yield return new WaitForSeconds(1.5f);
@@ -44,5 +56,10 @@ public class PlayerTeleporter : MonoBehaviour
 
         yield return new WaitForSeconds(.5f);
         _fadeCamera.Priority = -1;
+        if (_playerAnimator != null)
+        {
+            _playerAnimator.SetBool(_teleportBoolParameter, false);
+        }
+        GameManager.Instance.SetPlayerActive(true);
     }
 }

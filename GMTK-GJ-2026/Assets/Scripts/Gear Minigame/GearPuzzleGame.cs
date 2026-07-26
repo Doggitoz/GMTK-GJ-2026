@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -27,25 +28,24 @@ using UnityEngine.Events;
 /// same as calling CloseMinigame() — progress is preserved either way.
 ///
 /// RULES
-/// - There is an invisible 1-column, 10-row table (rows 0..9). The rows and
-///   the column itself are not drawn — only the "IN" marker (top) and "OUT"
-///   marker (bottom) show where the table begins and ends.
-/// - 3 gears spawn on random rows. The top gear lands closer to IN than to
-///   the center gear's row, and the bottom gear lands closer to OUT than to
-///   the center gear's row. Anchor distance is capped so every puzzle is
-///   guaranteed solvable (see GenerateValidRows for the proof).
-/// - Each gear has 4 sizes. Clicking a gear cycles size 1 -> 2 -> 3 -> 4 -> 1.
+/// - There is an invisible 1-column table. The rows and the column itself
+///   are not drawn.
+/// - A fixed, non-interactive gear sits at each end — "IN" at the top and
+///   "OUT" at the bottom. These never change size and can't be clicked.
+/// - 3 gears in between are player-controlled and spawn on random rows.
+///   Each has 4 sizes; clicking one cycles size 1 -> 2 -> 3 -> 4 -> 1.
 ///   Growing a gear expands it symmetrically: one extra row above AND one
 ///   extra row below per size step. Visually, the gear graphic scales up
 ///   around its fixed center point.
 /// - Gears may hang off the top/bottom edge of the table (no clamping on
 ///   position).
 /// - A gear visually turns (the gear graphic itself spins) whenever it is
-///   touching its neighbor exactly — no gap, no overlap.
-/// - IN/OUT icons light up whenever their adjacent gear is in contact
-///   (touching or overlapping) with the center gear.
-/// - The player wins when both gear pairs are touching-but-not-overlapping
-///   AND every one of the 10 rows is covered by some gear.
+///   touching a neighbor exactly — no gap, no overlap. This applies to the
+///   fixed IN/OUT gears too, once the nearest player gear reaches them.
+/// - The player wins when the whole chain — IN, all 3 player gears, and
+///   OUT — is connected end to end: every adjacent pair touching but not
+///   overlapping. (This automatically means every row between IN and OUT
+///   is filled, so there's no separate "fill the rows" check anymore.)
 /// </summary>
 public class GearPuzzleGame : MonoBehaviour
 {
@@ -58,6 +58,13 @@ public class GearPuzzleGame : MonoBehaviour
     public float panelWidth = 300f;
     public float panelHeight = 700f;
     public Color panelColor = new Color(0.08f, 0.09f, 0.12f, 0.97f);
+    // Leave empty for a plain colored rectangle (tinted by panelColor).
+    // Assign your own Sprite to use it as the panel's background instead —
+    // panelColor still applies as a tint on top of it (white = no tint).
+    public Sprite customPanelSprite;
+    // If your sprite has 9-slice borders set up in its import settings,
+    // enable this so the panel stretches without distorting the borders.
+    public bool panelSpriteIsSliced = false;
     public Color backdropColor = new Color(0f, 0f, 0f, 0.6f);
     // Raise this if the popup's clicks are being intercepted by other UI
     // (HUD, menus, etc.) in the host game — higher always wins raycasts.
@@ -75,65 +82,48 @@ public class GearPuzzleGame : MonoBehaviour
     public Color colorPartial = new Color(0.95f, 0.80f, 0.35f);
     public Color colorConnected = new Color(0.40f, 0.85f, 0.50f);
     public Color colorOverlap = new Color(0.90f, 0.30f, 0.30f);
-
-    [Header("IN / OUT Marker Colors")]
-    public Color colorIn = new Color(0.55f, 0.85f, 1f);
-    public Color colorOut = new Color(1f, 0.65f, 0.35f);
-    // Shown on the IN/OUT sprites when that end isn't in contact.
-    public Color colorIconInactive = new Color(0.45f, 0.45f, 0.48f, 0.7f);
+    // Colors for the fixed IN/OUT gears — independent from the player
+    // gears' colors above, so you can make them visually distinct.
+    public Color colorFixedGearNormal = new Color(0.55f, 0.55f, 0.60f);
+    public Color colorFixedGearConnected = new Color(0.40f, 0.85f, 0.50f);
+    public Color colorFixedGearOverlap = new Color(0.90f, 0.30f, 0.30f);
 
     [Header("Turning")]
     public float turnSpeedDegPerSec = 140f;
 
     [Header("Click / Tap")]
-    // Small gears (size 1) are visually tiny — this guarantees every gear
-    // always has at least this large an (invisible) tap/click target,
-    // centered on the gear, regardless of its current visual size.
+    // Small gears (size 1) are visually tiny — this guarantees every
+    // PLAYER gear always has at least this large an (invisible) tap/click
+    // target, centered on the gear, regardless of its current visual size.
+    // The fixed IN/OUT gears have no click target at all.
     public float minClickDiameter = 70f;
 
     [Header("Gear Graphics")]
     // Leave empty to use the built-in procedurally generated gear icon.
-    // Assign your own Sprite here to fully replace it.
+    // Assign your own Sprite here to fully replace it — used for the
+    // player gears AND the fixed IN/OUT gears, so everything matches.
     public Sprite customGearSprite;
     public int gearTextureSize = 128;
     public int gearTeeth = 10;
 
-    [Header("IN / OUT Icon Graphics")]
-    // Leave empty to use the built-in procedurally generated arrow icon.
-    public Sprite customInIconSprite;
-    public Sprite customOutIconSprite;
-    public int arrowTextureSize = 64;
-    public float iconSize = 30f;
-
     [Header("Text Content")]
     public string titleText = "GEAR PUZZLE";
-    public string inLabelText = "IN";
-    public string outLabelText = "OUT";
     public string winMessageText = "YOU WIN!\nAll gears connected.";
     public bool showSizeLabel = true;
     public string sizeLabelFormat = "Size {0}";
-    public string rowsFilledLabel = "Rows filled";
 
     [Header("Fonts & Sizes")]
     // Leave empty to use Unity's built-in default font.
     public Font customFont;
     public int titleFontSize = 26;
-    public int markerLabelFontSize = 18;
-    public int statusFontSize = 15;
     public int winFontSize = 40;
     public int gearSizeLabelFontSize = 13;
 
     [Header("Text Colors")]
     public Color titleColor = Color.white;
-    public Color statusColor = new Color(0.85f, 0.85f, 0.9f);
     public Color gearLabelColor = Color.black;
     public Color winOverlayColor = new Color(0f, 0f, 0f, 0.65f);
     public Color winTextColor = Color.white;
-
-    // How far apart (in rows) two adjacent gear anchors may spawn.
-    // Capped at 4 (an initial gap of at most 3 rows) — see GenerateValidRows
-    // for why this specific cap guarantees every puzzle is solvable.
-    public int maxAnchorDistance = 4;
 
     [Header("Completion Callback")]
     // Fires with `true` the instant the puzzle is solved. Hook your other
@@ -144,7 +134,7 @@ public class GearPuzzleGame : MonoBehaviour
     // walking away, or auto-closing after a win. Useful for a spawner to
     // reliably know "the popup is no longer open" regardless of which path
     // caused it, without having to guess.
-    public UnityEngine.Events.UnityEvent onMinigameClosed = new UnityEngine.Events.UnityEvent();
+    public UnityEvent onMinigameClosed = new UnityEvent();
 
     [System.Serializable]
     public class BoolUnityEvent : UnityEvent<bool> { }
@@ -155,10 +145,11 @@ public class GearPuzzleGame : MonoBehaviour
     class Gear
     {
         public int anchorRow;
-        public int size = 1; // 1..4
+        public int size = 1; // 1..4 for player gears; always 1 for fixed gears
+        public bool isFixed;           // true for the IN/OUT gears
         public RectTransform root;     // fixed position anchor (never moves)
         public RectTransform graphic;  // the gear image — this is what scales & spins
-        public RectTransform hitArea;  // invisible click target — always big enough to tap
+        public RectTransform hitArea;  // invisible click target (player gears only)
         public Image image;
         public Text label;
         public bool isTurning;
@@ -168,21 +159,20 @@ public class GearPuzzleGame : MonoBehaviour
         public int BottomRow { get { return anchorRow + (size - 1); } }
     }
 
-    Gear[] gears = new Gear[3]; // 0 = first/top, 1 = center, 2 = last/bottom
+    Gear[] gears = new Gear[3]; // 0 = first/top, 1 = center, 2 = last/bottom (player-controlled)
+    Gear inGear;                // fixed, above gears[0]
+    Gear outGear;                // fixed, below gears[2]
+
     bool hasWon = false;
     bool hasGeneratedOnce = false;
     bool isOpen = false;
     Font uiFont;
     Sprite gearSprite;
-    Sprite arrowSprite;
     CursorLockMode _prevCursorLockState;
     bool _prevCursorVisible;
 
     GameObject minigameRoot;
     RectTransform boardRoot;
-    Image inIcon;
-    Image outIcon;
-    Text statusText;
     GameObject winPanel;
     Text winText;
 
@@ -195,7 +185,6 @@ public class GearPuzzleGame : MonoBehaviour
         if (uiFont == null) uiFont = Resources.GetBuiltinResource<Font>("Arial.ttf");
 
         gearSprite = customGearSprite != null ? customGearSprite : GenerateGearSprite(gearTextureSize, gearTeeth);
-        arrowSprite = GenerateArrowSprite(arrowTextureSize);
 
         EnsureEventSystem();
         BuildUI();
@@ -206,14 +195,14 @@ public class GearPuzzleGame : MonoBehaviour
     {
         if (!isOpen) return;
 
-        // Spin any gear that is correctly connected to its neighbor.
+        // Spin any gear that is correctly connected to a neighbor.
         for (int i = 0; i < gears.Length; i++)
         {
             if (gears[i] != null && gears[i].isTurning && gears[i].graphic != null)
-            {
                 gears[i].graphic.Rotate(0f, 0f, turnSpeedDegPerSec * Time.deltaTime);
-            }
         }
+        if (inGear != null && inGear.isTurning) inGear.graphic.Rotate(0f, 0f, turnSpeedDegPerSec * Time.deltaTime);
+        if (outGear != null && outGear.isTurning) outGear.graphic.Rotate(0f, 0f, turnSpeedDegPerSec * Time.deltaTime);
     }
 
     // ---------------------------------------------------------------
@@ -251,6 +240,8 @@ public class GearPuzzleGame : MonoBehaviour
     /// </summary>
     public void CloseMinigame()
     {
+        bool wasOpen = isOpen;
+
         minigameRoot.SetActive(false);
         isOpen = false;
 
@@ -259,6 +250,8 @@ public class GearPuzzleGame : MonoBehaviour
             Cursor.lockState = _prevCursorLockState;
             Cursor.visible = _prevCursorVisible;
         }
+
+        if (wasOpen) onMinigameClosed.Invoke();
     }
 
     // ---------------------------------------------------------------
@@ -271,7 +264,7 @@ public class GearPuzzleGame : MonoBehaviour
         if (winPanel != null) winPanel.SetActive(false);
 
         int centerRow, firstRow, lastRow;
-        GenerateValidRows(out firstRow, out centerRow, out lastRow);
+        GenerateSolvableLayout(out firstRow, out centerRow, out lastRow);
 
         for (int i = 0; i < 3; i++)
         {
@@ -283,53 +276,68 @@ public class GearPuzzleGame : MonoBehaviour
         gears[1].anchorRow = centerRow;
         gears[2].anchorRow = lastRow;
 
+        if (inGear != null) inGear.graphic.rotation = Quaternion.identity;
+        if (outGear != null) outGear.graphic.rotation = Quaternion.identity;
+
         for (int i = 0; i < 3; i++) UpdateGearVisual(i);
         RecomputeState();
     }
 
+    // The IN gear always sits exactly 1 row above where gears[0] could
+    // start (row -1). The OUT gear's row is derived from rowCount, chosen
+    // to have the SAME parity as InAnchorRow (see GenerateSolvableLayout
+    // for why that parity match matters) — normally rowCount+1, or
+    // rowCount+2 if rowCount is odd.
+    const int InAnchorRow = -1;
+    int OutAnchorRow { get { return (rowCount % 2 == 0) ? rowCount + 1 : rowCount + 2; } }
+
     /// <summary>
-    /// Picks 3 rows (first &lt; center &lt; last) such that:
-    ///   distance(first, IN=0)  &lt; distance(first, center)
-    ///   distance(last, OUT=9)  &lt; distance(last, center)
+    /// Constructs a layout that is GUARANTEED solvable, by working backwards
+    /// from a hidden target solution instead of placing gears randomly and
+    /// hoping a solution exists.
     ///
-    /// The anchor-to-anchor distance is also capped at maxAnchorDistance
-    /// (default 4, i.e. an initial gap of at most 3 rows). This isn't just
-    /// a difficulty tweak — it's what guarantees the puzzle is solvable.
-    /// Each gear pair's size is independent EXCEPT the center gear, whose
-    /// size is shared by both pairs, so a puzzle can look fine pair-by-pair
-    /// and still have no size that satisfies both simultaneously. Capping
-    /// both distances at 4 guarantees a solution always exists: setting the
-    /// center gear to size 1 and the outer gears to size = their distance
-    /// from the center (both then within the valid 1-4 range) always closes
-    /// both gaps to exactly 0.
+    /// WHY THIS IS NECESSARY: a player gear's row-span is always ODD
+    /// (1, 3, 5, or 7 — one row added above AND below per size step). Three
+    /// such gears can never exactly bridge a fixed, EVEN-length gap with
+    /// zero slack — so IN and OUT can't simply sit at "one row outside the
+    /// board" on both ends (that gap would be even) or no chain of 3
+    /// odd-length gears could ever exactly fill it. Placing IN and OUT so
+    /// the gap between them has the SAME parity as a sum of three odd
+    /// numbers (which is always odd) resolves this — hence OutAnchorRow
+    /// being chosen to match InAnchorRow's parity above.
+    ///
+    /// With that fixed, we pick a random valid (s0, s1, s2) size combo —
+    /// the sizes that WOULD win the puzzle — then derive the anchor rows
+    /// that make exactly that combo the (hidden) solution. The center size
+    /// s1 is kept >= 2, which as a side effect also guarantees gears[0] and
+    /// gears[2] end up closer to IN/OUT than to the center gear, preserving
+    /// the original spawn "flavor". The player still starts at size 1 for
+    /// all three and has to discover the solution themselves.
     /// </summary>
-    void GenerateValidRows(out int firstRow, out int centerRow, out int lastRow)
+    void GenerateSolvableLayout(out int firstRow, out int centerRow, out int lastRow)
     {
-        int last = rowCount - 1;
-        for (int attempt = 0; attempt < 500; attempt++)
-        {
-            int center = Random.Range(2, rowCount - 2); // leaves room on both sides
+        int outAnchor = OutAnchorRow;
 
-            int firstMax = Mathf.CeilToInt(center / 2f) - 1;
-            int firstMin = Mathf.Max(0, center - maxAnchorDistance);
-            int lastMin = Mathf.FloorToInt((last + center) / 2f) + 1;
-            int lastMax = Mathf.Min(last, center + maxAnchorDistance);
+        // Total of the 3 player gears' sizes required to exactly bridge
+        // from IN to OUT, derived from how far apart they are.
+        int targetSizeSum = Mathf.Clamp((outAnchor - InAnchorRow) / 2 + 1, 4, 12);
 
-            if (firstMin > firstMax || lastMin > lastMax) continue;
+        List<Vector3Int> combos = new List<Vector3Int>();
+        for (int s0 = 1; s0 <= 4; s0++)
+            for (int s1 = 2; s1 <= 4; s1++) // >=2 preserves "closer to IN/OUT than center"
+                for (int s2 = 1; s2 <= 4; s2++)
+                    if (s0 + s1 + s2 == targetSizeSum)
+                        combos.Add(new Vector3Int(s0, s1, s2));
 
-            int first = Random.Range(firstMin, firstMax + 1);
-            int end = Random.Range(lastMin, lastMax + 1);
+        Vector3Int combo = combos.Count > 0
+            ? combos[Random.Range(0, combos.Count)]
+            : new Vector3Int(1, 3, 3); // fallback for extreme custom rowCount values
 
-            firstRow = first;
-            centerRow = center;
-            lastRow = end;
-            return;
-        }
+        int s0f = combo.x, s1f = combo.y, s2f = combo.z;
 
-        // Fallback (should not normally trigger for rowCount = 10).
-        centerRow = rowCount / 2;
-        firstRow = 0;
-        lastRow = last;
+        firstRow = InAnchorRow + s0f;
+        centerRow = InAnchorRow + 2 * s0f + s1f - 1;
+        lastRow = outAnchor - s2f;
     }
 
     // ---------------------------------------------------------------
@@ -348,59 +356,40 @@ public class GearPuzzleGame : MonoBehaviour
 
     void RecomputeState()
     {
+        int gapIn = gears[0].TopRow - inGear.BottomRow - 1;
         int gap01 = gears[1].TopRow - gears[0].BottomRow - 1;
         int gap12 = gears[2].TopRow - gears[1].BottomRow - 1;
+        int gapOut = outGear.TopRow - gears[2].BottomRow - 1;
 
+        bool overlapIn = gapIn < 0;
         bool overlap01 = gap01 < 0;
         bool overlap12 = gap12 < 0;
+        bool overlapOut = gapOut < 0;
+
+        bool touchIn = gapIn == 0;
         bool touch01 = gap01 == 0;
         bool touch12 = gap12 == 0;
+        bool touchOut = gapOut == 0;
 
-        gears[0].isTurning = touch01;
+        inGear.isTurning = touchIn;
+        gears[0].isTurning = touchIn || touch01;
         gears[1].isTurning = touch01 || touch12;
-        gears[2].isTurning = touch12;
+        gears[2].isTurning = touch12 || touchOut;
+        outGear.isTurning = touchOut;
 
-        // IN lights up whenever the top gear is in contact with center —
-        // touching exactly OR overlapping both count as "touching a gear".
-        // OUT works the same way for the bottom gear. This is intentionally
-        // more lenient than touch01/touch12 (which require an EXACT, non-
-        // overlapping connection) — those still gate turning and the win
-        // condition; this just answers "is contact happening at all?".
-        bool inContact = gap01 <= 0;
-        bool outContact = gap12 <= 0;
-        if (inIcon != null) inIcon.color = inContact ? colorIn : colorIconInactive;
-        if (outIcon != null) outIcon.color = outContact ? colorOut : colorIconInactive;
-
-        SetGearColor(0, overlap01 ? colorOverlap : (touch01 ? colorConnected : colorNormal));
-        SetGearColor(2, overlap12 ? colorOverlap : (touch12 ? colorConnected : colorNormal));
+        SetGearColor(inGear, overlapIn ? colorFixedGearOverlap : (touchIn ? colorFixedGearConnected : colorFixedGearNormal));
+        SetGearColor(gears[0], (overlapIn || overlap01) ? colorOverlap : ((touchIn || touch01) ? colorConnected : colorNormal));
+        SetGearColor(gears[2], (overlap12 || overlapOut) ? colorOverlap : ((touch12 || touchOut) ? colorConnected : colorNormal));
+        SetGearColor(outGear, overlapOut ? colorFixedGearOverlap : (touchOut ? colorFixedGearConnected : colorFixedGearNormal));
 
         Color midColor;
         if (overlap01 || overlap12) midColor = colorOverlap;
         else if (touch01 && touch12) midColor = colorConnected;
         else if (touch01 || touch12) midColor = colorPartial;
         else midColor = colorNormal;
-        SetGearColor(1, midColor);
+        SetGearColor(gears[1], midColor);
 
-        bool[] covered = new bool[rowCount];
-        for (int i = 0; i < 3; i++)
-        {
-            int top = Mathf.Max(0, gears[i].TopRow);
-            int bottom = Mathf.Min(rowCount - 1, gears[i].BottomRow);
-            for (int r = top; r <= bottom; r++) covered[r] = true;
-        }
-        int filledCount = 0;
-        bool allFilled = true;
-        for (int r = 0; r < rowCount; r++)
-        {
-            if (covered[r]) filledCount++; else allFilled = false;
-        }
-
-        if (statusText != null)
-        {
-            statusText.text = rowsFilledLabel + ": " + filledCount + " / " + rowCount;
-        }
-
-        bool win = touch01 && touch12 && allFilled;
+        bool win = touchIn && touch01 && touch12 && touchOut;
         if (win && !hasWon)
         {
             hasWon = true;
@@ -408,9 +397,9 @@ public class GearPuzzleGame : MonoBehaviour
         }
     }
 
-    void SetGearColor(int index, Color c)
+    void SetGearColor(Gear g, Color c)
     {
-        if (gears[index].image != null) gears[index].image.color = c;
+        if (g != null && g.image != null) g.image.color = c;
     }
 
     void ShowWin()
@@ -459,6 +448,8 @@ public class GearPuzzleGame : MonoBehaviour
 
     void BuildUI()
     {
+        gearBaseDiameter = Mathf.Max(10f, cellHeight - 4f);
+
         // --- Canvas & EventSystem ---
         GameObject canvasGO = new GameObject("GearPuzzleCanvas", typeof(RectTransform));
         canvasGO.transform.SetParent(transform, false);
@@ -496,7 +487,12 @@ public class GearPuzzleGame : MonoBehaviour
         panel.anchorMin = panel.anchorMax = panel.pivot = new Vector2(0.5f, 0.5f);
         panel.anchoredPosition = Vector2.zero;
         panel.sizeDelta = new Vector2(panelWidth, panelHeight);
-        AddImage(panel, panelColor);
+        Image panelImg = AddImage(panel, panelColor);
+        if (customPanelSprite != null)
+        {
+            panelImg.sprite = customPanelSprite;
+            panelImg.type = panelSpriteIsSliced ? Image.Type.Sliced : Image.Type.Simple;
+        }
         panel.gameObject.AddComponent<RectMask2D>(); // keep large gears/overflow inside the popup
 
         Transform root = panel;
@@ -514,47 +510,18 @@ public class GearPuzzleGame : MonoBehaviour
         boardRoot.anchoredPosition = new Vector2(0f, -110f);
         boardRoot.sizeDelta = new Vector2(boardWidth, rowCount * cellHeight);
 
-        // --- IN marker (start of the table, above row 0) ---
-        RectTransform inIconRect = CreateRect("InIcon", boardRoot);
-        SetTopCenterAnchor(inIconRect);
-        inIconRect.anchoredPosition = new Vector2(0f, 48f);
-        inIconRect.sizeDelta = new Vector2(iconSize, iconSize);
-        inIcon = AddImage(inIconRect, colorIconInactive);
-        inIcon.sprite = customInIconSprite != null ? customInIconSprite : arrowSprite;
+        // --- IN gear (fixed, above the player gears) ---
+        inGear = CreateFixedGear(InAnchorRow, "InGear");
 
-        RectTransform inTextRect = CreateRect("InText", boardRoot);
-        SetTopCenterAnchor(inTextRect);
-        inTextRect.anchoredPosition = new Vector2(0f, 14f);
-        inTextRect.sizeDelta = new Vector2(boardWidth, 24f);
-        AddText(inTextRect, inLabelText, markerLabelFontSize, colorIn);
+        // --- OUT gear (fixed, below the player gears) ---
+        outGear = CreateFixedGear(OutAnchorRow, "OutGear");
 
-        // --- OUT marker (end of the table, below the last row) ---
-        RectTransform outTextRect = CreateRect("OutText", boardRoot);
-        SetTopCenterAnchor(outTextRect);
-        outTextRect.anchoredPosition = new Vector2(0f, -(rowCount * cellHeight) - 18f);
-        outTextRect.sizeDelta = new Vector2(boardWidth, 24f);
-        AddText(outTextRect, outLabelText, markerLabelFontSize, colorOut);
-
-        RectTransform outIconRect = CreateRect("OutIcon", boardRoot);
-        SetTopCenterAnchor(outIconRect);
-        outIconRect.anchoredPosition = new Vector2(0f, -(rowCount * cellHeight) - 48f);
-        outIconRect.sizeDelta = new Vector2(iconSize, iconSize);
-        outIcon = AddImage(outIconRect, colorIconInactive);
-        outIcon.sprite = customOutIconSprite != null ? customOutIconSprite : arrowSprite;
-
-        // --- Gears ---
+        // --- Player gears ---
         for (int i = 0; i < 3; i++)
         {
             gears[i] = new Gear();
             CreateGearVisual(i);
         }
-
-        // --- Status text ---
-        RectTransform status = CreateRect("Status", root);
-        SetTopCenterAnchor(status);
-        status.anchoredPosition = new Vector2(0f, -110f - (rowCount * cellHeight) - 80f);
-        status.sizeDelta = new Vector2(panelWidth - 20f, 40f);
-        statusText = AddText(status, "", statusFontSize, statusColor);
 
         // --- Win overlay (contained within the panel) ---
         winPanel = CreateRect("WinPanel", root).gameObject;
@@ -565,6 +532,39 @@ public class GearPuzzleGame : MonoBehaviour
         StretchFull(winTextRect);
         winText = AddText(winTextRect, winMessageText, winFontSize, winTextColor);
         winPanel.SetActive(false);
+    }
+
+    /// <summary>
+    /// Creates one of the two fixed, non-interactive end gears (IN/OUT).
+    /// Same visual system as player gears (sprite, color states, spin) but
+    /// with no hit area, no size label, and a position/size that never
+    /// changes after creation.
+    /// </summary>
+    Gear CreateFixedGear(int anchorRow, string name)
+    {
+        Gear g = new Gear();
+        g.isFixed = true;
+        g.anchorRow = anchorRow;
+        g.size = 1;
+
+        RectTransform root = CreateRect(name + "_Root", boardRoot);
+        SetTopCenterAnchor(root);
+        root.sizeDelta = Vector2.zero;
+        root.anchoredPosition = new Vector2(0f, CenterY(anchorRow));
+        g.root = root;
+
+        RectTransform graphic = CreateRect("Graphic", root);
+        graphic.anchorMin = graphic.anchorMax = graphic.pivot = new Vector2(0.5f, 0.5f);
+        graphic.anchoredPosition = Vector2.zero;
+        graphic.sizeDelta = new Vector2(gearBaseDiameter, gearBaseDiameter);
+        Image img = graphic.gameObject.AddComponent<Image>();
+        img.sprite = gearSprite;
+        img.color = colorFixedGearNormal;
+        img.raycastTarget = false; // not interactive — no hit area at all
+        g.graphic = graphic;
+        g.image = img;
+
+        return g;
     }
 
     void CreateGearVisual(int index)
@@ -584,7 +584,6 @@ public class GearPuzzleGame : MonoBehaviour
         RectTransform graphic = CreateRect("Graphic", root);
         graphic.anchorMin = graphic.anchorMax = graphic.pivot = new Vector2(0.5f, 0.5f);
         graphic.anchoredPosition = Vector2.zero;
-        gearBaseDiameter = Mathf.Max(10f, cellHeight - 4f);
         graphic.sizeDelta = new Vector2(gearBaseDiameter, gearBaseDiameter);
         Image img = graphic.gameObject.AddComponent<Image>();
         img.sprite = gearSprite;
@@ -630,7 +629,7 @@ public class GearPuzzleGame : MonoBehaviour
     }
 
     // ---------------------------------------------------------------
-    // Procedural graphics — used unless you assign your own Sprites above
+    // Procedural graphics — used unless you assign your own Sprite above
     // ---------------------------------------------------------------
 
     /// <summary>Draws a toothed gear silhouette (with a center hole) into a texture.</summary>
@@ -664,35 +663,6 @@ public class GearPuzzleGame : MonoBehaviour
                 float limit = toothZone ? outerR : toothInner;
 
                 bool filled = dist <= limit && dist >= holeR;
-                pix[y * px + x] = filled ? Color.white : clear;
-            }
-        }
-
-        tex.SetPixels(pix);
-        tex.Apply();
-        return Sprite.Create(tex, new Rect(0f, 0f, px, px), new Vector2(0.5f, 0.5f), 100f, 0, SpriteMeshType.FullRect);
-    }
-
-    /// <summary>Draws a solid downward-pointing arrow/triangle into a texture.</summary>
-    Sprite GenerateArrowSprite(int px)
-    {
-        Texture2D tex = new Texture2D(px, px, TextureFormat.RGBA32, false);
-        tex.filterMode = FilterMode.Bilinear;
-        tex.wrapMode = TextureWrapMode.Clamp;
-
-        Color[] pix = new Color[px * px];
-        Color clear = new Color(0f, 0f, 0f, 0f);
-        float half = px / 2f;
-
-        // Row 0 = bottom of the rendered sprite. Apex (width 0) at the
-        // bottom, full width at the top => a triangle that points down.
-        for (int y = 0; y < px; y++)
-        {
-            float frac = y / (float)(px - 1);
-            float halfWidth = half * frac;
-            for (int x = 0; x < px; x++)
-            {
-                bool filled = Mathf.Abs(x - half) <= halfWidth;
                 pix[y * px + x] = filled ? Color.white : clear;
             }
         }
