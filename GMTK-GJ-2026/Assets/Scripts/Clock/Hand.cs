@@ -66,7 +66,7 @@ namespace Clock
             _rb.MoveRotation(targetRotation);
         }
 
-        private float GetSmoothAngle()
+        public float GetSmoothAngle()
         {
             float elapsedSeconds = Clock.TimeManager.Instance.TotalSecondsElapsed;
             float completedSteps = elapsedSeconds / secondsPerStep;
@@ -74,7 +74,7 @@ namespace Clock
             return completedSteps * stepDegrees;
         }
 
-        private float GetSteppedAngle()
+        public float GetSteppedAngle()
         {
             float elapsedSeconds = Clock.TimeManager.Instance.TotalSecondsElapsed;
             int completedSteps = Mathf.FloorToInt(elapsedSeconds / secondsPerStep);
