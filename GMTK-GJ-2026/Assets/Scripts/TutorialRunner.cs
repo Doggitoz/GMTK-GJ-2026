@@ -223,7 +223,7 @@ public class TutorialRunner : MonoBehaviour
     {
         return new DialogueLine
         {
-            speaker = Character.Turtle,
+            speaker = Character.Dial,
             text = text
         };
     }
