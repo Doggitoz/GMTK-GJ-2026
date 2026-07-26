@@ -9,9 +9,20 @@ public class TutorialRunner : MonoBehaviour
     Narration.Canvas NarrationCanvas;
     [SerializeField]
     Narration.Script TutorialScript;
+    [SerializeField]
+    GameObject _tutorialNPC;
 
     [SerializeField]
     private Animator _playerAnimator;
+
+    [SerializeField]
+    private Clock.Hand _hourHand;
+
+    [SerializeField]
+    private Clock.Hand _minuteHand;
+
+    [SerializeField]
+    private Clock.Hand _secondHand;
     GameManager _gameManager => GameManager.Instance;
     void Start()
     {
@@ -53,6 +64,7 @@ public class TutorialRunner : MonoBehaviour
         yield return NarrationCanvas.PlayScript(TutorialScript);
 
         // Enable NPC
+        _tutorialNPC.SetActive(true);
 
         // Disable black canvas
         NarrationCanvas.SetActive(false);
@@ -60,6 +72,8 @@ public class TutorialRunner : MonoBehaviour
 
         // Player animation to get up
         _playerAnimator.SetBool("IsAsleep", false);
+        yield return WaitForAnimation("Standup");
+        yield return new WaitForSeconds(2f);
 
         // NPC dialogue automatically triggered for introduction
         /* smthn smthn leslie real script here
@@ -69,13 +83,13 @@ public class TutorialRunner : MonoBehaviour
          */
 
         // "This is the hour hand. It has to make a full rotation
-        // script to spin the hour hand for a full loop in ~2 seconds
+        yield return _hourHand.TutorialSpin();
 
         // "This is the minute hand. It creates an impassable barrier"
-        // script to spin the minute hand for a full loop. in ~2 seconds
+        yield return _minuteHand.TutorialSpin();
 
         // "This is the second hand. It can be hopped for your convenience"
-        // script to spin the second hand for a full loop. in ~2 seconds
+        yield return _secondHand.TutorialSpin();
 
         _gameManager.SetPlayerActive(true);
 
@@ -95,7 +109,23 @@ public class TutorialRunner : MonoBehaviour
         // "The clock is not nice to those who are new. Good luck.
 
         // Disable NPC
+        _tutorialNPC.SetActive(false);
 
         // insert scripted hard loss. Everything is way too difficult for this run. player is forced to die. Only rust and wind up
+    }
+
+    private IEnumerator WaitForAnimation(string stateName)
+    {
+        // Wait until the animator enters the animation state
+        while (!_playerAnimator.GetCurrentAnimatorStateInfo(0).IsName(stateName))
+        {
+            yield return null;
+        }
+
+        // Wait until the animation finishes
+        while (_playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
+        {
+            yield return null;
+        }
     }
 }

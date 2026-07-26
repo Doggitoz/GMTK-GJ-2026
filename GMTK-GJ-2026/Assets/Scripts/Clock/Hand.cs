@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 namespace Clock
 {
@@ -30,6 +31,10 @@ namespace Clock
         private Rigidbody _rb;
         private Quaternion _startingRotation;
 
+        private bool _tutorialMode;
+
+        [SerializeField] private Collider collisionBox;
+
         GameManager _gameManager => GameManager.Instance;
 
         private void Awake()
@@ -48,6 +53,9 @@ namespace Clock
 
         public void FixedUpdateListener()
         {
+            if (_tutorialMode)
+                return;
+
             if (Clock.TimeManager.Instance == null)
                 return;
 
@@ -80,6 +88,42 @@ namespace Clock
             int completedSteps = Mathf.FloorToInt(elapsedSeconds / secondsPerStep);
 
             return completedSteps * stepDegrees;
+        }
+
+        public IEnumerator TutorialSpin(float duration = 2f)
+        {
+            _tutorialMode = true;
+
+            if (collisionBox != null)
+                collisionBox.enabled = false;
+
+            float elapsed = 0f;
+
+            while (elapsed < duration)
+            {
+                elapsed += Time.deltaTime;
+
+                float percent = Mathf.Clamp01(elapsed / duration);
+                float angle = percent * 360f;
+
+                if (counterClockwise)
+                    angle *= -1f;
+
+                Quaternion targetRotation =
+                    _startingRotation *
+                    Quaternion.AngleAxis(angle, rotationAxis.normalized);
+
+                _rb.MoveRotation(targetRotation);
+
+                yield return null;
+            }
+
+            _rb.MoveRotation(_startingRotation);
+
+            if (collisionBox != null)
+                collisionBox.enabled = true;
+
+            _tutorialMode = false;
         }
 
         private void ResetClock()
