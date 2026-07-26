@@ -5,8 +5,6 @@ using Unity.Cinemachine;
 public class TutorialRunner : MonoBehaviour
 {
     [SerializeField]
-    bool TutorialDisabled;
-    [SerializeField]
     Narration.Canvas NarrationCanvas;
     [SerializeField]
     Narration.Script TutorialScript;
@@ -51,9 +49,6 @@ public class TutorialRunner : MonoBehaviour
 
     private IEnumerator RunTutorialCoroutine()
     {
-        if (TutorialDisabled)
-            yield break;
-
         // Enable black canvas
         NarrationCanvas.SetActive(true);
 

@@ -42,12 +42,17 @@ namespace CMF
         // Use this for initialization
         void Start()
         {
-            tr = transform;
-            mover = GetComponent<Mover>();
             moveAction = InputSystem.actions.FindAction("Move");
             jumpAction = InputSystem.actions.FindAction("Jump");
 
             GameEvents.OnPlayerTeleportRequested += Teleport;
+        }
+
+        private void Awake()
+        {
+            tr = transform;
+            mover = GetComponent<Mover>();
+            GameManager.Instance.OnLoadSave += OnSaveLoaded;
         }
 
         void FixedUpdate()
@@ -199,6 +204,39 @@ namespace CMF
             GameEvents.CompletePlayerTeleport();
         }
 
+        public void OnSaveLoaded()
+        {
+            HardTeleport(GameManager.HubSpawnLocation);
+        }
+
+        public void HardTeleport(Vector3 newPosition)
+        {
+            _isTeleporting = true;
+
+            currentVerticalSpeed = 0f;
+            lastVelocity = Vector3.zero;
+
+            mover.Teleport(newPosition);
+
+            // Force camera to update immediately
+            if (_playerCamera != null)
+            {
+                Vector3 targetPos = new Vector3(
+                    0,
+                    transform.position.y + 5,
+                    transform.position.z - 10
+                );
+
+                _playerCamera.ForceCameraPosition(
+                    targetPos,
+                    _playerCamera.transform.rotation
+                );
+            }
+
+            _isTeleporting = false;
+
+            GameEvents.CompletePlayerTeleport();
+        }
         private Vector3 CalculateMovementDirection()
         {
             if (!GameManager.Instance.PlayerControllerEnabled) return Vector3.zero;
