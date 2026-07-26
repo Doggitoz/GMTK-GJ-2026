@@ -63,7 +63,7 @@ namespace CMF
             }
 
             // Handle jumping;
-            if (isGrounded && GameManager.Instance.PlayerControllerEnabled && jumpAction.IsPressed())
+            if (isGrounded && GameManager.Instance.PlayerControllerEnabled && jumpAction.IsPressed() && !GameItems.HasItem("God’s Femur"));
            {
                 OnJumpStart();
                 currentVerticalSpeed = jumpSpeed;
