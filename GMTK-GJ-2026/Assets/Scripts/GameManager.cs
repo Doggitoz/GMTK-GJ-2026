@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public event Action OnGameStop;
     public event Action OnGameStart;
     public event Action OnTutorialStart;
+    public event Action OnTutorialEnd;
     public event Action OnLoadSave;
 
     public static GameManager Instance { get; private set; }
@@ -62,6 +63,11 @@ public class GameManager : MonoBehaviour
     public void StartTutorial()
     {
         OnTutorialStart?.Invoke();
+    }
+
+    public void EndTutorial()
+    {
+        OnTutorialEnd?.Invoke();
     }
 
     [ContextMenu("Start Game")]

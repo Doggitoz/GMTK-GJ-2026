@@ -8,6 +8,7 @@ public class PlayerTeleporter : MonoBehaviour
     {
         GameEvents.OnLose += TeleportToHub;
         GameEvents.OnWin += TeleportToHub;
+        GameManager.Instance.OnTutorialStart += TeleportToClock;
     }
 
     private void OnDestroy()
@@ -35,7 +36,7 @@ public class PlayerTeleporter : MonoBehaviour
         if (_teleportRoutine != null)
             StopCoroutine(_teleportRoutine);
 
-        _teleportRoutine = StartCoroutine(TeleportToHubCoroutine());
+        _teleportRoutine = StartCoroutine(TeleportToClockCoroutine());
     }
 
     private IEnumerator TeleportToClockCoroutine()

@@ -1,15 +1,24 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TRIALTRACKER : MonoBehaviour
 {
-    public static HashSet<string> completedTrial = new();
+    private void Start()
+    {
+        GameEvents.OnWin += OnCompleteGame;
+    }
+
+    private void OnDestroy()
+    {
+        GameEvents.OnWin -= OnCompleteGame;
+    }
 
     public void OnCompleteGame()
     {
-        foreach (var item in GameItems.Items)
+        Save.Manager.Instance.CompleteGame();
+
+        if (GameItems.Items.Contains("Lucky Break"))
         {
-            completedTrial.Add(item);
+            // Do ending sequence
         }
     }
 }

@@ -32,7 +32,7 @@ public class TutorialRunner : MonoBehaviour
     [SerializeField]
     private CinemachineCamera _yogiBearCam;
     GameManager _gameManager => GameManager.Instance;
-    void Start()
+    void Awake()
     {
         _gameManager.OnTutorialStart += RunTutorial;
     }
@@ -53,14 +53,9 @@ public class TutorialRunner : MonoBehaviour
         NarrationCanvas.SetActive(true);
 
         // Make sure game manager states are correct
-        _gameManager.StopGame();
         _gameManager.SetPlayerActive(false);
 
         yield return new WaitForSeconds(1f);
-
-        // Teleport player to correct space in scene
-        // Vector3(0, 1, -10)
-        _gameManager.SetPlayerActive(false);
 
         // Set player animation to sleep
         _playerAnimator.SetBool("IsAsleep", true);
@@ -175,7 +170,9 @@ public class TutorialRunner : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
 
+        Save.Manager.Instance.CompleteTutorial();
         GameEvents.RequestPlayerTeleport(GameManager.HubSpawnLocation);
+        _gameManager.EndTutorial();
     }
 
     private IEnumerator WaitForAnimation(string stateName)

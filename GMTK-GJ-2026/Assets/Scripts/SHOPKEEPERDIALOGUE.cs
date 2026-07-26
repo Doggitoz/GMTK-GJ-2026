@@ -7,7 +7,7 @@ public class SHOPKEEPERDIALOGUE : MonoBehaviour
 
     public void UpdateDialogue()
     {
-        int trialCount = TRIALTRACKER.completedTrial.Count;
+        int trialCount = Save.Manager.Instance.CurrentSave.completedTrial.Count;
         if (highestDialogueSeen < trialCount)
         {
             highestDialogueSeen += 1;

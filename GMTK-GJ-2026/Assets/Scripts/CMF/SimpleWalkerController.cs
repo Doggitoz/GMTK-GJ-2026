@@ -46,6 +46,7 @@ namespace CMF
             jumpAction = InputSystem.actions.FindAction("Jump");
 
             GameEvents.OnPlayerTeleportRequested += Teleport;
+            GameEvents.OnPlayerHardTeleportRequested += HardTeleport;
         }
 
         private void Awake()

@@ -9,8 +9,8 @@ public class ShopItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public string ItemDescription;
     
     public RectTransform ItemIcon;
-    
-    public bool IsPurchased = false;
+
+    public bool IsPurchased => Save.Manager.Instance.HasUnlockedItem(ItemName);
     public int Cost;
 
     public RectTransform _purchaseDialogObject;
@@ -51,8 +51,8 @@ public class ShopItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         MONEYMANAGER.Instance.LoseMoney(Cost);
 
         GameItems.AddItem(ItemName);
+        Save.Manager.Instance.UnlockItem(ItemName);
 
-        IsPurchased = true;
         var dialogYesButton = _purchaseDialogObject.GetChild(0).GetComponent<Button>();
         dialogYesButton.onClick.RemoveAllListeners();
         _purchaseDialogObject?.gameObject.SetActive(false);

@@ -1328,10 +1328,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1172239298367507824, guid: 6296d07000cad6848b5706c1eb94b3ca, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2350924421908506716, guid: 6296d07000cad6848b5706c1eb94b3ca, type: 3}
       propertyPath: m_Interpolate
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4047531694525520371, guid: 6296d07000cad6848b5706c1eb94b3ca, type: 3}
+      propertyPath: collisionBox
+      value: 
+      objectReference: {fileID: 6860668102764482150}
     - target: {fileID: 4575879510869418083, guid: 6296d07000cad6848b5706c1eb94b3ca, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.83

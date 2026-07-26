@@ -15,6 +15,7 @@ public class MONEYMANAGER : MonoBehaviour
             QuestionDialogueTrigger.OnCorrectAnswer += AddMoney;
             GameManager.Instance.OnGameStart += HideBalance;
             GameManager.Instance.OnGameStop += ShowBalance;
+            GameManager.Instance.OnTutorialEnd += ShowBalance;
 
         } else
         {

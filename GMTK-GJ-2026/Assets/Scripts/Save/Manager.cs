@@ -32,6 +32,7 @@ namespace Save
         public void NewGame()
         {
             CurrentSave = new Save.Data();
+            GameItems.Items.Clear();
             SaveGame();
         }
 
@@ -51,12 +52,19 @@ namespace Save
             if (!File.Exists(SavePath))
             {
                 CurrentSave = new Save.Data();
+                GameItems.Items.Clear();
                 return;
             }
 
             string json = File.ReadAllText(SavePath);
 
             CurrentSave = JsonUtility.FromJson<Save.Data>(json);
+
+            GameItems.Items.Clear();
+            foreach (var item in CurrentSave.unlockedItems)
+            {
+                GameItems.AddItem(item);
+            }
 
             Debug.Log("Game loaded");
         }
@@ -70,6 +78,7 @@ namespace Save
             }
 
             CurrentSave = new Save.Data();
+            GameItems.Items.Clear();
 
             Debug.Log("Save deleted");
         }
@@ -78,6 +87,44 @@ namespace Save
         public bool HasSave()
         {
             return File.Exists(SavePath);
+        }
+
+        public void CompleteTutorial()
+        {
+            CurrentSave.completedTutorial = true;
+            SaveGame();
+        }
+
+        public void CompleteGame()
+        {
+            if (CurrentSave == null)
+                CurrentSave = new Save.Data();
+
+            CurrentSave.beatGame = true;
+
+            foreach (var item in GameItems.Items)
+            {
+                if (!CurrentSave.completedTrial.Contains(item))
+                {
+                    CurrentSave.completedTrial.Add(item);
+                }
+            }
+
+            SaveGame();
+        }
+
+        public bool HasUnlockedItem(string item)
+        {
+            return CurrentSave.unlockedItems.Contains(item);
+        }
+
+        public void UnlockItem(string item)
+        {
+            if (CurrentSave.unlockedItems.Contains(item))
+                return;
+
+            CurrentSave.unlockedItems.Add(item);
+            SaveGame();
         }
     }
 }

@@ -18,7 +18,8 @@ public class ShopHoverDescriptionBox : MonoBehaviour
     {
         foreach (var button in _itemButtons)
         {
-            button.GetComponent<Button>().onClick.AddListener(() => ShowDescription(button));
+            ShopItem item = button;
+            item.GetComponent<Button>().onClick.AddListener(() => ShowDescription(item));
         }
     }
 
@@ -26,7 +27,7 @@ public class ShopHoverDescriptionBox : MonoBehaviour
     {
         _selectedItem = null;
         _nameBox.text = "Shopkeeper";
-        int index = Random.RandomRange(0, DescriptionBarks.Length);
+        int index = Random.Range(0, DescriptionBarks.Length);
         _descriptionBox.text = DescriptionBarks[index];
     }
 
