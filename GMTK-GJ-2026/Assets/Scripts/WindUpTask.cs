@@ -43,6 +43,7 @@ public class WindUpTask : MonoBehaviour, IInteractable
     private void Start()
     {
         windupSound = FMODUnity.RuntimeManager.CreateInstance(windupSoundEvent);
+        _gameManager.OnGameReset += ResetTask;
         _windupStarted = false;
     }
     bool _hasDamaged;
@@ -86,6 +87,19 @@ public class WindUpTask : MonoBehaviour, IInteractable
         }
             
 
+    }
+
+    public void ResetTask()
+    {
+        danger = 0f;
+        _holdingInteract = false;
+        _windupStarted = false;
+        _hasDamaged = false;
+
+        if (windupSound.isValid())
+        {
+            windupSound.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        }
     }
 
     public void OnInteractorDown(Transform interactor) => _holdingInteract = true;
