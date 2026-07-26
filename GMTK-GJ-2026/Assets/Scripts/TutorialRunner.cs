@@ -23,6 +23,18 @@ public class TutorialRunner : MonoBehaviour
 
     [SerializeField]
     private Clock.Hand _secondHand;
+
+    [SerializeField]
+    private DialogueLine[] _introDialogue;
+
+    [SerializeField]
+    private DialogueLine[] _hourHandDialogue;
+
+    [SerializeField]
+    private DialogueLine[] _minuteHandDialogue;
+
+    [SerializeField]
+    private DialogueLine[] _secondHandDialogue;
     GameManager _gameManager => GameManager.Instance;
     void Start()
     {
@@ -63,9 +75,6 @@ public class TutorialRunner : MonoBehaviour
         // Play the narration and wait until its done
         yield return NarrationCanvas.PlayScript(TutorialScript);
 
-        // Enable NPC
-        _tutorialNPC.SetActive(true);
-
         // Disable black canvas
         NarrationCanvas.SetActive(false);
         yield return new WaitForSeconds(3f);
@@ -75,20 +84,38 @@ public class TutorialRunner : MonoBehaviour
         yield return WaitForAnimation("Standup");
         yield return new WaitForSeconds(2f);
 
-        // NPC dialogue automatically triggered for introduction
-        /* smthn smthn leslie real script here
-         * "welcome to clock land bucko
-         * im sure youre confused about whats happening
-         * here ill teach ya"
-         */
+        yield return PlayDialogue(
+            new DialogueLine[]
+            {
+                CreatePlayerDialogue("A voice whispers to you, screaming in from all sides."),
+                CreatePlayerDialogue("From every face, from every indicator…"),
+                CreatePlayerDialogue("And somehow, from the cogs and tickers themselves."),
+                CreatePlayerDialogue("It’s vibration, ancient, unknowable and crying out like a newborn babe."),
+                CreatePlayerDialogue("Somehow… you know it,"),
+                CreatePlayerDialogue("As the slithering…"),
+                CreatePlayerDialogue("Velvety…"),
+                CreatePlayerDialogue("Articulation of the Watcher…"),
+                CreatePlayerDialogue("Yog-Sothoth.")
+            }
+        );
 
-        // Yield Dialogue: "This is the hour hand. It has to make a full rotation
+        // Enable NPC
+        _tutorialNPC.SetActive(true);
+
+        yield return PlayDialogue(
+            new DialogueLine[]
+            {
+                CreateYogSlothothDialogue("Greetings… Ward…"),
+                CreatePlayerDialogue("…Is it a time here?"),
+                CreateYogSlothothDialogue("It is… now, and never, and forever."),
+                CreateYogSlothothDialogue("The season of your final ordeal begins now."),
+                CreateYogSlothothDialogue("We need not delay your suffering...")
+            }
+        );
+
+        // Yield Dialogue: "This is the hour hand. It has to make a full rotation for you to survive."
         yield return _hourHand.TutorialSpin();
-
-        // Yield Dialogue: "This is the minute hand. It creates an impassable barrier"
         yield return _minuteHand.TutorialSpin();
-
-        // Yield Dialogue: "This is the second hand. It can be hopped for your convenience"
         yield return _secondHand.TutorialSpin();
 
         _gameManager.SetPlayerActive(true);
@@ -98,6 +125,8 @@ public class TutorialRunner : MonoBehaviour
 
         // "Its urgent that you tend to the winding of the clock throughout the day.
         // enable wind up task
+
+        // Focus on wind up center of clock
 
         // "Be weary of rust buildup."
         // spawn in a single rust spot
@@ -128,5 +157,53 @@ public class TutorialRunner : MonoBehaviour
         {
             yield return null;
         }
+    }
+
+    DialogueLine CreatePlayerDialogue(string text)
+    {
+        return new DialogueLine
+        {
+            speaker = Character.Player,
+            text = text
+        };
+    }
+
+    DialogueLine CreateYogSlothothDialogue(string text)
+    {
+        return new DialogueLine
+        {
+            speaker = Character.Rat,
+            text = text
+        };
+    }
+
+    DialogueLine CreateMysteryDialogue(string text)
+    {
+        return new DialogueLine
+        {
+            speaker = Character.Turtle,
+            text = text
+        };
+    }
+
+    private IEnumerator PlayDialogue(DialogueLine[] dialogue)
+    {
+        bool dialogueFinished = false;
+
+        void OnDialogueFinished()
+        {
+            dialogueFinished = true;
+        }
+
+        DialogueManager.Instance.OnDialogEnd += OnDialogueFinished;
+
+        DialogueManager.Instance.StartDialogue(dialogue);
+
+        while (!dialogueFinished)
+        {
+            yield return null;
+        }
+
+        DialogueManager.Instance.OnDialogEnd -= OnDialogueFinished;
     }
 }
