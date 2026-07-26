@@ -334,7 +334,16 @@ public class GearMinigameTrigger : MonoBehaviour, IInteractable
     [SerializeField] private bool closeOnInteractorLeave = false;
 
     private GearMinigameSpawner _spawner;
-   
+
+    private void OnEnable()
+    {
+        GameManager.Instance.ClockCondition.AddDamagePercentage(2);
+    }
+
+    private void OnDisable()
+    {
+        GameManager.Instance.ClockCondition.AddDamagePercentage(2);
+    }
 
     public void Initialize(GearMinigameSpawner spawner)
     {
