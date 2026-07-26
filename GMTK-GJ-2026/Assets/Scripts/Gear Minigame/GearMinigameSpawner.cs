@@ -172,7 +172,7 @@ public class GearMinigameSpawner : MonoBehaviour
                                 new Vector3(randomPoint.x, 0f, randomPoint.y);
 
         GameObject trigger = _pool.Get();
-        trigger.transform.SetPositionAndRotation(spawnPosition, Quaternion.identity);
+        trigger.transform.position = spawnPosition;
     }
 
     private GameObject CreateObject()
@@ -337,12 +337,12 @@ public class GearMinigameTrigger : MonoBehaviour, IInteractable
 
     private void OnEnable()
     {
-        GameManager.Instance.ClockCondition.AddDamagePercentage(2);
+        GameManager.Instance.ClockCondition.AddDamagePercentage(10);
     }
 
     private void OnDisable()
     {
-        GameManager.Instance.ClockCondition.AddDamagePercentage(2);
+        GameManager.Instance.ClockCondition.AddDamagePercentage(10);
     }
 
     public void Initialize(GearMinigameSpawner spawner)

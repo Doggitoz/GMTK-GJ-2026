@@ -18,6 +18,8 @@ public class WindUpTask : MonoBehaviour, IInteractable
     [Tooltip("Scale the danger rise by GameManager.TimeScale.")]
     [SerializeField] private bool useGameTimeScale = true;
 
+    [SerializeField] private float damageOnFail = 100f;
+
     public float Danger => danger;
     public float DangerNormalized => danger / 100f; // 0..1 for the UI
 
@@ -64,7 +66,7 @@ public class WindUpTask : MonoBehaviour, IInteractable
         danger = Mathf.Clamp(danger, 0f, 100f);
 
         if (danger >= 100f)
-            _clockCondition.AddDamagePercentage(100f);
+            _clockCondition.AddDamagePercentage(damageOnFail);
 
     }
 
