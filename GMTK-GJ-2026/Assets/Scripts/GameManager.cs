@@ -107,4 +107,22 @@ public class GameManager : MonoBehaviour
     {
         _damagePercent = ClockCondition.DamagePercentage;
     }
+
+    [ContextMenu("Trigger Lose")]
+    public void TriggerLose()
+    {
+        GameEvents.TriggerLose();
+    }
+
+    [ContextMenu("Trigger Break")]
+    public void TriggerBreak()
+    {
+        GameEvents.TriggerClockBreak();
+    }
+
+    [ContextMenu("Trigger Win")]
+    public void TriggerWin()
+    {
+        GameEvents.TriggerWin();
+    }
 }

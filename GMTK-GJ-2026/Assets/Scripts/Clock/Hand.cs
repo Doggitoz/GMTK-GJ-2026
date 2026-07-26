@@ -4,8 +4,7 @@ using System.Collections;
 namespace Clock
 {
     /// <summary>
-    /// Rotates a single clock hand as a kinematic rigidbody, so it keeps perfect time
-    /// yet still collides with and pushes the player.
+    /// Rotates a single clock hand as a kinematic rigidbody.
     /// </summary>
     [RequireComponent(typeof(Rigidbody))]
     public class Hand : MonoBehaviour
@@ -13,31 +12,28 @@ namespace Clock
         [SerializeField] private bool isHourHand;
 
         [Header("Tick timing")]
-        [Tooltip("Game seconds between each step. Second hand = 1, Minute hand = 60, Hour hand = 3600")]
         [SerializeField] private float secondsPerStep = 1f;
 
-        [Tooltip("Degrees moved per step. Second/Minute hand = 6 degrees. Hour hand = 30 degrees.")]
         [SerializeField] private float stepDegrees = 6f;
 
         [Header("Direction")]
-        [Tooltip("Local axis the hand spins around (the clock-face normal). This clock lies flat so Up")]
         [SerializeField] private Vector3 rotationAxis = Vector3.up;
 
-        [Tooltip("Untick this if the hand turns the wrong way when you press Play.")]
         [SerializeField] private bool counterClockwise = true;
 
         [Header("Motion style")]
-        [Tooltip("On = smooth sweep. Off = snap one step at a time.")]
         [SerializeField] private bool smooth = true;
+
+        private float _currentAngle;
 
         private Rigidbody _rb;
         private Quaternion _startingRotation;
 
         private bool _tutorialMode;
 
-        [SerializeField] private Collider collisionBox;
+        private float _speedMultiplier = 1f;
 
-        GameManager _gameManager => GameManager.Instance;
+        [SerializeField] private Collider collisionBox;
 
         private void Awake()
         {
@@ -50,7 +46,7 @@ namespace Clock
 
         private void Start()
         {
-            _gameManager.OnGameReset += ResetClock;
+            GameManager.Instance.OnGameReset += ResetClock;
         }
 
         public void FixedUpdateListener()
@@ -61,10 +57,17 @@ namespace Clock
             if (Clock.TimeManager.Instance == null)
                 return;
 
-            if (secondsPerStep <= 0f)
-                return;
+            float targetAngle = GetTargetAngle();
 
-            float angle = smooth ? GetSmoothAngle() : GetSteppedAngle();
+            float speed = _speedMultiplier;
+
+            _currentAngle = Mathf.MoveTowards(
+                _currentAngle,
+                targetAngle,
+                Time.fixedDeltaTime * 360f * speed
+            );
+
+            float angle = _currentAngle;
 
             if (counterClockwise)
                 angle *= -1f;
@@ -76,29 +79,24 @@ namespace Clock
             _rb.MoveRotation(targetRotation);
         }
 
-        public float GetSmoothAngle()
+        private float GetTargetAngle()
         {
             float elapsed = Clock.TimeManager.Instance.TotalSecondsElapsed;
 
             if (isHourHand)
             {
-                // Full game timer = one full rotation
+                // Full timer = one revolution
                 return Clock.TimeManager.Instance.NormalizedTime * 360f;
             }
 
-            // Existing behavior for minute/second hands
-            float completedSteps = elapsed / secondsPerStep;
-
-            return completedSteps * stepDegrees;
+            return (elapsed / secondsPerStep) * stepDegrees;
         }
 
-        public float GetSteppedAngle()
+        public void SetSpeedMultiplier(float multiplier)
         {
-            float elapsedSeconds = Clock.TimeManager.Instance.TotalSecondsElapsed;
-            int completedSteps = Mathf.FloorToInt(elapsedSeconds / secondsPerStep);
-
-            return completedSteps * stepDegrees;
+            _speedMultiplier = multiplier;
         }
+
 
         public IEnumerator TutorialSpin(float duration = 4f)
         {
@@ -136,8 +134,10 @@ namespace Clock
             _tutorialMode = false;
         }
 
+
         private void ResetClock()
         {
+            _speedMultiplier = 1f;
             _rb.MoveRotation(_startingRotation);
         }
     }

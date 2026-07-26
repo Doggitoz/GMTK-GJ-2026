@@ -36,7 +36,7 @@ namespace Clock
 
         public void SetRepairTimeScale(float newScale)
         {
-            _deteriorationTimeScale = newScale;
+            _repairTimeScale = newScale;
         }
     }
 }
