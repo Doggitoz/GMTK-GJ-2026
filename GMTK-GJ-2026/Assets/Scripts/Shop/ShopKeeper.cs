@@ -11,6 +11,8 @@ public class ShopKeeper : MonoBehaviour, IInteractable
     public UnityEvent OpenShop;
     public UnityEvent CloseShop;
 
+    public bool ShowInteractionIndicator => true;
+
     private void Awake()
     {
         CloseShop?.Invoke();    

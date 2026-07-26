@@ -335,6 +335,8 @@ public class GearMinigameTrigger : MonoBehaviour, IInteractable
 
     private GearMinigameSpawner _spawner;
 
+    public bool ShowInteractionIndicator => true;
+
     private void OnEnable()
     {
         GameManager.Instance.ClockCondition.AddDamagePercentage(10);

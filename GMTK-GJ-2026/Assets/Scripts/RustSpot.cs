@@ -33,6 +33,8 @@ public class RustSpot : MonoBehaviour, IInteractable
 
     public static float growthRate => GameItems.HasItem("RustSlow") ? 0.1f : 0.3f;
 
+    public bool ShowInteractionIndicator => true;
+
     private bool _isBeingCleaned;
     private bool _cleaningStarted;
 

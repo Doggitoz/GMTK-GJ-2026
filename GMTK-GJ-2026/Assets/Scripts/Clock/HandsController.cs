@@ -19,15 +19,19 @@ namespace Clock
 
         private bool _clockBreaking;
 
+        private Coroutine _breakRoutine;
+
         private void Start()
         {
             GameEvents.OnBreakClock += BreakClock;
+            GameManager.Instance.OnGameReset += ResetHands;
         }
 
 
         private void OnDestroy()
         {
             GameEvents.OnBreakClock -= BreakClock;
+            GameManager.Instance.OnGameReset -= ResetHands;
         }
 
 
@@ -48,7 +52,23 @@ namespace Clock
             if (_clockBreaking)
                 return;
 
-            StartCoroutine(BreakClockRoutine());
+            _breakRoutine = StartCoroutine(BreakClockRoutine());
+        }
+
+        private void ResetHands()
+        {
+            if (_breakRoutine != null)
+            {
+                StopCoroutine(_breakRoutine);
+                _breakRoutine = null;
+            }
+
+            _clockBreaking = false;
+
+            foreach (Clock.Hand hand in _clockHands)
+            {
+                hand.SetSpeedMultiplier(1f);
+            }
         }
 
 
@@ -84,7 +104,6 @@ namespace Clock
             {
                 hand.SetSpeedMultiplier(finalSpeedMultiplier);
             }
-
 
             GameEvents.TriggerLose();
         }

@@ -13,6 +13,8 @@ public class DialogInteractable : MonoBehaviour, IInteractable
 
     private bool _isTalking;
 
+    public bool ShowInteractionIndicator => true;
+
     public void Interact()
     {
         if (!_isTalking && DialogueManager.Instance != null)

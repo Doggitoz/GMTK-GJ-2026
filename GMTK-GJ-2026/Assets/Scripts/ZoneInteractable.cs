@@ -3,8 +3,11 @@ using UnityEngine.Events;
 
 public class ZoneInteractable : MonoBehaviour, IInteractable
 {
+    public bool ShowInteractionIndicator => false;
+
     [SerializeField]
     private UnityEvent onEnter;
+
     [SerializeField]
     private UnityEvent onLeave;
 

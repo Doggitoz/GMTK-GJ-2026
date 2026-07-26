@@ -3,6 +3,7 @@ using UnityEngine;
 public interface IInteractable
 {
     Transform transform { get; }
+    bool ShowInteractionIndicator { get; }
     void OnInteractorHover(Transform interactor);
     void OnInteractorLeave(Transform interactor);
     void OnInteractorDown(Transform interactor);

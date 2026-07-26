@@ -138,6 +138,8 @@ namespace Clock
         private void ResetClock()
         {
             _speedMultiplier = 1f;
+            _currentAngle = 0f;
+
             _rb.MoveRotation(_startingRotation);
         }
     }

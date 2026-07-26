@@ -57,7 +57,18 @@ public class TriggerInteractor : MonoBehaviour
             _selectedInteractables.Clear();
         }
 
-        _interactionVisual.gameObject.SetActive(_currentInteractables != null && _currentInteractables.Count > 0);
+        bool showIndicator = false;
+
+        foreach (var interactable in _currentInteractables)
+        {
+            if (interactable.ShowInteractionIndicator)
+            {
+                showIndicator = true;
+                break;
+            }
+        }
+
+        _interactionVisual.gameObject.SetActive(showIndicator); ;
     }
     private readonly List<IInteractable> _toRemove = new();
 

@@ -23,6 +23,8 @@ public class DragInteractable : MonoBehaviour, IInteractable
 
     private Rigidbody rb;
 
+    public bool ShowInteractionIndicator => true;
+
     private void Awake()
     {
         targetCamera = Camera.main;

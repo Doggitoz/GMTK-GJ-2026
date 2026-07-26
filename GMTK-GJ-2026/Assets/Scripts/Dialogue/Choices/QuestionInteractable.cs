@@ -10,6 +10,8 @@ public class QuestionInteractable : MonoBehaviour, IInteractable
 {
     private QuestionDialogueTrigger questionTrigger;
 
+    public bool ShowInteractionIndicator => true;
+
     private void Awake()
     {
         questionTrigger = GetComponent<QuestionDialogueTrigger>();

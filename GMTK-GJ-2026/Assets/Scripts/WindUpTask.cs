@@ -30,6 +30,8 @@ public class WindUpTask : MonoBehaviour, IInteractable
     private GameManager _gameManager => GameManager.Instance;
     private Clock.Condition _clockCondition => _gameManager.ClockCondition;
 
+    public bool ShowInteractionIndicator => true;
+
     [SerializeField] private FMODUnity.EventReference windupSoundEvent;
     private FMOD.Studio.EventInstance windupSound;
 

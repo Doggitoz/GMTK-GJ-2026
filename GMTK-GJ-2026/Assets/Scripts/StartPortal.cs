@@ -8,6 +8,8 @@ public class StartPortal : MonoBehaviour, IInteractable
     private bool _debounce = false;
     private bool _teleportFinished;
 
+    public bool ShowInteractionIndicator => true;
+
     public void OnInteractorDown(Transform interactor)
     {
         if (_debounce) return;
