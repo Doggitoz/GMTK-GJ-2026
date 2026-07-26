@@ -32,6 +32,10 @@ namespace CMF
         public float jumpSpeed = 10f;
         public float gravity = 10f;
 
+        [SerializeField] private FMODUnity.EventReference jumpSoundEvent;
+        [SerializeField] private FMODUnity.EventReference landSoundEvent;
+        [SerializeField] private FMODUnity.ParamRef muteFootSounds;
+
         Vector3 lastVelocity = Vector3.zero;
 
         public Transform cameraTransform;
@@ -271,17 +275,26 @@ namespace CMF
         //This function is called when the controller has landed on a surface after being in the air;
         void OnGroundContactRegained(Vector3 _collisionVelocity)
         {
+            Debug.Log("on land");
+            FMODUnity.RuntimeManager.StudioSystem.setParameterByName("MuteFootsteps", 1, false);
+            FMODUnity.RuntimeManager.PlayOneShot(landSoundEvent, transform.position);
+
             //Call 'OnLand' delegate function;
             if (OnLand != null)
                 OnLand(_collisionVelocity);
+                
         }
 
         //This function is called when the controller has started a jump;
         void OnJumpStart()
         {
+            Debug.Log("on jump");
+            FMODUnity.RuntimeManager.StudioSystem.setParameterByName("MuteFootsteps", 0, false);
+            FMODUnity.RuntimeManager.PlayOneShot(jumpSoundEvent, transform.position);
             //Call 'OnJump' delegate function;
             if (OnJump != null)
                 OnJump(lastVelocity);
+                
         }
 
         //Return the current velocity of the character;

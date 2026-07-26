@@ -335,11 +335,14 @@ public class GearMinigameTrigger : MonoBehaviour, IInteractable
 
     private GearMinigameSpawner _spawner;
 
+    private FMOD.Studio.EventInstance gearDropSound;
     public bool ShowInteractionIndicator => true;
 
     private void OnEnable()
     {
         GameManager.Instance.ClockCondition.AddDamagePercentage(10);
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Clock/GearShift");
+
     }
 
     private void OnDisable()

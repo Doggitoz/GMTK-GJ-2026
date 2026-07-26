@@ -8,6 +8,9 @@ public class AutoDoor : MonoBehaviour
     [SerializeField]
     string _boolParameterName = "IsOpen";
 
+    [SerializeField] private FMODUnity.EventReference doorOpenSound;
+    [SerializeField] private FMODUnity.EventReference closeDoorSound;
+
     void Awake()
     {
         if (_animator == null)
@@ -24,11 +27,12 @@ public class AutoDoor : MonoBehaviour
     public void OpenDoors()
     {
         _animator.SetBool(_boolParameterName, true);
-
+        FMODUnity.RuntimeManager.PlayOneShot(doorOpenSound, transform.position);
     }
     public void CloseDoors()
     {
         _animator.SetBool(_boolParameterName, false);
+        FMODUnity.RuntimeManager.PlayOneShot(closeDoorSound, transform.position);
     }
 
 }
