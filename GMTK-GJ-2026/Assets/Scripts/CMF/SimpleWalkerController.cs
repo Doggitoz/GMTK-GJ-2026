@@ -27,6 +27,7 @@ namespace CMF
         private Mover mover;
         float currentVerticalSpeed = 0f;
         bool isGrounded;
+        private bool _isTeleporting = false;
         public float movementSpeed = 7f;
         public float jumpSpeed = 10f;
         public float gravity = 10f;
@@ -51,6 +52,9 @@ namespace CMF
 
         void FixedUpdate()
         {
+            if (_isTeleporting)
+                return;
+
             //Run initial mover ground check;
             mover.CheckForGround();
 
@@ -107,6 +111,7 @@ namespace CMF
 
         private IEnumerator TeleportRoutine(Vector3 newPosition)
         {
+            _isTeleporting = true;
             if (_playerAnimator != null)
             {
                 _playerAnimator.SetBool(_teleportBoolParameter, true);
@@ -126,18 +131,12 @@ namespace CMF
 
 
             // Actual teleport
-            transform.position = newPosition;
-
             currentVerticalSpeed = 0f;
             lastVelocity = Vector3.zero;
 
-            mover.SetVelocity(Vector3.zero);
+            mover.Teleport(newPosition);
 
-            Rigidbody rb = GetComponent<Rigidbody>();
-            if (rb != null)
-            {
-                rb.linearVelocity = Vector3.zero;
-            }
+            yield return new WaitForFixedUpdate();
 
 
             // Reset camera position
@@ -168,6 +167,7 @@ namespace CMF
                 _playerAnimator.SetBool(_teleportBoolParameter, false);
             }
 
+            _isTeleporting = false;
             GameManager.Instance.SetPlayerActive(true);
         }
 
