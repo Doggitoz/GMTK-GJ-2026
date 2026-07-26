@@ -5,6 +5,9 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Collider))]
 public class TriggerInteractor : MonoBehaviour
 {
+    [SerializeField]
+    Transform _interactionVisual;
+
     InputAction _interactAction;
 
     HashSet<IInteractable> _currentInteractables = new();
@@ -55,6 +58,8 @@ public class TriggerInteractor : MonoBehaviour
 
             _selectedInteractables.Clear();
         }
+
+        _interactionVisual.gameObject.SetActive(_currentInteractables != null && _currentInteractables.Count > 0);
     }
     private readonly List<IInteractable> _toRemove = new();
 
