@@ -15,12 +15,25 @@ public class StartPortal : MonoBehaviour, IInteractable
         StartCoroutine(StartGameRoutine());
     }
 
+    private bool _teleportFinished;
+
     private IEnumerator StartGameRoutine()
     {
         _debounce = true;
-        GameEvents.RequestTeleport(GameManager.ClockSpawnLocation);
 
-        yield return new WaitForSeconds(7f);
+        _teleportFinished = false;
+
+        void OnFinished() => _teleportFinished = true;
+
+        GameEvents.OnPlayerTeleportCompleted += OnFinished;
+
+        GameEvents.RequestPlayerTeleport(GameManager.ClockSpawnLocation);
+
+        yield return new WaitUntil(() => _teleportFinished);
+
+        yield return new WaitForSeconds(3f);
+
+        GameEvents.OnPlayerTeleportCompleted -= OnFinished;
 
         GameManager.Instance.StartGame();
         _debounce = false;
