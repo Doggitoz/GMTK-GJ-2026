@@ -44,16 +44,14 @@ public class TriggerInteractor : MonoBehaviour
 
         foreach (var interactable in _selectedInteractables)
         {
-            if (interactable != null)
-                interactable.OnInteractorStay(transform);
+            interactable.OnInteractorStay(transform);
         }
 
         if (wasReleasedThisFrame)
         {
             foreach (var interactable in _selectedInteractables)
             {
-                if (interactable != null)
-                    interactable.OnInteractorUp(transform);
+                interactable.OnInteractorUp(transform);
             }
 
             _selectedInteractables.Clear();
@@ -97,7 +95,7 @@ public class TriggerInteractor : MonoBehaviour
         foreach (var interactable in _selectedInteractables)
         {
             var unityObj = interactable as UnityEngine.Object;
-            if (unityObj)
+            if (unityObj == null)
                 _toRemove.Add(interactable);
         }
 
