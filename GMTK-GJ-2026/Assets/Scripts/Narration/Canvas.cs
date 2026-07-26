@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace Narration
 {
@@ -16,13 +17,23 @@ namespace Narration
         private InputAction _interactAction;
 
         [SerializeField]
-        private GameObject CanvasUI;
+        private CanvasGroup _canvasGroup;
+
+        [SerializeField]
+        private float fadeInDuration = 0.5f;
+
+        [SerializeField]
+        private float fadeOutDuration = 0.25f;
+
+        private Coroutine fadeRoutine;
 
         private bool _advanceRequested;
 
         private void Awake()
         {
             _interactAction = InputSystem.actions.FindAction("Interact");
+            _canvasGroup.alpha = 0f;
+            narrationText.enabled = false;
         }
 
         /// <summary>
@@ -42,7 +53,46 @@ namespace Narration
 
         public void SetActive(bool active)
         {
-            CanvasUI.SetActive(active);
+            if (fadeRoutine != null)
+                StopCoroutine(fadeRoutine);
+
+            narrationText.enabled = active;
+
+            _canvasGroup.interactable = active;
+            _canvasGroup.blocksRaycasts = active;
+
+            float duration = active ? fadeInDuration : fadeOutDuration;
+            float targetAlpha = active ? 1f : 0f;
+
+            fadeRoutine = StartCoroutine(FadeBackground(targetAlpha, duration));
+        }
+
+        private IEnumerator FadeBackground(float targetAlpha, float duration)
+        {
+            float startAlpha = _canvasGroup.alpha;
+
+            // Handle instant fades.
+            if (duration <= 0f)
+            {
+                _canvasGroup.alpha = targetAlpha;
+                yield break;
+            }
+
+            float elapsed = 0f;
+
+            while (elapsed < duration)
+            {
+                elapsed += Time.deltaTime;
+
+                _canvasGroup.alpha = Mathf.Lerp(
+                    startAlpha,
+                    targetAlpha,
+                    elapsed / duration);
+
+                yield return null;
+            }
+
+            _canvasGroup.alpha = targetAlpha;
         }
 
         private IEnumerator PlayScriptRoutine(Narration.Script script)
