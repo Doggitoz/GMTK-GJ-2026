@@ -214,16 +214,17 @@ public class TutorialRunner : MonoBehaviour
     {
         return new DialogueLine
         {
-            speaker = Character.Rat,
+            speaker = Character.YogSlothoth,
             text = text
         };
     }
+
 
     DialogueLine CreateMysteryDialogue(string text)
     {
         return new DialogueLine
         {
-            speaker = Character.Dial,
+            speaker = Character.Unknown,
             text = text
         };
     }

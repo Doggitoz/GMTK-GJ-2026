@@ -16,9 +16,12 @@ using System;
 public enum Character
 {
     Dial = 0,
-    Rat = 1,
+    King = 1,
     Player = 2,
-    Shopkeeper = 3
+    Shopkeeper = 3,
+    YogSlothoth = 4,
+    Unknown = 5
+
 }
 
 /// <summary>One line of dialogue: who's speaking + what they say.</summary>
