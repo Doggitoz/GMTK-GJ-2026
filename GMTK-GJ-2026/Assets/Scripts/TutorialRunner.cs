@@ -170,7 +170,6 @@ public class TutorialRunner : MonoBehaviour
         yield return new WaitForSeconds(4f);
 
         _gameManager.SetPlayerActive(true);
-
         _gameManager.StartGame();
     }
 
