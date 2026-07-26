@@ -17,7 +17,7 @@ public class PlayerTeleporter : MonoBehaviour
         GameEvents.OnWin -= TeleportToHub;
     }
 
-    private void TeleportToHub()
+    public void TeleportToHub()
     {
         if (_teleportRoutine != null)
             StopCoroutine(_teleportRoutine);
@@ -31,7 +31,7 @@ public class PlayerTeleporter : MonoBehaviour
         GameEvents.RequestPlayerTeleport(GameManager.HubSpawnLocation);
     }
 
-    private void TeleportToClock()
+    public void TeleportToClock()
     {
         if (_teleportRoutine != null)
             StopCoroutine(_teleportRoutine);

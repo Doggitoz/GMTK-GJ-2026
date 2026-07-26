@@ -21,8 +21,8 @@ namespace Clock
 
         [SerializeField] private bool counterClockwise = true;
 
-        [Header("Motion style")]
-        [SerializeField] private bool smooth = true;
+/*        [Header("Motion style")]
+        [SerializeField] private bool smooth = true;*/
 
         private float _currentAngle;
 
