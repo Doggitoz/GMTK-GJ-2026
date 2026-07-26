@@ -30,5 +30,10 @@ public class PlayerAnimations : MonoBehaviour
         _animator.SetBool(IsGroundedBoolParameter, _playerController.IsGrounded());
         _animator.SetBool(IsMovingBoolParameter, _playerController.GetMovementVelocity().sqrMagnitude > 0);
         _animator.SetBool(IsInteractingBoolParameter, _interactor.IsInteracting());
+
+        if (_animator.GetBool("IsAsleep"))
+        {
+            _playerController.
+        }
     }
 }
