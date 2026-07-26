@@ -10,6 +10,8 @@ namespace Clock
     [RequireComponent(typeof(Rigidbody))]
     public class Hand : MonoBehaviour
     {
+        [SerializeField] private bool isHourHand;
+
         [Header("Tick timing")]
         [Tooltip("Game seconds between each step. Second hand = 1, Minute hand = 60, Hour hand = 3600")]
         [SerializeField] private float secondsPerStep = 1f;
@@ -76,8 +78,16 @@ namespace Clock
 
         public float GetSmoothAngle()
         {
-            float elapsedSeconds = Clock.TimeManager.Instance.TotalSecondsElapsed;
-            float completedSteps = elapsedSeconds / secondsPerStep;
+            float elapsed = Clock.TimeManager.Instance.TotalSecondsElapsed;
+
+            if (isHourHand)
+            {
+                // Full game timer = one full rotation
+                return Clock.TimeManager.Instance.NormalizedTime * 360f;
+            }
+
+            // Existing behavior for minute/second hands
+            float completedSteps = elapsed / secondsPerStep;
 
             return completedSteps * stepDegrees;
         }
