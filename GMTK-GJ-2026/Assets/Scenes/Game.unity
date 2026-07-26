@@ -4130,11 +4130,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 943157315453919438, guid: a807daa90524e104db1d402091a38f18, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 943157315453919438, guid: a807daa90524e104db1d402091a38f18, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3903987253406224321, guid: a807daa90524e104db1d402091a38f18, type: 3}
       propertyPath: _hourHand
@@ -4152,6 +4152,10 @@ PrefabInstance:
       propertyPath: _playerAnimator
       value: 
       objectReference: {fileID: 1245427630}
+    - target: {fileID: 4120498330896711832, guid: a807daa90524e104db1d402091a38f18, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4813284144588708629, guid: a807daa90524e104db1d402091a38f18, type: 3}
       propertyPath: _pauseMenuObject
       value: 
@@ -4199,30 +4203,6 @@ PrefabInstance:
     - target: {fileID: 5299819189394008759, guid: a807daa90524e104db1d402091a38f18, type: 3}
       propertyPath: m_Name
       value: GameManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 6489177796634189220, guid: a807daa90524e104db1d402091a38f18, type: 3}
-      propertyPath: m_Pivot.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6489177796634189220, guid: a807daa90524e104db1d402091a38f18, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6489177796634189220, guid: a807daa90524e104db1d402091a38f18, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6489177796634189220, guid: a807daa90524e104db1d402091a38f18, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 145.20001
-      objectReference: {fileID: 0}
-    - target: {fileID: 6489177796634189220, guid: a807daa90524e104db1d402091a38f18, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -45
-      objectReference: {fileID: 0}
-    - target: {fileID: 6489177796634189220, guid: a807daa90524e104db1d402091a38f18, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -52.06
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
