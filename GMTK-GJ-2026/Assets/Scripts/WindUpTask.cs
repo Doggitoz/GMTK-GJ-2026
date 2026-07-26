@@ -22,6 +22,7 @@ public class WindUpTask : MonoBehaviour, IInteractable
 
     public float Danger => danger;
     public float DangerNormalized => danger / 100f; // 0..1 for the UI
+    public bool IsWinding => _windupStarted;
 
     private bool _holdingInteract;
     private bool _windupStarted;
@@ -45,8 +46,13 @@ public class WindUpTask : MonoBehaviour, IInteractable
 
     private void Update()
     {
-        if (!_gameManager.GameActive) return;
-        float deteriorationScale = (useGameTimeScale) ? _clockCondition.DeteriorationTimeScale: 1f;
+        if (!_gameManager.GameActive)
+        {
+            _windupStarted = false;
+            windupSound.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            return;
+        };
+        float deteriorationScale = (useGameTimeScale) ? _clockCondition.DeteriorationTimeScale : 1f;
         bool standingStill = _moveAction == null || _moveAction.ReadValue<Vector2>().magnitude <= standStillThreshold;
         if (_holdingInteract && standingStill)
         {

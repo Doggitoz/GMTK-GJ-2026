@@ -788,6 +788,26 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &304883602 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 719899250154998813, guid: 7a1f155d9d4836443bb7a4e115ebb6d9, type: 3}
+  m_PrefabInstance: {fileID: 1049980570}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &304883604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 304883602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01341015145dd0e4282d92b7a10b3efa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WindUpTeethRotator
+  _task: {fileID: 1084220245}
+  rotationSpeed: 180
+  axis: {x: 0, y: 0, z: 1}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -2706,6 +2726,9 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 719899250154998813, guid: 7a1f155d9d4836443bb7a4e115ebb6d9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 304883604}
     - targetCorrespondingSourceObject: {fileID: 3760112543678261271, guid: 7a1f155d9d4836443bb7a4e115ebb6d9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 819390099}
@@ -6090,7 +6113,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5670464994393129521, guid: 470e873949a048b408ed2b4cc7d57a22, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8746804945805381081, guid: 470e873949a048b408ed2b4cc7d57a22, type: 3}
       propertyPath: m_LocalPosition.x

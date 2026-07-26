@@ -64,7 +64,6 @@ public class ItemHudDisplay : MonoBehaviour
         ClearChildren(_iconBar);
         foreach (var entry in _catalog)
         {
-            Debug.Log($"{entry.displayName}: {GameItems.HasItem(entry.itemKey)}");
             if (!GameItems.HasItem(entry.itemKey)) continue;
             var icon = Instantiate(_iconPrefab, _iconBar);
             icon.sprite = entry.icon;
