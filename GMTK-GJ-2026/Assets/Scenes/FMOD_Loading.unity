@@ -346,6 +346,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 394431008627882445, guid: dc570c46306862840af713a6c668db1d, type: 3}
+      propertyPath: Scene
+      value: MainMenu
+      objectReference: {fileID: 0}
     - target: {fileID: 1189997562864815478, guid: dc570c46306862840af713a6c668db1d, type: 3}
       propertyPath: m_Name
       value: ScriptUsageLoading
