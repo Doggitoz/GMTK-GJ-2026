@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Pool;
+using System.Collections.Generic;
 
 public class RustSpotSpawner : MonoBehaviour
 {
@@ -17,6 +18,9 @@ public class RustSpotSpawner : MonoBehaviour
     private ObjectPool<GameObject> _pool;
     private float _currentSpawnFrequency;
     private float _timer;
+    private readonly List<GameObject> _activeObjects = new();
+
+    private GameManager _gameManager => GameManager.Instance;
 
     private void Awake()
     {
@@ -34,8 +38,14 @@ public class RustSpotSpawner : MonoBehaviour
             spawnFrequencyRange.y);
     }
 
+    private void Start()
+    {
+        _gameManager.OnGameReset += ResetPool;
+    }
+
     private void Update()
     {
+        if (!_gameManager.GameActive) return;
         _timer += Time.deltaTime;
 
         if (_timer >= _currentSpawnFrequency)
@@ -75,11 +85,13 @@ public class RustSpotSpawner : MonoBehaviour
     private void OnGetFromPool(GameObject obj)
     {
         obj.SetActive(true);
+        _activeObjects.Add(obj);
     }
 
     private void OnReleaseToPool(GameObject obj)
     {
         obj.SetActive(false);
+        _activeObjects.Remove(obj);
     }
 
     private void OnDestroyPoolObject(GameObject obj)
@@ -91,5 +103,18 @@ public class RustSpotSpawner : MonoBehaviour
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, spawnRadius);
+    }
+
+    [ContextMenu("Reset Pool")]
+    private void ResetPool()
+    {
+        foreach (GameObject obj in _activeObjects.ToArray())
+        {
+            _pool.Release(obj);
+        }
+
+        _activeObjects.Clear();
+
+        _timer = 0f;
     }
 }

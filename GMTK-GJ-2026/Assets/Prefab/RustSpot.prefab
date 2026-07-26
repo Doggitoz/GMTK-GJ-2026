@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6122415737941138109}
   - component: {fileID: 6143332985061109703}
   - component: {fileID: 7969104858466468738}
+  - component: {fileID: 1116999011566932868}
   m_Layer: 0
   m_Name: RustSpot
   m_TagString: Untagged
@@ -46,8 +47,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4ced72c76f58914d84ef225fc66d1d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RustSpot
+  _visuals: {fileID: 2909458250678621633}
   cleanRate: 0.75
-  minScale: 0.25
+  minScale: 2
+  rustCleaningSoundEvent:
+    Guid:
+      Data1: 892364349
+      Data2: 1106760930
+      Data3: -1951010664
+      Data4: -1085972117
+    Path: event:/SFX/RustScrub
 --- !u!65 &7969104858466468738
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -69,6 +78,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1116999011566932868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3797462763680878405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioEventEmitter
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1100022540
+      Data2: 1271761888
+      Data3: -295810885
+      Data4: 211129770
+    Path: event:/SFX/RustSpread
+  Event: 
+  EventPlayTrigger: 11
+  EventStopTrigger: 12
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &8835727991636941271
 GameObject:
   m_ObjectHideFlags: 0

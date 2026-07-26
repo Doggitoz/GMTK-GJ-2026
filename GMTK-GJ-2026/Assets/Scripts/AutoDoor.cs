@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem.LowLevel;
 
-public class AutoDoor : MonoBehaviour, IInteractable
+public class AutoDoor : MonoBehaviour
 {
     [SerializeField]
     Animator _animator;
@@ -21,37 +21,12 @@ public class AutoDoor : MonoBehaviour, IInteractable
             enabled = false;
         }
     }
-
-    public void OnInteractorDown(Transform interactor)
-    {   
-    }
-
-    public void OnInteractorHover(Transform interactor)
-    {
-        if (!interactor.TryGetComponent<TriggerInteractor>(out var _)) return;
-        OpenDoors();
-    }
-
-    public void OnInteractorLeave(Transform interactor)
-    {
-        if (!interactor.TryGetComponent<TriggerInteractor>(out var _)) return;
-        CloseDoors();
-    }
-
-    public void OnInteractorStay(Transform interactor)
-    {
-    }
-
-    public void OnInteractorUp(Transform interactor)
-    {
-    }
-
-    void OpenDoors()
+    public void OpenDoors()
     {
         _animator.SetBool(_boolParameterName, true);
 
     }
-    void CloseDoors()
+    public void CloseDoors()
     {
         _animator.SetBool(_boolParameterName, false);
     }

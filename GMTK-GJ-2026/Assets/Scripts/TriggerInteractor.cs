@@ -105,4 +105,9 @@ public class TriggerInteractor : MonoBehaviour
         interactable.OnInteractorLeave(transform);
         _currentInteractables.Remove(interactable);
     }
+
+    public bool IsInteracting()
+    {
+        return _selectedInteractables.Count > 0;
+    }
 }

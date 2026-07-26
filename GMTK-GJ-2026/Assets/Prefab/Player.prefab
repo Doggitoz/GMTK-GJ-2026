@@ -13,9 +13,11 @@ GameObject:
   - component: {fileID: 2132564976584129316}
   - component: {fileID: 6753732344209035485}
   - component: {fileID: 821182819701810875}
+  - component: {fileID: 5687000424412891349}
+  - component: {fileID: 6520560632030351976}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -125,6 +127,38 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5687000424412891349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2703879691532222877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464185e70fc17ad40a51d0a0974bfdc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimations
+  _playerController: {fileID: 2273331331737169516}
+  _interactor: {fileID: 5811227058117569636}
+  _animator: {fileID: 2471024936728854284}
+  IsGroundedBoolParameter: IsGrounded
+  IsMovingBoolParameter: IsMoving
+  IsInteractingBoolParameter: IsInteracting
+--- !u!114 &6520560632030351976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2703879691532222877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cc4614b56f53ca41b43cd39f7add4f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StopMovementOnInteract
+  _controller: {fileID: 2273331331737169516}
+  _interactor: {fileID: 5811227058117569636}
 --- !u!1 &3873075982857283661
 GameObject:
   m_ObjectHideFlags: 0
@@ -136,6 +170,7 @@ GameObject:
   - component: {fileID: 1578072890522391764}
   - component: {fileID: 2289903616455606465}
   - component: {fileID: 5368146412869051735}
+  - component: {fileID: 2471024936728854284}
   m_Layer: 0
   m_Name: Square
   m_TagString: Untagged
@@ -207,7 +242,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: a9d47b4d5cdc60b4d9056d4441d7ecc3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2cd21c808fc10944598573b7c668cf4a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -231,6 +266,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Billboard
   billboardType: 1
   lockYAxis: 0
+--- !u!95 &2471024936728854284
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3873075982857283661}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f6a24229aa92904438eb4236c66cc69f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4620986354342405204
 GameObject:
   m_ObjectHideFlags: 0

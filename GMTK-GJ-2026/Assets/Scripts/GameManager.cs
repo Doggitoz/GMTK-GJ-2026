@@ -3,46 +3,90 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public event Action<float> OnTimeScaleChanged;
-    public event Action<float> OnDamagePercentageChanged;
-    public float TimeScale { get; private set; } = 1f;
-    public float DamagePercentage { get; private set; } = 0f;
-    public static GameManager Instance { get; private set; }
+    // Remove this later
+    [SerializeField]
+    private bool _startOnRuntime;
 
-    private float _timer;
+    public event Action OnGameReset;
+    public event Action OnGameStop;
+    public event Action OnGameStart;
+    public event Action OnTutorialStart;
+
+    public static GameManager Instance { get; private set; }
+    public bool GameActive => _gameActive;
+    private bool _gameActive;
+    public Clock.Condition ClockCondition => _clockCondition ??= new Clock.Condition();
+    private Clock.Condition _clockCondition;
+
+    public bool PlayerControllerEnabled => _playerControllerEnabled;
+    private bool _playerControllerEnabled = true;
 
     void Awake()
+    {
+        VerifySingleton();
+    }
+
+    private void Start()
+    {
+        _gameActive = _startOnRuntime;
+        if (_startOnRuntime) return;
+        OnTutorialStart?.Invoke();
+    }
+
+    [ContextMenu("Start Tutorial")]
+    public void StartTutorial()
+    {
+        OnTutorialStart?.Invoke();
+    }
+
+    [ContextMenu("Start Game")]
+    public void StartGame()
+    {
+        _gameActive = true;
+        OnGameStart?.Invoke();
+    }
+
+    [ContextMenu("Stop Game")]
+    public void StopGame()
+    {
+        _gameActive = false;
+        OnGameStop?.Invoke();
+    }
+
+    [ContextMenu("Reset Game")]
+    public void ResetGame()
+    {
+        _clockCondition = null;
+        OnGameReset?.Invoke();
+    }
+
+    [ContextMenu("Restart Game")]
+    public void RestartGame()
+    {
+        StopGame();
+        ResetGame();
+        StartGame();
+    }
+
+    public void SetPlayerActive(bool isActive)
+    {
+        _playerControllerEnabled = isActive;
+    }
+
+    public void TriggerLoseGame()
+    {
+        StopGame();
+    }
+
+    private void VerifySingleton()
     {
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
             Destroy(gameObject);
         }
-    }
-
-    void Update()
-    {
-        _timer = Mathf.Clamp(SubtractTime(), 0f, Mathf.Infinity); // This lowkey sucks but idk how to do this anymore LOL
-    }
-
-    float SubtractTime()
-    {
-        return _timer -= Time.deltaTime * TimeScale;
-    }
-
-    public void SetTimeScale(float newTimeScale)
-    {
-        TimeScale = newTimeScale;
-        OnTimeScaleChanged?.Invoke(newTimeScale);
-    }
-
-    public void AddDamagePercentage(float damagePercentage)
-    {
-        DamagePercentage = Mathf.Clamp(DamagePercentage + damagePercentage, 0, 100);
-        OnDamagePercentageChanged?.Invoke(DamagePercentage);
     }
 }
