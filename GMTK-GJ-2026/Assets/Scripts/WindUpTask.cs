@@ -60,7 +60,11 @@ public class WindUpTask : MonoBehaviour, IInteractable
             danger -= windDownPerSecond * Time.deltaTime * _clockCondition.RepairTimeScale; //winding down pauses the danger rise
             if (!_windupStarted)
             {
-                _hasDamaged = false;
+                if (_hasDamaged)
+                {
+                    _clockCondition.AddDamagePercentage(-damageOnFail);
+                    _hasDamaged = false;
+                }
                 windupSound.start();
                 _windupStarted = true;
             }
