@@ -11,9 +11,11 @@ public class DialogInteractable : MonoBehaviour, IInteractable
 
     public UnityEvent OnDialogueEnd;
 
+    private bool _isTalking;
+
     public void Interact()
     {
-        if (DialogueManager.Instance != null)
+        if (!_isTalking && DialogueManager.Instance != null)
         {
             if (_randomlySelectSingleLine)
             {
@@ -25,6 +27,7 @@ public class DialogInteractable : MonoBehaviour, IInteractable
             }
             
             DialogueManager.Instance.OnDialogEnd += EndDialog;
+            _isTalking = true;
         }
             
     }
@@ -35,6 +38,7 @@ public class DialogInteractable : MonoBehaviour, IInteractable
 
     public void EndDialog()
     {
+        _isTalking = false;
         DialogueManager.Instance.OnDialogEnd -= EndDialog;
         OnDialogueEnd?.Invoke();
     }

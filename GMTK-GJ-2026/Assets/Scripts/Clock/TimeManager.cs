@@ -11,7 +11,7 @@ namespace Clock
         public event Action<int> OnMinuteChanged;
         public event Action OnTimeExpired;
 
-        private int startingSeconds => GameItems.HasItem("Lucky Break") ? 3600/2 : 3600;
+        private int startingSeconds => GameItems.HasItem("Lucky Break") ? 60 : 120;
 
         private float _timer;
         private int _previousSecond = -1;
@@ -38,7 +38,7 @@ namespace Clock
 
         private void Start()
         {
-            _gameManager.OnGameReset += () => { _timer = startingSeconds; };
+            _gameManager.OnGameStart += () => { _timer = startingSeconds; };
         }
 
         private void Update()
