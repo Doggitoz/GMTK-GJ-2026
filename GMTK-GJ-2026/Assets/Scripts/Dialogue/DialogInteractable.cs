@@ -33,6 +33,10 @@ public class DialogInteractable : MonoBehaviour, IInteractable
     }
     public void OnInteractorDown(Transform interactor)
     {
+        if (_isTalking)
+        {
+            DialogueManager.Instance.AdvanceDialogue();
+        }
         Interact();
     }
 
