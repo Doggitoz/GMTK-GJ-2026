@@ -10,8 +10,6 @@ public class TutorialRunner : MonoBehaviour
     Narration.Canvas NarrationCanvas;
     [SerializeField]
     Narration.Script TutorialScript;
-    [SerializeField]
-    GameObject _tutorialNPC;
 
     [SerializeField]
     private Animator _playerAnimator;
@@ -103,9 +101,8 @@ public class TutorialRunner : MonoBehaviour
             }
         );
 
-        // Enable NPC
-        _tutorialNPC.SetActive(true);
 
+        // Introduction to YogSlothoth
         yield return PlayDialogue(
             new DialogueLine[]
             {
@@ -117,40 +114,76 @@ public class TutorialRunner : MonoBehaviour
             }
         );
 
-        // Yield Dialogue: "This is the hour hand. It has to make a full rotation for you to survive."
+        // Introduction to the world challenge
+        yield return PlayDialogue(
+            new DialogueLine[]
+            {
+                CreateYogSlothothDialogue("You shall be tried in increments according to your earthly progression."),
+                CreateYogSlothothDialogue("Survive the revolution of time, and in your final hour, you may yet be saved."),
+                CreateYogSlothothDialogue("Your death, however, cannot be helped if you don’t maintain your pace."),
+                CreateYogSlothothDialogue("This clock is subject to the degradation of time, as all mortal constructs are."),
+                CreateYogSlothothDialogue("But, if your will is strong, may yet persevere."),
+            }
+        );
+
+        // Rust introduction
+        yield return PlayDialogue(
+            new DialogueLine[]
+            {
+                CreateYogSlothothDialogue("Purge the rust from the bones of this time piece.")
+            }
+        );
+        // Zoom into rust
+        yield return PlayDialogue(
+            new DialogueLine[]
+            {
+                CreateMysteryDialogue("Clean the rust with a click!"),
+                CreateMysteryDialogue("Don’t let it accumulate")
+            }
+        );
+
+        // Wind up introduction
+        yield return PlayDialogue(
+            new DialogueLine[]
+            {
+                CreateYogSlothothDialogue("Wind it and keep pace, with the hands that seek to strike you down.")
+            }
+        );
+        //_centerZoomCam.Priority = 100;
+        yield return PlayDialogue(
+            new DialogueLine[]
+            {
+                CreateMysteryDialogue("Keep the clock tightly wound."),
+                CreateMysteryDialogue("Or become unwound yourself.")
+            }
+        );
+        //_centerZoomCam.Priority = -100;
+
+        // Clock hand introduction
+        yield return PlayDialogue(
+            new DialogueLine[]
+            {
+                CreateYogSlothothDialogue("And leap through time, or go mad trying…"),
+                CreateMysteryDialogue("Jump over the minute and second hand."),
+                CreateMysteryDialogue("Survive until the hour hand strikes 12.")
+            }
+        );
         yield return _hourHand.TutorialSpin();
-        yield return _minuteHand.TutorialSpin();
-        yield return _secondHand.TutorialSpin();
+
+        // Final remarks
+        yield return PlayDialogue(
+            new DialogueLine[]
+            {
+                CreateYogSlothothDialogue("And don’t forget… to go    i n s a n e"),
+                CreateYogSlothothDialogue("I’d love to watch a mortal squirm…")
+            }
+        );
+
+        yield return new WaitForSeconds(4f);
 
         _gameManager.SetPlayerActive(true);
 
-        // "The clock will deteriorate over time. You must maintain it"
-        // "You may interact with the environment to make repairs."
-
-        // "Its urgent that you tend to the winding of the clock throughout the day.
-        // enable wind up task
-
-        // Focus on wind up center of clock
-        _centerZoomCam.Priority = 100;
-        yield return new WaitForSeconds(2f);
-
-
-        // "Be weary of rust buildup."
-        // spawn in a single rust spot
-        // "It is important that you clean it up before it overruns the clock."
-        // yield until user cleans up rust
-
-        // "You may run into unfamiliar errors that even I don't know. I trust you to figure it out"
-
-        // "Pay attention to the state of the clock. Bad things will happen if it does not get maintained.
-        // "The clock is not nice to those who are new. Good luck.
-
-        _centerZoomCam.Priority = -100;
-
-        // Disable NPC
-        _tutorialNPC.SetActive(false);
-
-        // insert scripted hard loss. Everything is way too difficult for this run. player is forced to die. Only rust and wind up
+        _gameManager.StartGame();
     }
 
     private IEnumerator WaitForAnimation(string stateName)
