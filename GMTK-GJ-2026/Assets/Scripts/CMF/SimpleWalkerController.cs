@@ -47,56 +47,52 @@ namespace CMF
             moveAction = InputSystem.actions.FindAction("Move");
             jumpAction = InputSystem.actions.FindAction("Jump");
 
-            GameEvents.OnTeleportRequested += Teleport;
+            GameEvents.OnPlayerTeleportRequested += Teleport;
         }
 
         void FixedUpdate()
         {
-            if (_isTeleporting)
-                return;
-
-            //Run initial mover ground check;
             mover.CheckForGround();
 
-            //If character was not grounded int the last frame and is now grounded, call 'OnGroundContactRegained' function;
-            if (isGrounded == false && mover.IsGrounded() == true)
+            if (!isGrounded && mover.IsGrounded())
                 OnGroundContactRegained(lastVelocity);
 
-            //Check whether the character is grounded and store result;
             isGrounded = mover.IsGrounded();
 
-            Vector3 _velocity = Vector3.zero;
+            Vector3 velocity = Vector3.zero;
 
-            //Add player movement to velocity;
-            _velocity += CalculateMovementDirection() * movementSpeed;
+            // Only allow movement when not teleporting
+            if (!_isTeleporting)
+            {
+                velocity += CalculateMovementDirection() * movementSpeed;
 
-            //Handle gravity;
+                if (isGrounded &&
+                    GameManager.Instance.PlayerControllerEnabled &&
+                    jumpAction.IsPressed() &&
+                    !GameItems.HasItem("God’s Femur"))
+                {
+                    OnJumpStart();
+                    currentVerticalSpeed = jumpSpeed;
+                    isGrounded = false;
+                }
+            }
+
+            // Gravity always runs
             if (!isGrounded)
             {
                 currentVerticalSpeed -= gravity * Time.deltaTime;
             }
-            else
+            else if (currentVerticalSpeed < 0f)
             {
-                if (currentVerticalSpeed <= 0f)
-                    currentVerticalSpeed = 0f;
+                currentVerticalSpeed = 0f;
             }
 
-            // Handle jumping;
-            if (isGrounded && GameManager.Instance.PlayerControllerEnabled && jumpAction.IsPressed() && !GameItems.HasItem("God’s Femur"))
-            {
-                OnJumpStart();
-                currentVerticalSpeed = jumpSpeed;
-                isGrounded = false;
-            }
+            velocity += tr.up * currentVerticalSpeed;
 
-            //Add vertical velocity;
-            _velocity += tr.up * currentVerticalSpeed;
-
-            //Save current velocity for next frame;
-            lastVelocity = _velocity;
+            lastVelocity = velocity;
 
             mover.SetExtendSensorRange(isGrounded);
-            mover.SetVelocity(_velocity);
+            mover.SetVelocity(velocity);
         }
 
         private void Teleport(Vector3 newPosition)
@@ -165,10 +161,19 @@ namespace CMF
             if (_playerAnimator != null)
             {
                 _playerAnimator.SetBool(_teleportBoolParameter, false);
+
+                yield return new WaitUntil(() =>
+                {
+                    AnimatorStateInfo state = _playerAnimator.GetCurrentAnimatorStateInfo(0);
+
+                    return state.IsName("Idle") && !_playerAnimator.IsInTransition(0);
+                });
             }
 
             _isTeleporting = false;
             GameManager.Instance.SetPlayerActive(true);
+
+            GameEvents.CompletePlayerTeleport();
         }
 
         private Vector3 CalculateMovementDirection()
@@ -237,7 +242,7 @@ namespace CMF
 
         private void OnDestroy()
         {
-            GameEvents.OnTeleportRequested -= Teleport;
+            GameEvents.OnPlayerTeleportRequested -= Teleport;
         }
 
     }

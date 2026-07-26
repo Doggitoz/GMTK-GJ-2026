@@ -7,6 +7,6 @@ public class PlayerTeleporter : MonoBehaviour
 
     public void TriggerTeleport()
     {
-        GameEvents.RequestTeleport(_position);
+        GameEvents.RequestPlayerTeleport(_position);
     }
 }
