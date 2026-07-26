@@ -50,11 +50,20 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private Animator borderAnimator;
     [SerializeField] private string borderIntParam = "CharacterIndex";
 
-    [Header("Character Data (index: 0=Turtle, 1=Rat, 2=Player, 3=Shopkeeper)")]
+    [Header("Character Data (index: 0=Turtle, 1=Rat, 2=Player, 3=Shopkeeper, 4=Yog-Slothoth, 5=Unknown)")]
     [SerializeField]
-    private string[] characterNames = new string[4] { "Turtle", "Rat", "Player", "Shopkeeper" };
+    private string[] characterNames = new string[6]
+    {
+        "Dial",
+        "King",
+        "Player",
+        "Shopkeeper",
+        "Yog-Slothoth",
+        "???"
+    };
+
     [SerializeField]
-    private Sprite[] characterPortraits = new Sprite[4]; // assign in Inspector, same order
+    private Sprite[] characterPortraits = new Sprite[6];
 
     [Header("Typing")]
     [SerializeField] private float secondsPerChar = 0.02f;

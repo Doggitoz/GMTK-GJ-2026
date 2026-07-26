@@ -84,6 +84,10 @@ MonoBehaviour:
   NarrationCanvas: {fileID: 7791256353071003429}
   TutorialScript: {fileID: 4149571456518682143}
   _playerAnimator: {fileID: 0}
+  _hourHand: {fileID: 0}
+  _minuteHand: {fileID: 0}
+  _secondHand: {fileID: 0}
+  _centerZoomCam: {fileID: 0}
 --- !u!114 &7791256353071003429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,17 +117,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Script
   ScriptList:
-  - ScriptLine: "\u2026"
+  - ScriptLine: ...
     TimeToType: 0.5
-  - ScriptLine: "\u2026\u2026\u2026"
+  - ScriptLine: .........
     TimeToType: 1
-  - ScriptLine: "What is this\u2026 emptiness? "
+  - ScriptLine: 'What is this... emptiness? '
     TimeToType: 2
   - ScriptLine: 'You feel cold, trapped, and tired. '
     TimeToType: 2
   - ScriptLine: "There was a reason you needed to be here, in this place\u2026 "
     TimeToType: 2
-  - ScriptLine: "But\u2026 w h y?"
+  - ScriptLine: But... w h y?
     TimeToType: 2
   - ScriptLine: 'And most importantly, '
     TimeToType: 2
