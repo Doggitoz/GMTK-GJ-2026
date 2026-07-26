@@ -108,21 +108,35 @@ namespace CMF
         private IEnumerator TeleportRoutine(Vector3 newPosition)
         {
             _isTeleporting = true;
+
             if (_playerAnimator != null)
             {
+                // Start Idle -> Stand Up -> Sleep sequence
                 _playerAnimator.SetBool(_teleportBoolParameter, true);
+
+                // Wait until the sleep animation is reached
+                yield return new WaitUntil(() =>
+                {
+                    AnimatorStateInfo state = _playerAnimator.GetCurrentAnimatorStateInfo(0);
+
+                    return state.IsName("Sleep") ||
+                           state.IsName("Base Layer.Sleep");
+                });
+
+                // Stay Sleep before fading
+                yield return new WaitForSeconds(2f);
             }
 
             GameManager.Instance.SetPlayerActive(false);
 
-            yield return new WaitForSeconds(0.5f);
-
+            // Fade to black
             if (_fadeCamera != null)
             {
                 _fadeCamera.Priority = 2;
                 _fadeCamera.Prioritize();
             }
 
+            // Give fade time to complete
             yield return new WaitForSeconds(1.5f);
 
 
@@ -151,26 +165,35 @@ namespace CMF
             }
 
 
-            yield return new WaitForSeconds(0.5f);
-
+            // Unfade
             if (_fadeCamera != null)
             {
                 _fadeCamera.Priority = -1;
             }
 
+            // Wait 2 seconds after fade finishes before waking up
+            yield return new WaitForSeconds(2f);
+
+
+            // Trigger Sleep -> Stand Up -> Idle
             if (_playerAnimator != null)
             {
                 _playerAnimator.SetBool(_teleportBoolParameter, false);
 
+                // Give animator a frame to process transition
+                yield return null;
+
+                // Wait until back at Idle
                 yield return new WaitUntil(() =>
                 {
                     AnimatorStateInfo state = _playerAnimator.GetCurrentAnimatorStateInfo(0);
-
-                    return state.IsName("Idle") && !_playerAnimator.IsInTransition(0);
+                    return state.IsName("Idle");
                 });
             }
 
+
             _isTeleporting = false;
+
             GameManager.Instance.SetPlayerActive(true);
 
             GameEvents.CompletePlayerTeleport();
