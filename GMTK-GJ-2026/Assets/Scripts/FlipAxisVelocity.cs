@@ -6,7 +6,7 @@ public class FlipAxisVelocity : MonoBehaviour
     [SerializeField]
     SpriteRenderer _sprite;
     [SerializeField]
-    Rigidbody _controller;
+    SimpleWalkerController _controller;
     [SerializeField]
     bool flip;
 
@@ -16,11 +16,11 @@ public class FlipAxisVelocity : MonoBehaviour
     {
         if (_controller)
         {
-            if (_controller.linearVelocity.x < 0)
+            if (_controller.GetMovementVelocity().x < 0)
             {
                 _sprite.flipX = flip;
             }
-            else if (_controller.linearVelocity.x > 0)
+            else if (_controller.GetMovementVelocity().x > 0)
             {
                 _sprite.flipX = !flip;
             }
