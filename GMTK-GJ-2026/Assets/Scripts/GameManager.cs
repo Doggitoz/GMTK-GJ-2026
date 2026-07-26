@@ -43,6 +43,8 @@ public class GameManager : MonoBehaviour
         {
             NewSave();
         }
+        GameEvents.OnLose += StopGame;
+        GameEvents.OnWin += StopGame;
     }
 
     void LoadSave()
@@ -65,6 +67,7 @@ public class GameManager : MonoBehaviour
     [ContextMenu("Start Game")]
     public void StartGame()
     {
+        ResetGame();
         _gameActive = true;
         OnGameStart?.Invoke();
     }
@@ -83,22 +86,9 @@ public class GameManager : MonoBehaviour
         OnGameReset?.Invoke();
     }
 
-    [ContextMenu("Restart Game")]
-    public void RestartGame()
-    {
-        StopGame();
-        ResetGame();
-        StartGame();
-    }
-
     public void SetPlayerActive(bool isActive)
     {
         _playerControllerEnabled = isActive;
-    }
-
-    public void TriggerLoseGame()
-    {
-        StopGame();
     }
 
     private void VerifySingleton()
