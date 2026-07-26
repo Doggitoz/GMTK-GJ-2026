@@ -7,8 +7,11 @@ public class EnableWithItem : MonoBehaviour
 
     [SerializeField]
     string _itemName;
+
+    [SerializeField]
+    bool _shouldInvert;
     void Update()
     {
-        _targetObject.SetActive(GameItems.HasItem(_itemName));
+        _targetObject.SetActive(_shouldInvert ? !GameItems.HasItem(_itemName) : GameItems.HasItem(_itemName));
     }
 }
