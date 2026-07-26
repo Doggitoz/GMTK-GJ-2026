@@ -20,8 +20,6 @@ public class StopMovementOnInteract : MonoBehaviour
         {
             ResumeMovement();
         }
-
-
     }
     public void StopMovement()
     {
