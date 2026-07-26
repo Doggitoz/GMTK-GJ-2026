@@ -10,5 +10,6 @@ namespace Save
         public bool beatGame;
         public List<string> completedTrial = new();
         public List<string> unlockedItems = new();
+        public int money = 0;
     }
 }

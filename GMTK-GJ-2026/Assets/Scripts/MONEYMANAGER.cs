@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MONEYMANAGER : MonoBehaviour
 {
-    public int MONEY = 0;
+    public int MONEY => Save.Manager.Instance.CurrentSave.money;
     public static MONEYMANAGER Instance;
     [SerializeField]
     GameObject _balance;
@@ -42,14 +42,20 @@ public class MONEYMANAGER : MonoBehaviour
 
     public void LoseMoney(int amount)
     {
-        MONEY -= amount;
-        MONEY = Mathf.Clamp(MONEY, 0, 999);
+        Save.Manager.Instance.CurrentSave.money -= amount;
+        Save.Manager.Instance.CurrentSave.money =
+            Mathf.Clamp(Save.Manager.Instance.CurrentSave.money, 0, 999);
+
+        Save.Manager.Instance.SaveGame();
     }
 
     public void AddMoney(int amount)
     {
-        MONEY += amount;
-        MONEY = Mathf.Clamp(MONEY, 0, 999);
+        Save.Manager.Instance.CurrentSave.money += amount;
+        Save.Manager.Instance.CurrentSave.money =
+            Mathf.Clamp(Save.Manager.Instance.CurrentSave.money, 0, 999);
+
+        Save.Manager.Instance.SaveGame();
     }
 
     [ContextMenu("Add $100")]
