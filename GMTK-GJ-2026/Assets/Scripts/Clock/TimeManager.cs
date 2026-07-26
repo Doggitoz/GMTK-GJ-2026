@@ -11,7 +11,9 @@ namespace Clock
         public event Action<int> OnMinuteChanged;
         public event Action OnTimeExpired;
 
-        private int startingSeconds => GameItems.HasItem("Lucky Break") ? 100 : 120;
+        private const int defaultStartTime = 90;
+
+        private int startingSeconds => GameItems.HasItem("Lucky Break") ? Mathf.RoundToInt(defaultStartTime * 0.8f) : defaultStartTime;
 
         private float _timer;
         private int _previousSecond = -1;
@@ -59,7 +61,10 @@ namespace Clock
                     OnMinuteChanged?.Invoke(Minutes);
 
                 if (currentSecond <= 0)
+                {
                     OnTimeExpired?.Invoke();
+                    _gameManager.TriggerWin();
+                }
             }
         }
 

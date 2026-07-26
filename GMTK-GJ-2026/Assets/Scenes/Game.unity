@@ -1141,7 +1141,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.22975296, y: 0.0000000072512685, z: -0.0000000017117925, w: 0.973249}
-  m_LocalPosition: {x: 0, y: 6, z: -20}
+  m_LocalPosition: {x: 0, y: 6, z: -21.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4345,7 +4345,7 @@ Transform:
   m_GameObject: {fileID: 1160123090}
   serializedVersion: 2
   m_LocalRotation: {x: 0.22975296, y: 0.0000000072512685, z: -0.0000000017117925, w: 0.973249}
-  m_LocalPosition: {x: 0, y: 6, z: -20}
+  m_LocalPosition: {x: 0, y: 6, z: -21.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8241,19 +8241,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1199207349}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: TriggerLoseGame
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1392527248}
-        m_TargetAssemblyTypeName: PlayerTeleporter, Assembly-CSharp
-        m_MethodName: TriggerTeleport
+        m_MethodName: TriggerLose
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8926,7 +8914,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4030991464879814777, guid: 5244d7ff201fe1b43a4d7b904897ac1e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -10
+      value: -11.25
       objectReference: {fileID: 0}
     - target: {fileID: 4030991464879814777, guid: 5244d7ff201fe1b43a4d7b904897ac1e, type: 3}
       propertyPath: m_LocalRotation.w
