@@ -7841,6 +7841,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: DialogueCanvas_V2
       objectReference: {fileID: 0}
+    - target: {fileID: 4072958731777425202, guid: 695043a56501c49adb8b05307198df80, type: 3}
+      propertyPath: 'characterPortraits.Array.data[0]'
+      value: 
+      objectReference: {fileID: 21300000, guid: 84a68dd1191c14b1f944799ebc1230de, type: 3}
+    - target: {fileID: 4072958731777425202, guid: 695043a56501c49adb8b05307198df80, type: 3}
+      propertyPath: 'characterPortraits.Array.data[1]'
+      value: 
+      objectReference: {fileID: 21300000, guid: acb3d14d046ed47a38036b6e96c2da4e, type: 3}
+    - target: {fileID: 4072958731777425202, guid: 695043a56501c49adb8b05307198df80, type: 3}
+      propertyPath: 'characterPortraits.Array.data[2]'
+      value: 
+      objectReference: {fileID: 21300000, guid: fd2e0275eaf97480b9fd8340dde5ff66, type: 3}
+    - target: {fileID: 4072958731777425202, guid: 695043a56501c49adb8b05307198df80, type: 3}
+      propertyPath: 'characterPortraits.Array.data[3]'
+      value: 
+      objectReference: {fileID: 21300000, guid: 2a2e80b2dcfa7411b90d1e737edf2ce2, type: 3}
+    - target: {fileID: 4072958731777425202, guid: 695043a56501c49adb8b05307198df80, type: 3}
+      propertyPath: 'characterPortraits.Array.data[4]'
+      value: 
+      objectReference: {fileID: 21300000, guid: 578e56202f0c640b98b2b5f93b8deb3c, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8958,7 +8978,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5670464994393129521, guid: 470e873949a048b408ed2b4cc7d57a22, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8746804945805381081, guid: 470e873949a048b408ed2b4cc7d57a22, type: 3}
       propertyPath: m_LocalPosition.x
