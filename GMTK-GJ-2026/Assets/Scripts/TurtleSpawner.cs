@@ -8,10 +8,16 @@ public class TurtleSpawner : MonoBehaviour
     Vector3 _turtleSpawn;
     private GameObject _spawnedTurtle;
 
-    private void Start()
+    private void OnEnable()
     {
         GameManager.Instance.OnGameStart += SpawnTurtle;
         GameManager.Instance.OnGameStop += DestroyTurtle;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.Instance.OnGameStart -= SpawnTurtle;
+        GameManager.Instance.OnGameStop -= DestroyTurtle;
     }
 
     private void SpawnTurtle()

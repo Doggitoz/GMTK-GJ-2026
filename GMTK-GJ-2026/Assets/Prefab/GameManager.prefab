@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5044883708130341365}
   - component: {fileID: 5404847735641391672}
-  - component: {fileID: 3218909783785694285}
   - component: {fileID: 4813284144588708629}
+  - component: {fileID: 1012595823327790135}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   _startOnRuntime: 0
---- !u!114 &3218909783785694285
+--- !u!114 &4813284144588708629
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -57,12 +57,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5299819189394008759}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 803f912937ed1f141ad3026636e490e7, type: 3}
+  m_Script: {fileID: 11500000, guid: 74437c3d43b2912429ee85a493feda0c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TurtleSpawner
-  _turtlePrefab: {fileID: 4102002753652780573, guid: 3b43d96d4d3a8fc40b7ad68daedf00b7, type: 3}
-  _turtleSpawn: {x: -5, y: 1, z: 0}
---- !u!114 &4813284144588708629
+  m_EditorClassIdentifier: Assembly-CSharp::PauseMenuOpener
+  _pauseMenuObject: {fileID: 0}
+--- !u!114 &1012595823327790135
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -85,6 +84,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 398199619988815335, guid: da933c6163e131540bee155a5497d238, type: 3}
       propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 785940160817680282, guid: da933c6163e131540bee155a5497d238, type: 3}
+      propertyPath: TutorialDisabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 811706662113903938, guid: da933c6163e131540bee155a5497d238, type: 3}
