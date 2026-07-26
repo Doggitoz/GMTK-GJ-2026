@@ -2787,6 +2787,10 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: 6.2106223
       objectReference: {fileID: 0}
+    - target: {fileID: 897755530156030617, guid: 7a1f155d9d4836443bb7a4e115ebb6d9, type: 3}
+      propertyPath: smooth
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1586519780757502070, guid: 7a1f155d9d4836443bb7a4e115ebb6d9, type: 3}
       propertyPath: m_Mesh
       value: 
