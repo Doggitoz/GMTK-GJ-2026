@@ -33,25 +33,31 @@ public class TutorialRunner : MonoBehaviour
         if (TutorialDisabled)
             yield break;
 
-        // Teleport player to correct space in scene
+        // Enable black canvas
+        NarrationCanvas.SetActive(true);
 
         // Make sure game manager states are correct
         _gameManager.StopGame();
         _gameManager.SetPlayerActive(false);
 
-        // Enable black canvas
-        NarrationCanvas.SetActive(true);
+        yield return new WaitForSeconds(1f);
+
+        // Teleport player to correct space in scene
+        // Vector3(0, 1, -10)
+        _gameManager.SetPlayerActive(false);
+
+        // Set player animation to sleep
+        _playerAnimator.SetBool("IsAsleep", true);
 
         // Play the narration and wait until its done
         yield return NarrationCanvas.PlayScript(TutorialScript);
 
-        // Set player animation to sleep
-        _playerAnimator.SetBool("IsAsleep", true);
         // Enable NPC
 
         // Disable black canvas
         NarrationCanvas.SetActive(false);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3f);
+
         // Player animation to get up
         _playerAnimator.SetBool("IsAsleep", false);
 
@@ -88,8 +94,8 @@ public class TutorialRunner : MonoBehaviour
         // "Pay attention to the state of the clock. Bad things will happen if it does not get maintained.
         // "The clock is not nice to those who are new. Good luck.
 
-        // insert scripted hard loss. Everything is way too difficult for this run. player is forced to die. Only rust and wind up
-
         // Disable NPC
+
+        // insert scripted hard loss. Everything is way too difficult for this run. player is forced to die. Only rust and wind up
     }
 }
