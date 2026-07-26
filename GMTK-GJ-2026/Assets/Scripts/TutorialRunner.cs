@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using Unity.Cinemachine;
 
 public class TutorialRunner : MonoBehaviour
 {
@@ -35,6 +36,9 @@ public class TutorialRunner : MonoBehaviour
 
     [SerializeField]
     private DialogueLine[] _secondHandDialogue;
+
+    [SerializeField]
+    private CinemachineCamera _centerZoomCam;
     GameManager _gameManager => GameManager.Instance;
     void Start()
     {
@@ -127,6 +131,9 @@ public class TutorialRunner : MonoBehaviour
         // enable wind up task
 
         // Focus on wind up center of clock
+        _centerZoomCam.Priority = 100;
+        yield return new WaitForSeconds(2f);
+
 
         // "Be weary of rust buildup."
         // spawn in a single rust spot
@@ -137,6 +144,8 @@ public class TutorialRunner : MonoBehaviour
 
         // "Pay attention to the state of the clock. Bad things will happen if it does not get maintained.
         // "The clock is not nice to those who are new. Good luck.
+
+        _centerZoomCam.Priority = -100;
 
         // Disable NPC
         _tutorialNPC.SetActive(false);
