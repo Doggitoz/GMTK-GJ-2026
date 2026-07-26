@@ -16,6 +16,7 @@ public class RustSpot : MonoBehaviour, IInteractable
     [SerializeField] private float cleanRate = 0.75f;
     [SerializeField] private float minScale = 0.05f;
     [SerializeField] private float maxScale = 3f;
+    [SerializeField] private int damagePerRust = 5;
 
     [SerializeField] private FMODUnity.EventReference rustCleaningSoundEvent;
     private FMOD.Studio.EventInstance rustCleaningSound;
@@ -47,7 +48,7 @@ public class RustSpot : MonoBehaviour, IInteractable
         _isBeingCleaned = false;
         _cleaningStarted = false;
 
-        ClockCondition.AddDamagePercentage(1);
+        ClockCondition.AddDamagePercentage(damagePerRust);
         rustCleaningSound = FMODUnity.RuntimeManager.CreateInstance(rustCleaningSoundEvent);
     }
 
@@ -118,7 +119,7 @@ public class RustSpot : MonoBehaviour, IInteractable
 
             if (_visuals.localScale.x > damageIncreaseTarget)
             {
-                ClockCondition.AddDamagePercentage(1);
+                ClockCondition.AddDamagePercentage(damagePerRust);
                 _currentDamageWorth++;
                 damageIncreaseTarget++;
             }
