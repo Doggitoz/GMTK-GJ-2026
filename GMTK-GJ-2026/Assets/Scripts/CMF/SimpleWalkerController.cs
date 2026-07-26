@@ -33,8 +33,10 @@ namespace CMF
         public float gravity = 10f;
 
         [SerializeField] private FMODUnity.EventReference jumpSoundEvent;
+        [SerializeField] private FMODUnity.EventReference teleportSound;
         [SerializeField] private FMODUnity.EventReference landSoundEvent;
         [SerializeField] private FMODUnity.ParamRef muteFootSounds;
+
 
         Vector3 lastVelocity = Vector3.zero;
 
@@ -138,7 +140,7 @@ namespace CMF
             }
 
             GameManager.Instance.SetPlayerActive(false);
-
+            FMODUnity.RuntimeManager.PlayOneShot(teleportSound, transform.position);
             // Fade to black
             if (_fadeCamera != null)
             {

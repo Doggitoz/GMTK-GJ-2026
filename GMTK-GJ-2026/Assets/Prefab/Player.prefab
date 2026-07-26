@@ -348,6 +348,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea2043c46e2a781419a230234ac6a192, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CMF.SimpleWalkerController
+  _playerCamera: {fileID: 0}
+  _fadeCamera: {fileID: 0}
+  _playerAnimator: {fileID: 0}
+  _teleportBoolParameter: IsAsleep
   movementSpeed: 7
   jumpSpeed: 5
   gravity: 10
@@ -358,6 +362,13 @@ MonoBehaviour:
       Data3: -1119552335
       Data4: -952141769
     Path: event:/SFX/Player/JumpWhoosh
+  teleportSound:
+    Guid:
+      Data1: 897192020
+      Data2: 1179480560
+      Data3: -1139380586
+      Data4: -1579144390
+    Path: event:/SFX/Hub/Teleport
   landSoundEvent:
     Guid:
       Data1: 2053697200

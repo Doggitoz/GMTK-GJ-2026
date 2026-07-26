@@ -17,6 +17,9 @@ GameObject:
   - component: {fileID: 398199619988815335}
   - component: {fileID: 6314517617072635724}
   - component: {fileID: 225810253400124660}
+  - component: {fileID: 7321712782182212706}
+  - component: {fileID: 2304476499313573013}
+  - component: {fileID: 6649420138547711486}
   m_Layer: 0
   m_Name: NarrativeScreen
   m_TagString: Untagged
@@ -80,14 +83,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39c2c882f32660f408d1f0386eaea0c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TutorialRunner
-  TutorialDisabled: 0
   NarrationCanvas: {fileID: 7791256353071003429}
   TutorialScript: {fileID: 4149571456518682143}
+  _yogiBear: {fileID: 0}
   _playerAnimator: {fileID: 0}
   _hourHand: {fileID: 0}
   _minuteHand: {fileID: 0}
   _secondHand: {fileID: 0}
+  _zoomedOutCam: {fileID: 0}
   _centerZoomCam: {fileID: 0}
+  _yogiBearCam: {fileID: 0}
+  tutorialMusicEvent:
+    Guid:
+      Data1: 310275146
+      Data2: 1314977194
+      Data3: 674593411
+      Data4: -599728650
+    Path: event:/Music/Credits_Music
 --- !u!114 &7791256353071003429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,6 +212,54 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &7321712782182212706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 811706662113903938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b0e04e2572f9a940a47465f6f3c2f00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioGlobalParameterTrigger
+  CollisionTag: 
+  Parameter: Music_Region
+  TriggerEvent: 0
+  Value: 1
+--- !u!114 &2304476499313573013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 811706662113903938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b0e04e2572f9a940a47465f6f3c2f00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioGlobalParameterTrigger
+  CollisionTag: 
+  Parameter: Music_Region
+  TriggerEvent: 0
+  Value: 2
+--- !u!114 &6649420138547711486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 811706662113903938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b0e04e2572f9a940a47465f6f3c2f00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioGlobalParameterTrigger
+  CollisionTag: 
+  Parameter: Music_Region
+  TriggerEvent: 0
+  Value: 3
 --- !u!1 &4573917874503738666
 GameObject:
   m_ObjectHideFlags: 0

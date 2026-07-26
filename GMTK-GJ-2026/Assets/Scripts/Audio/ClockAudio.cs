@@ -4,35 +4,55 @@ public class ClockAudio : MonoBehaviour
 {
 
     [SerializeField]
-    private FMODUnity.EventReference tickSound;
+    private FMODUnity.EventReference teleportSound;
     [SerializeField]
-    private FMODUnity.EventReference music;
+    private FMODUnity.EventReference clockBreakSound;
     private bool firstTime;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
-        Clock.TimeManager.Instance.OnSecondChanged += CallTickSound;
-        firstTime = true;
+
+        GameEvents.OnBreakClock += clockBreak;
+
+        GameManager.Instance.OnGameStart += gameplayParameterCall;
+        GameManager.Instance.OnGameStop += hubParameterCall;
+
     }
 
     private void OnDestroy()
     {
-        if (Clock.TimeManager.Instance != null)
-        {
-            Clock.TimeManager.Instance.OnSecondChanged -= CallTickSound;
-        }
+        GameEvents.OnBreakClock -= clockBreak;
+
+        GameManager.Instance.OnGameStart -= gameplayParameterCall;
+        GameManager.Instance.OnGameStop -= hubParameterCall;
     }
 
-    private void CallTickSound(int second)
+    private void teleportToHub(Vector3 position)
     {
-        FMODUnity.RuntimeManager.PlayOneShot(tickSound, transform.position);
-        if (firstTime && second == 59)
-        {
-            FMODUnity.RuntimeManager.PlayOneShot(music, transform.position);
-            firstTime = false;
-        }
-
+        Debug.Log("Teleport to Hub");
+        FMODUnity.RuntimeManager.PlayOneShot(teleportSound, transform.position);
     }
 
+    private void teleportToClock()
+    {
+        Debug.Log("Teleport to clock");
+        FMODUnity.RuntimeManager.PlayOneShot(teleportSound, transform.position);
+    }
+
+    private void clockBreak()
+    {
+        Debug.Log("Clockbreak");
+        FMODUnity.RuntimeManager.PlayOneShot(clockBreakSound, transform.position);
+    }
+
+    private void gameplayParameterCall()
+    {
+        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("parameter:/Music_Region", 4, false);
+    }
+
+    private void hubParameterCall()
+    {
+        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("parameter:/Music_Region", 3, false);
+    }
 
 }
