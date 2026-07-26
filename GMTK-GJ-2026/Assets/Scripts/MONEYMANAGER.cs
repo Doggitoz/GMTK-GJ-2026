@@ -10,12 +10,15 @@ public class MONEYMANAGER : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            QuestionDialogueTrigger.OnCorrectAnswer += AddMoney;
 
         } else
         {
             Destroy(this);
             return;
         }
+
+       
     }
 
     private void OnDestroy()
@@ -23,6 +26,7 @@ public class MONEYMANAGER : MonoBehaviour
         if (Instance == this)
         {
             Destroy(this);
+            QuestionDialogueTrigger.OnCorrectAnswer -= AddMoney;
         }
     }
 

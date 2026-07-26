@@ -5264,6 +5264,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 184849748874560115, guid: ab8ddb6849fa5401592f3dd63e7705f0, type: 3}
+      propertyPath: currencyReward
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 513699032678394483, guid: ab8ddb6849fa5401592f3dd63e7705f0, type: 3}
       propertyPath: m_SortingOrder
       value: -7
@@ -5271,6 +5275,10 @@ PrefabInstance:
     - target: {fileID: 631638545914909545, guid: ab8ddb6849fa5401592f3dd63e7705f0, type: 3}
       propertyPath: m_SortingOrder
       value: -7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1050372275756519093, guid: ab8ddb6849fa5401592f3dd63e7705f0, type: 3}
+      propertyPath: currencyReward
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1317448320236387288, guid: ab8ddb6849fa5401592f3dd63e7705f0, type: 3}
       propertyPath: m_SortingOrder
@@ -5295,6 +5303,10 @@ PrefabInstance:
     - target: {fileID: 1442369926343813549, guid: ab8ddb6849fa5401592f3dd63e7705f0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1574085315253164581, guid: ab8ddb6849fa5401592f3dd63e7705f0, type: 3}
+      propertyPath: currencyReward
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1691780252785299184, guid: ab8ddb6849fa5401592f3dd63e7705f0, type: 3}
       propertyPath: m_SortingOrder
@@ -5367,6 +5379,14 @@ PrefabInstance:
     - target: {fileID: 2783180633360898969, guid: ab8ddb6849fa5401592f3dd63e7705f0, type: 3}
       propertyPath: m_SortingOrder
       value: -7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2879772738472842323, guid: ab8ddb6849fa5401592f3dd63e7705f0, type: 3}
+      propertyPath: currencyReward
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2974919321776866653, guid: ab8ddb6849fa5401592f3dd63e7705f0, type: 3}
+      propertyPath: currencyReward
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 2986969802049930284, guid: ab8ddb6849fa5401592f3dd63e7705f0, type: 3}
       propertyPath: m_LocalScale.x
@@ -5444,6 +5464,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3597707840329834526, guid: ab8ddb6849fa5401592f3dd63e7705f0, type: 3}
+      propertyPath: currencyReward
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 3893902107701735684, guid: ab8ddb6849fa5401592f3dd63e7705f0, type: 3}
       propertyPath: m_Name
       value: RAT NPC
@@ -5468,6 +5492,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4176467862684218707, guid: ab8ddb6849fa5401592f3dd63e7705f0, type: 3}
+      propertyPath: currencyReward
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4297962674975984462, guid: ab8ddb6849fa5401592f3dd63e7705f0, type: 3}
+      propertyPath: currencyReward
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 4348432876248107608, guid: ab8ddb6849fa5401592f3dd63e7705f0, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
@@ -5487,11 +5519,19 @@ PrefabInstance:
     - target: {fileID: 4348432876248107608, guid: ab8ddb6849fa5401592f3dd63e7705f0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4355883671363968782, guid: ab8ddb6849fa5401592f3dd63e7705f0, type: 3}
+      propertyPath: currencyReward
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4508735237545486139, guid: ab8ddb6849fa5401592f3dd63e7705f0, type: 3}
       propertyPath: m_SortingOrder
       value: -7
       objectReference: {fileID: 0}
+    - target: {fileID: 4715243070815973211, guid: ab8ddb6849fa5401592f3dd63e7705f0, type: 3}
+      propertyPath: currencyReward
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 4896650050222502131, guid: ab8ddb6849fa5401592f3dd63e7705f0, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
@@ -5512,6 +5552,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5425828042272870078, guid: ab8ddb6849fa5401592f3dd63e7705f0, type: 3}
+      propertyPath: currencyReward
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5707142485993133115, guid: ab8ddb6849fa5401592f3dd63e7705f0, type: 3}
+      propertyPath: currencyReward
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 5732878687990443960, guid: ab8ddb6849fa5401592f3dd63e7705f0, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
@@ -5531,6 +5579,10 @@ PrefabInstance:
     - target: {fileID: 5732878687990443960, guid: ab8ddb6849fa5401592f3dd63e7705f0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5770885130740132332, guid: ab8ddb6849fa5401592f3dd63e7705f0, type: 3}
+      propertyPath: currencyReward
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5902841015150735655, guid: ab8ddb6849fa5401592f3dd63e7705f0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5604,6 +5656,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7346903001517872543, guid: ab8ddb6849fa5401592f3dd63e7705f0, type: 3}
+      propertyPath: currencyReward
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 7454368443939952415, guid: ab8ddb6849fa5401592f3dd63e7705f0, type: 3}
       propertyPath: m_SortingOrder
       value: -7
@@ -5611,6 +5667,10 @@ PrefabInstance:
     - target: {fileID: 7470973526630270105, guid: ab8ddb6849fa5401592f3dd63e7705f0, type: 3}
       propertyPath: m_SortingOrder
       value: -7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7522427614063723987, guid: ab8ddb6849fa5401592f3dd63e7705f0, type: 3}
+      propertyPath: currencyReward
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8084644552726439788, guid: ab8ddb6849fa5401592f3dd63e7705f0, type: 3}
       propertyPath: m_LocalRotation.w
