@@ -3292,7 +3292,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlipAxisVelocity
   _sprite: {fileID: 1245427632}
-  _controller: {fileID: 2062861076}
+  _controller: {fileID: 2062861072}
   flip: 0
 --- !u!43 &1291361575
 Mesh:
@@ -6075,11 +6075,17 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.8446121, y: 0.16909295, z: 10.398856}
   m_Center: {x: 0.000000014901161, y: -0.04504916, z: 4.699428}
---- !u!54 &2062861076 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 6753732344209035485, guid: 5244d7ff201fe1b43a4d7b904897ac1e, type: 3}
+--- !u!114 &2062861072 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2273331331737169516, guid: 5244d7ff201fe1b43a4d7b904897ac1e, type: 3}
   m_PrefabInstance: {fileID: 6062487136002437812}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea2043c46e2a781419a230234ac6a192, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CMF.SimpleWalkerController
 --- !u!1 &2079996385
 GameObject:
   m_ObjectHideFlags: 0
