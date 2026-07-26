@@ -96,6 +96,24 @@ public class GearMinigameSpawner : MonoBehaviour
             minigame.onMinigameClosed.AddListener(OnMinigameClosed);
         }
     }
+    private void Start()
+    {
+        GameManager.Instance.OnGameReset += ResetPool;
+    }
+
+    [ContextMenu("Reset Pool")]
+    private void ResetPool()
+    {
+        foreach (GameObject obj in _activeObjects.ToArray())
+        {
+            _pool.Release(obj);
+        }
+
+        _activeObjects.Clear();
+
+        _timer = 0f;
+    }
+
 
     private void OnDestroy()
     {
@@ -205,11 +223,13 @@ public class GearMinigameSpawner : MonoBehaviour
     private void OnGetFromPool(GameObject obj)
     {
         obj.SetActive(true);
+        _activeObjects.Add(obj);
     }
-
+    private readonly List<GameObject> _activeObjects = new();
     private void OnReleaseToPool(GameObject obj)
     {
         obj.SetActive(false);
+        _activeObjects.Remove(obj);
     }
 
     private void OnDestroyPoolObject(GameObject obj)
@@ -314,6 +334,7 @@ public class GearMinigameTrigger : MonoBehaviour, IInteractable
     [SerializeField] private bool closeOnInteractorLeave = false;
 
     private GearMinigameSpawner _spawner;
+   
 
     public void Initialize(GearMinigameSpawner spawner)
     {
