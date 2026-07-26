@@ -3,21 +3,35 @@ using System.Collections;
 
 public class StartPortal : MonoBehaviour, IInteractable
 {
-    bool _debounce = false;
+    [SerializeField] private ConfirmationUI confirmationUI;
+
+    private bool _debounce = false;
+    private bool _teleportFinished;
+
     public void OnInteractorDown(Transform interactor)
     {
         if (_debounce) return;
-        if (!interactor.TryGetComponent<TriggerInteractor>(out var _))
-        {
-            return;
-        }
 
-        StartCoroutine(StartGameRoutine());
+        if (!interactor.TryGetComponent<TriggerInteractor>(out var _))
+            return;
+
+        confirmationUI.Show(confirmed =>
+        {
+            if (confirmed)
+            {
+                EnterPortal();
+            }
+        });
     }
 
-    private bool _teleportFinished;
+    public void EnterPortal()
+    {
+        if (_debounce) return;
 
-    private IEnumerator StartGameRoutine()
+        StartCoroutine(EnterPortalRoutine());
+    }
+
+    private IEnumerator EnterPortalRoutine()
     {
         _debounce = true;
 
@@ -31,13 +45,15 @@ public class StartPortal : MonoBehaviour, IInteractable
 
         yield return new WaitUntil(() => _teleportFinished);
 
-        yield return new WaitForSeconds(3f);
-
         GameEvents.OnPlayerTeleportCompleted -= OnFinished;
 
+        yield return new WaitForSeconds(3f);
+
         GameManager.Instance.StartGame();
+
         _debounce = false;
     }
+
     public void OnInteractorHover(Transform interactor) { }
     public void OnInteractorLeave(Transform interactor) { }
     public void OnInteractorStay(Transform interactor) { }
