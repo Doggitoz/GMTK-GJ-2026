@@ -4128,14 +4128,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 943157315453919438, guid: a807daa90524e104db1d402091a38f18, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 943157315453919438, guid: a807daa90524e104db1d402091a38f18, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3903987253406224321, guid: a807daa90524e104db1d402091a38f18, type: 3}
       propertyPath: _hourHand
       value: 
@@ -4152,10 +4144,6 @@ PrefabInstance:
       propertyPath: _playerAnimator
       value: 
       objectReference: {fileID: 1245427630}
-    - target: {fileID: 4120498330896711832, guid: a807daa90524e104db1d402091a38f18, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4813284144588708629, guid: a807daa90524e104db1d402091a38f18, type: 3}
       propertyPath: _pauseMenuObject
       value: 
@@ -5664,161 +5652,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3608518714501206880, guid: 17445af17aa4f4d489efe59b1eb24b5a, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3608518714501206880, guid: 17445af17aa4f4d489efe59b1eb24b5a, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: -113.300095
-      objectReference: {fileID: 0}
-    - target: {fileID: 3608518714501206880, guid: 17445af17aa4f4d489efe59b1eb24b5a, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: -139.62018
-      objectReference: {fileID: 0}
-    - target: {fileID: 3608518714501206880, guid: 17445af17aa4f4d489efe59b1eb24b5a, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -6.6499634
-      objectReference: {fileID: 0}
-    - target: {fileID: 3608518714501206880, guid: 17445af17aa4f4d489efe59b1eb24b5a, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 6.7099
-      objectReference: {fileID: 0}
-    - target: {fileID: 4232977888709144033, guid: 17445af17aa4f4d489efe59b1eb24b5a, type: 3}
-      propertyPath: m_Type
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4232977888709144033, guid: 17445af17aa4f4d489efe59b1eb24b5a, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 171e57d98d76f21449a7bf770627cd4a, type: 3}
-    - target: {fileID: 4232977888709144033, guid: 17445af17aa4f4d489efe59b1eb24b5a, type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4232977888709144033, guid: 17445af17aa4f4d489efe59b1eb24b5a, type: 3}
-      propertyPath: m_RaycastTarget
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5258273177604754604, guid: 17445af17aa4f4d489efe59b1eb24b5a, type: 3}
       propertyPath: m_Name
       value: ItemHUD
-      objectReference: {fileID: 0}
-    - target: {fileID: 5697372585180727617, guid: 17445af17aa4f4d489efe59b1eb24b5a, type: 3}
-      propertyPath: m_Pivot.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5697372585180727617, guid: 17445af17aa4f4d489efe59b1eb24b5a, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5697372585180727617, guid: 17445af17aa4f4d489efe59b1eb24b5a, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5697372585180727617, guid: 17445af17aa4f4d489efe59b1eb24b5a, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5697372585180727617, guid: 17445af17aa4f4d489efe59b1eb24b5a, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 600
-      objectReference: {fileID: 0}
-    - target: {fileID: 5697372585180727617, guid: 17445af17aa4f4d489efe59b1eb24b5a, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 900
-      objectReference: {fileID: 0}
-    - target: {fileID: 7129047465383718487, guid: 17445af17aa4f4d489efe59b1eb24b5a, type: 3}
-      propertyPath: m_Spacing
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 7129047465383718487, guid: 17445af17aa4f4d489efe59b1eb24b5a, type: 3}
-      propertyPath: m_Padding.m_Top
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 7129047465383718487, guid: 17445af17aa4f4d489efe59b1eb24b5a, type: 3}
-      propertyPath: m_Padding.m_Left
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 7129047465383718487, guid: 17445af17aa4f4d489efe59b1eb24b5a, type: 3}
-      propertyPath: m_ChildScaleWidth
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7129047465383718487, guid: 17445af17aa4f4d489efe59b1eb24b5a, type: 3}
-      propertyPath: m_ChildScaleHeight
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7129047465383718487, guid: 17445af17aa4f4d489efe59b1eb24b5a, type: 3}
-      propertyPath: m_ChildControlWidth
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7129047465383718487, guid: 17445af17aa4f4d489efe59b1eb24b5a, type: 3}
-      propertyPath: m_ChildControlHeight
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7129047465383718487, guid: 17445af17aa4f4d489efe59b1eb24b5a, type: 3}
-      propertyPath: m_ChildForceExpandWidth
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7129047465383718487, guid: 17445af17aa4f4d489efe59b1eb24b5a, type: 3}
-      propertyPath: m_ChildForceExpandHeight
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7339364421609632432, guid: 17445af17aa4f4d489efe59b1eb24b5a, type: 3}
-      propertyPath: _catalog.Array.size
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 7339364421609632432, guid: 17445af17aa4f4d489efe59b1eb24b5a, type: 3}
-      propertyPath: _catalog.Array.data[2].icon
-      value: 
-      objectReference: {fileID: 21300000, guid: e8421b437d88b6f41acc68018b9a0525, type: 3}
-    - target: {fileID: 7339364421609632432, guid: 17445af17aa4f4d489efe59b1eb24b5a, type: 3}
-      propertyPath: _catalog.Array.data[3].icon
-      value: 
-      objectReference: {fileID: 21300000, guid: 3f98b56fb6eb9934ab45bbae02031dfc, type: 3}
-    - target: {fileID: 7339364421609632432, guid: 17445af17aa4f4d489efe59b1eb24b5a, type: 3}
-      propertyPath: _catalog.Array.data[4].icon
-      value: 
-      objectReference: {fileID: 21300000, guid: 77f45f2216a4a9349b9ee628a9f29c40, type: 3}
-    - target: {fileID: 7339364421609632432, guid: 17445af17aa4f4d489efe59b1eb24b5a, type: 3}
-      propertyPath: _catalog.Array.data[5].icon
-      value: 
-      objectReference: {fileID: 21300000, guid: f611578c5168daf4b818fa5f2619748b, type: 3}
-    - target: {fileID: 7339364421609632432, guid: 17445af17aa4f4d489efe59b1eb24b5a, type: 3}
-      propertyPath: _catalog.Array.data[2].itemKey
-      value: Eye of Horus
-      objectReference: {fileID: 0}
-    - target: {fileID: 7339364421609632432, guid: 17445af17aa4f4d489efe59b1eb24b5a, type: 3}
-      propertyPath: _catalog.Array.data[3].itemKey
-      value: "God\u2019s Femur"
-      objectReference: {fileID: 0}
-    - target: {fileID: 7339364421609632432, guid: 17445af17aa4f4d489efe59b1eb24b5a, type: 3}
-      propertyPath: _catalog.Array.data[4].itemKey
-      value: "Gambler\u2019s Bet"
-      objectReference: {fileID: 0}
-    - target: {fileID: 7339364421609632432, guid: 17445af17aa4f4d489efe59b1eb24b5a, type: 3}
-      propertyPath: _catalog.Array.data[5].itemKey
-      value: Disembodied Right-hand
-      objectReference: {fileID: 0}
-    - target: {fileID: 7339364421609632432, guid: 17445af17aa4f4d489efe59b1eb24b5a, type: 3}
-      propertyPath: _catalog.Array.data[2].displayName
-      value: Eye of Horus
-      objectReference: {fileID: 0}
-    - target: {fileID: 7339364421609632432, guid: 17445af17aa4f4d489efe59b1eb24b5a, type: 3}
-      propertyPath: _catalog.Array.data[3].displayName
-      value: "God\u2019s Femur"
-      objectReference: {fileID: 0}
-    - target: {fileID: 7339364421609632432, guid: 17445af17aa4f4d489efe59b1eb24b5a, type: 3}
-      propertyPath: _catalog.Array.data[4].displayName
-      value: "Gambler\u2019s Bet"
-      objectReference: {fileID: 0}
-    - target: {fileID: 7339364421609632432, guid: 17445af17aa4f4d489efe59b1eb24b5a, type: 3}
-      propertyPath: _catalog.Array.data[5].displayName
-      value: Disembodied Right-hand
-      objectReference: {fileID: 0}
-    - target: {fileID: 8603057195133011247, guid: 17445af17aa4f4d489efe59b1eb24b5a, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
