@@ -160,7 +160,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioGlobalParameterTrigger
   CollisionTag: 
   Parameter: Music_Region
-  TriggerEvent: 1
+  TriggerEvent: 0
   Value: 3
 --- !u!114 &7078808563648471822
 MonoBehaviour:

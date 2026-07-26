@@ -53,10 +53,9 @@ public class TutorialRunner : MonoBehaviour
 
     private IEnumerator RunTutorialCoroutine()
     {
-
+        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("parameter:/Music_Region", 1, false);
         tutorialMusicInstance = FMODUnity.RuntimeManager.CreateInstance(tutorialMusicEvent);
         tutorialMusicInstance.start();
-        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Music_Region", 1, false);
         // Enable black canvas
         NarrationCanvas.SetActive(true);
 
