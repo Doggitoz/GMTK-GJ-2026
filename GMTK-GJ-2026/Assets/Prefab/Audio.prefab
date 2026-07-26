@@ -15,6 +15,9 @@ GameObject:
   - component: {fileID: 1686007409172380368}
   - component: {fileID: 1265530714509674990}
   - component: {fileID: 7078808563648471822}
+  - component: {fileID: 6096607185993104121}
+  - component: {fileID: 3804128354169111845}
+  - component: {fileID: 1126555956328201823}
   m_Layer: 0
   m_Name: Audio
   m_TagString: Untagged
@@ -93,25 +96,25 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5670464994393129521}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: afe92d6615411014eaaaca4215d36e74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  tickSound:
+  teleportSound:
     Guid:
-      Data1: -479891982
-      Data2: 1234572872
-      Data3: 513449380
-      Data4: 1798045133
-    Path: event:/SFX/Clock/ClockTick
-  music:
+      Data1: 897192020
+      Data2: 1179480560
+      Data3: -1139380586
+      Data4: -1579144390
+    Path: event:/SFX/Hub/Teleport
+  clockBreakSound:
     Guid:
-      Data1: 1767075729
-      Data2: 1192648430
-      Data3: 1517334152
-      Data4: 704449280
-    Path: event:/Music/Music
+      Data1: -1407627211
+      Data2: 1162461784
+      Data3: -1365844851
+      Data4: -74477181
+    Path: event:/SFX/Clock/ClockBreak
 --- !u!114 &1686007409172380368
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,7 +122,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5670464994393129521}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
   m_Name: 
@@ -157,8 +160,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioGlobalParameterTrigger
   CollisionTag: 
   Parameter: Music_Region
-  TriggerEvent: 1
-  Value: 1
+  TriggerEvent: 0
+  Value: 3
 --- !u!114 &7078808563648471822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,3 +178,51 @@ MonoBehaviour:
   Parameter: Music_Region
   TriggerEvent: 0
   Value: 2
+--- !u!114 &6096607185993104121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5670464994393129521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b0e04e2572f9a940a47465f6f3c2f00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioGlobalParameterTrigger
+  CollisionTag: 
+  Parameter: Music_Region
+  TriggerEvent: 0
+  Value: 3
+--- !u!114 &3804128354169111845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5670464994393129521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b0e04e2572f9a940a47465f6f3c2f00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioGlobalParameterTrigger
+  CollisionTag: 
+  Parameter: Music_Region
+  TriggerEvent: 0
+  Value: 4
+--- !u!114 &1126555956328201823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5670464994393129521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b0e04e2572f9a940a47465f6f3c2f00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioGlobalParameterTrigger
+  CollisionTag: 
+  Parameter: Music_Region
+  TriggerEvent: 0
+  Value: 5

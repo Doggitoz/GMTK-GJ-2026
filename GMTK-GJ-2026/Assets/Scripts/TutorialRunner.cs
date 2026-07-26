@@ -31,6 +31,10 @@ public class TutorialRunner : MonoBehaviour
 
     [SerializeField]
     private CinemachineCamera _yogiBearCam;
+
+    [SerializeField]
+    private FMODUnity.EventReference tutorialMusicEvent;
+    private FMOD.Studio.EventInstance tutorialMusicInstance;
     GameManager _gameManager => GameManager.Instance;
     void Awake()
     {
@@ -49,6 +53,9 @@ public class TutorialRunner : MonoBehaviour
 
     private IEnumerator RunTutorialCoroutine()
     {
+        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("parameter:/Music_Region", 1, false);
+        tutorialMusicInstance = FMODUnity.RuntimeManager.CreateInstance(tutorialMusicEvent);
+        tutorialMusicInstance.start();
         // Enable black canvas
         NarrationCanvas.SetActive(true);
 
@@ -106,6 +113,9 @@ public class TutorialRunner : MonoBehaviour
 
         _zoomedOutCam.Priority = 100;
         // Introduction to the world challenge
+
+        tutorialMusicInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Music_Region", 2, false);
         yield return PlayDialogue(
             new DialogueLine[]
             {
@@ -171,6 +181,7 @@ public class TutorialRunner : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
         Save.Manager.Instance.CompleteTutorial();
+        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Music_Region", 3, false);
         GameEvents.RequestPlayerTeleport(GameManager.HubSpawnLocation);
         _gameManager.EndTutorial();
     }
