@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class TRIALTRACKER : MonoBehaviour
 {
-    public HashSet<string> completedTrial = new();
+    public static HashSet<string> completedTrial = new();
 
     public void OnCompleteGame()
     {
