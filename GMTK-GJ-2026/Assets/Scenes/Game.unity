@@ -465,6 +465,11 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 10.4, y: 6.938366, z: 0.116963334}
   m_Center: {x: 0, y: 0.37918776, z: -0.041518353}
+--- !u!1 &67846207 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3873075982857283661, guid: 5244d7ff201fe1b43a4d7b904897ac1e, type: 3}
+  m_PrefabInstance: {fileID: 6062487136002437812}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &116963383
 GameObject:
   m_ObjectHideFlags: 0
@@ -3269,6 +3274,26 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 2471024936728854284, guid: 5244d7ff201fe1b43a4d7b904897ac1e, type: 3}
   m_PrefabInstance: {fileID: 6062487136002437812}
   m_PrefabAsset: {fileID: 0}
+--- !u!212 &1245427632 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 2289903616455606465, guid: 5244d7ff201fe1b43a4d7b904897ac1e, type: 3}
+  m_PrefabInstance: {fileID: 6062487136002437812}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1245427634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 67846207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da69640cc80d2f4e8647d8480265b73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FlipAxisVelocity
+  _sprite: {fileID: 1245427632}
+  _controller: {fileID: 2062861072}
+  flip: 0
 --- !u!43 &1291361575
 Mesh:
   m_ObjectHideFlags: 0
@@ -6055,6 +6080,17 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.8446121, y: 0.16909295, z: 10.398856}
   m_Center: {x: 0.000000014901161, y: -0.04504916, z: 4.699428}
+--- !u!114 &2062861072 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2273331331737169516, guid: 5244d7ff201fe1b43a4d7b904897ac1e, type: 3}
+  m_PrefabInstance: {fileID: 6062487136002437812}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea2043c46e2a781419a230234ac6a192, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CMF.SimpleWalkerController
 --- !u!1 &2079996385
 GameObject:
   m_ObjectHideFlags: 0
@@ -6772,6 +6808,10 @@ PrefabInstance:
       propertyPath: cameraTransform
       value: 
       objectReference: {fileID: 330585546}
+    - target: {fileID: 2289903616455606465, guid: 5244d7ff201fe1b43a4d7b904897ac1e, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2703879691532222877, guid: 5244d7ff201fe1b43a4d7b904897ac1e, type: 3}
       propertyPath: m_Name
       value: Player
@@ -6819,7 +6859,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3873075982857283661, guid: 5244d7ff201fe1b43a4d7b904897ac1e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1245427634}
   m_SourcePrefab: {fileID: 100100000, guid: 5244d7ff201fe1b43a4d7b904897ac1e, type: 3}
 --- !u!1001 &6299148436691155831
 PrefabInstance:
