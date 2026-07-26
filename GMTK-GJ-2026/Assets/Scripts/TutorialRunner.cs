@@ -5,11 +5,11 @@ using Unity.Cinemachine;
 public class TutorialRunner : MonoBehaviour
 {
     [SerializeField]
-    bool TutorialDisabled;
-    [SerializeField]
     Narration.Canvas NarrationCanvas;
     [SerializeField]
     Narration.Script TutorialScript;
+    [SerializeField]
+    GameObject _yogiBear;
 
     [SerializeField]
     private Animator _playerAnimator;
@@ -24,9 +24,15 @@ public class TutorialRunner : MonoBehaviour
     private Clock.Hand _secondHand;
 
     [SerializeField]
+    private CinemachineCamera _zoomedOutCam;
+
+    [SerializeField]
     private CinemachineCamera _centerZoomCam;
+
+    [SerializeField]
+    private CinemachineCamera _yogiBearCam;
     GameManager _gameManager => GameManager.Instance;
-    void Start()
+    void Awake()
     {
         _gameManager.OnTutorialStart += RunTutorial;
     }
@@ -43,21 +49,13 @@ public class TutorialRunner : MonoBehaviour
 
     private IEnumerator RunTutorialCoroutine()
     {
-        if (TutorialDisabled)
-            yield break;
-
         // Enable black canvas
         NarrationCanvas.SetActive(true);
 
         // Make sure game manager states are correct
-        _gameManager.StopGame();
         _gameManager.SetPlayerActive(false);
 
         yield return new WaitForSeconds(1f);
-
-        // Teleport player to correct space in scene
-        // Vector3(0, 1, -10)
-        _gameManager.SetPlayerActive(false);
 
         // Set player animation to sleep
         _playerAnimator.SetBool("IsAsleep", true);
@@ -77,18 +75,22 @@ public class TutorialRunner : MonoBehaviour
         yield return PlayDialogue(
             new DialogueLine[]
             {
-                CreatePlayerDialogue("A voice whispers to you, screaming in from all sides."),
-                CreatePlayerDialogue("From every face, from every indicator…"),
-                CreatePlayerDialogue("And somehow, from the cogs and tickers themselves."),
-                CreatePlayerDialogue("It’s vibration, ancient, unknowable and crying out like a newborn babe."),
-                CreatePlayerDialogue("Somehow… you know it,"),
-                CreatePlayerDialogue("As the slithering…"),
-                CreatePlayerDialogue("Velvety…"),
-                CreatePlayerDialogue("Articulation of the Watcher…"),
-                CreatePlayerDialogue("Yog-Sothoth.")
+                CreateMysteryDialogue("A voice whispers to you, screaming in from all sides."),
+                CreateMysteryDialogue("From every face, from every indicator…"),
+                CreateMysteryDialogue("And somehow, from the cogs and tickers themselves."),
+                CreateMysteryDialogue("It’s vibration, ancient, unknowable and crying out like a newborn babe."),
+                CreateMysteryDialogue("Somehow… you know it,"),
+                CreateMysteryDialogue("As the slithering…"),
+                CreateMysteryDialogue("Velvety…"),
+                CreateMysteryDialogue("Articulation of the Watcher…"),
+                CreateMysteryDialogue("Yog-Sothoth.")
             }
         );
 
+        // Spawn yogi in
+        _yogiBear.SetActive(true);
+
+        yield return new WaitForSeconds(2f);
 
         // Introduction to YogSlothoth
         yield return PlayDialogue(
@@ -102,6 +104,7 @@ public class TutorialRunner : MonoBehaviour
             }
         );
 
+        _zoomedOutCam.Priority = 100;
         // Introduction to the world challenge
         yield return PlayDialogue(
             new DialogueLine[]
@@ -113,23 +116,11 @@ public class TutorialRunner : MonoBehaviour
                 CreateYogSlothothDialogue("But, if your will is strong, may yet persevere."),
             }
         );
+        _zoomedOutCam.Priority = -100;
 
-        // Rust introduction
-        yield return PlayDialogue(
-            new DialogueLine[]
-            {
-                CreateYogSlothothDialogue("Purge the rust from the bones of this time piece.")
-            }
-        );
-        // Zoom into rust
-        yield return PlayDialogue(
-            new DialogueLine[]
-            {
-                CreateMysteryDialogue("Clean the rust with a click!"),
-                CreateMysteryDialogue("Don’t let it accumulate")
-            }
-        );
+        yield return new WaitForSeconds(3f);
 
+        _centerZoomCam.Priority = 100;
         // Wind up introduction
         yield return PlayDialogue(
             new DialogueLine[]
@@ -137,7 +128,6 @@ public class TutorialRunner : MonoBehaviour
                 CreateYogSlothothDialogue("Wind it and keep pace, with the hands that seek to strike you down.")
             }
         );
-        //_centerZoomCam.Priority = 100;
         yield return PlayDialogue(
             new DialogueLine[]
             {
@@ -145,8 +135,11 @@ public class TutorialRunner : MonoBehaviour
                 CreateMysteryDialogue("Or become unwound yourself.")
             }
         );
-        //_centerZoomCam.Priority = -100;
+        _centerZoomCam.Priority = -100;
 
+        yield return new WaitForSeconds(3f);
+
+        _zoomedOutCam.Priority = 100;
         // Clock hand introduction
         yield return PlayDialogue(
             new DialogueLine[]
@@ -157,7 +150,13 @@ public class TutorialRunner : MonoBehaviour
             }
         );
         yield return _hourHand.TutorialSpin();
+        yield return new WaitForSeconds(1f);
+        _zoomedOutCam.Priority = -100;
 
+        yield return new WaitForSeconds(3f);
+
+        // Zoom in on yogi bear
+        _yogiBearCam.Priority = 100;
         // Final remarks
         yield return PlayDialogue(
             new DialogueLine[]
@@ -166,12 +165,14 @@ public class TutorialRunner : MonoBehaviour
                 CreateYogSlothothDialogue("I’d love to watch a mortal squirm…")
             }
         );
+        _yogiBearCam.Priority = -100;
+        _yogiBear.SetActive(false);
 
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(2f);
 
-        _gameManager.SetPlayerActive(true);
-
-        _gameManager.StartGame();
+        Save.Manager.Instance.CompleteTutorial();
+        GameEvents.RequestPlayerTeleport(GameManager.HubSpawnLocation);
+        _gameManager.EndTutorial();
     }
 
     private IEnumerator WaitForAnimation(string stateName)

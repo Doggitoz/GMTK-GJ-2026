@@ -25,7 +25,7 @@ namespace Clock
             OnDamagePercentageChanged?.Invoke(DamagePercentage);
             if (DamagePercentage == 100)
             {
-                GameManager.Instance.TriggerLoseGame();
+                GameEvents.TriggerClockBreak();
             }
         }
 
@@ -36,7 +36,7 @@ namespace Clock
 
         public void SetRepairTimeScale(float newScale)
         {
-            _deteriorationTimeScale = newScale;
+            _repairTimeScale = newScale;
         }
     }
 }

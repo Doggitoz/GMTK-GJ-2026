@@ -336,6 +336,7 @@ public class GearMinigameTrigger : MonoBehaviour, IInteractable
     private GearMinigameSpawner _spawner;
 
     private FMOD.Studio.EventInstance gearDropSound;
+    public bool ShowInteractionIndicator => true;
 
     private void OnEnable()
     {
@@ -346,7 +347,7 @@ public class GearMinigameTrigger : MonoBehaviour, IInteractable
 
     private void OnDisable()
     {
-        GameManager.Instance.ClockCondition.AddDamagePercentage(10);
+        GameManager.Instance.ClockCondition.AddDamagePercentage(-10);
     }
 
     public void Initialize(GearMinigameSpawner spawner)

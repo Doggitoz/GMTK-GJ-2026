@@ -1,65 +1,47 @@
-using System.Collections;
-using Unity.Cinemachine;
 using UnityEngine;
+using System.Collections;
 
 public class PlayerTeleporter : MonoBehaviour
 {
-    [SerializeField]
-    private Vector3 _position;
-
-    [SerializeField]
-    Transform _player;
-
-    [SerializeField]
-    CinemachineCamera _playerCamera;
-
-    [SerializeField]
-    CinemachineCamera _fadeCamera;
-
-    [SerializeField]
-    private Animator _playerAnimator;
-
-    [SerializeField]
-    private string _teleportBoolParameter = "IsAsleep";
-    IEnumerator _routine;
-
-    // Fade Out
-    // TeleportPlayer
-    // FadeIn
-
-    public void TriggerTeleport()
+    private Coroutine _teleportRoutine;
+    private void Start()
     {
-        if (_routine != null)
-        {
-            StopCoroutine(_routine);
-        }
-
-        _routine = TeleportRoutine();
-        StartCoroutine(_routine);
+        GameEvents.OnLose += TeleportToHub;
+        GameEvents.OnWin += TeleportToHub;
+        GameManager.Instance.OnTutorialStart += TeleportToClock;
     }
 
-    IEnumerator TeleportRoutine()
+    private void OnDestroy()
     {
-        if (_playerAnimator != null)
-        {
-            _playerAnimator.SetBool(_teleportBoolParameter, true);
-        }
-        
-        GameManager.Instance.SetPlayerActive(false);
-        yield return new WaitForSeconds(0.5f);
-        _fadeCamera.Priority = 2;
-        _fadeCamera.Prioritize();
-        yield return new WaitForSeconds(1.5f);
-        GameEvents.RequestTeleport(_position);
-        Vector3 targetPos = new Vector3(0, _player.transform.position.y + 5, _player.transform.position.z - 10);
-        _playerCamera.ForceCameraPosition(targetPos, _playerCamera.transform.rotation);
+        GameEvents.OnLose -= TeleportToHub;
+        GameEvents.OnWin -= TeleportToHub;
+    }
 
-        yield return new WaitForSeconds(.5f);
-        _fadeCamera.Priority = -1;
-        if (_playerAnimator != null)
-        {
-            _playerAnimator.SetBool(_teleportBoolParameter, false);
-        }
-        GameManager.Instance.SetPlayerActive(true);
+    private void TeleportToHub()
+    {
+        if (_teleportRoutine != null)
+            StopCoroutine(_teleportRoutine);
+
+        _teleportRoutine = StartCoroutine(TeleportToHubCoroutine());
+    }
+
+    private IEnumerator TeleportToHubCoroutine()
+    {
+        yield return new WaitForSeconds(2f);
+        GameEvents.RequestPlayerTeleport(GameManager.HubSpawnLocation);
+    }
+
+    private void TeleportToClock()
+    {
+        if (_teleportRoutine != null)
+            StopCoroutine(_teleportRoutine);
+
+        _teleportRoutine = StartCoroutine(TeleportToClockCoroutine());
+    }
+
+    private IEnumerator TeleportToClockCoroutine()
+    {
+        yield return new WaitForSeconds(2f);
+        GameEvents.RequestPlayerTeleport(GameManager.ClockSpawnLocation);
     }
 }

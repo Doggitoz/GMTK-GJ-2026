@@ -311,6 +311,21 @@ namespace CMF
             Check();
         }
 
+        //Teleport player
+        public void Teleport(Vector3 position)
+        {
+            rig.linearVelocity = Vector3.zero;
+            rig.angularVelocity = Vector3.zero;
+
+            rig.position = position;
+
+            Physics.SyncTransforms();
+
+            CheckForGround();
+
+            SetVelocity(Vector3.zero);
+        }
+
         //Set mover velocity;
         public void SetVelocity(Vector3 _velocity)
         {

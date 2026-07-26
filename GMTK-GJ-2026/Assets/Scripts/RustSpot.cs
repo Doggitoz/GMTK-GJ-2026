@@ -33,6 +33,8 @@ public class RustSpot : MonoBehaviour, IInteractable
 
     public static float growthRate => GameItems.HasItem("RustSlow") ? 0.1f : 0.3f;
 
+    public bool ShowInteractionIndicator => true;
+
     private bool _isBeingCleaned;
     private bool _cleaningStarted;
 
@@ -43,7 +45,7 @@ public class RustSpot : MonoBehaviour, IInteractable
     {
         _visuals.localScale = Vector3.one;
         GetComponent<BoxCollider>().size = Vector3.one;
-        _currentDamageWorth = 1;
+        _currentDamageWorth = damagePerRust;
         damageIncreaseTarget = 2;
         _isBeingCleaned = false;
         _cleaningStarted = false;
@@ -120,7 +122,7 @@ public class RustSpot : MonoBehaviour, IInteractable
             if (_visuals.localScale.x > damageIncreaseTarget)
             {
                 ClockCondition.AddDamagePercentage(damagePerRust);
-                _currentDamageWorth++;
+                _currentDamageWorth += damagePerRust;
                 damageIncreaseTarget++;
             }
         }

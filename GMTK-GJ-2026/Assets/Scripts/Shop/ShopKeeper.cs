@@ -12,6 +12,7 @@ public class ShopKeeper : MonoBehaviour, IInteractable
     public UnityEvent CloseShop;
 
     [SerializeField] private FMODUnity.EventReference selectSound;
+    public bool ShowInteractionIndicator => true;
 
     private void Awake()
     {

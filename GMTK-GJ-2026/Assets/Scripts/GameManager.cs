@@ -3,23 +3,31 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Remove this later
-    [SerializeField]
-    private bool _startOnRuntime;
+    public static readonly Vector3 ClockSpawnLocation = new Vector3(0, 1.5f, -10);
+    public static readonly Vector3 HubSpawnLocation = new Vector3(100, 1.5f, 0);
 
     public event Action OnGameReset;
     public event Action OnGameStop;
     public event Action OnGameStart;
     public event Action OnTutorialStart;
+    public event Action OnTutorialEnd;
+    public event Action OnLoadSave;
 
     public static GameManager Instance { get; private set; }
     public bool GameActive => _gameActive;
-    private bool _gameActive;
+    private bool _gameActive = false;
     public Clock.Condition ClockCondition => _clockCondition ??= new Clock.Condition();
     private Clock.Condition _clockCondition;
 
     public bool PlayerControllerEnabled => _playerControllerEnabled;
     private bool _playerControllerEnabled = true;
+
+    [SerializeField]
+    private bool _disableTutorial;
+
+    private Save.Data SaveData => Save.Manager.Instance != null
+        ? Save.Manager.Instance.CurrentSave
+        : null;
 
     void Awake()
     {
@@ -28,8 +36,26 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        _gameActive = _startOnRuntime;
-        if (_startOnRuntime) return;
+        if (_disableTutorial || SaveData?.completedTutorial == true)
+        {
+            LoadSave();
+        }
+        else
+        {
+            NewSave();
+        }
+        GameEvents.OnLose += StopGame;
+        GameEvents.OnWin += StopGame;
+    }
+
+    void LoadSave()
+    {
+        // Load save stuff here I think
+        OnLoadSave?.Invoke();
+    }
+
+    void NewSave()
+    {
         OnTutorialStart?.Invoke();
     }
 
@@ -39,9 +65,15 @@ public class GameManager : MonoBehaviour
         OnTutorialStart?.Invoke();
     }
 
+    public void EndTutorial()
+    {
+        OnTutorialEnd?.Invoke();
+    }
+
     [ContextMenu("Start Game")]
     public void StartGame()
     {
+        ResetGame();
         _gameActive = true;
         OnGameStart?.Invoke();
     }
@@ -60,22 +92,9 @@ public class GameManager : MonoBehaviour
         OnGameReset?.Invoke();
     }
 
-    [ContextMenu("Restart Game")]
-    public void RestartGame()
-    {
-        StopGame();
-        ResetGame();
-        StartGame();
-    }
-
     public void SetPlayerActive(bool isActive)
     {
         _playerControllerEnabled = isActive;
-    }
-
-    public void TriggerLoseGame()
-    {
-        StopGame();
     }
 
     private void VerifySingleton()
@@ -88,5 +107,28 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+    public float _damagePercent;
+    private void Update()
+    {
+        _damagePercent = ClockCondition.DamagePercentage;
+    }
+
+    [ContextMenu("Trigger Lose")]
+    public void TriggerLose()
+    {
+        GameEvents.TriggerLose();
+    }
+
+    [ContextMenu("Trigger Break")]
+    public void TriggerBreak()
+    {
+        GameEvents.TriggerClockBreak();
+    }
+
+    [ContextMenu("Trigger Win")]
+    public void TriggerWin()
+    {
+        GameEvents.TriggerWin();
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Unity.Cinemachine;
 
 namespace CMF
 {
@@ -9,9 +10,24 @@ namespace CMF
     //This script is an example of a very simple walker controller that covers only the basics of character movement;
     public class SimpleWalkerController : Controller
     {
+        [SerializeField]
+        private CinemachineCamera _playerCamera;
+
+        [SerializeField]
+        private CinemachineCamera _fadeCamera;
+
+        [SerializeField]
+        private Animator _playerAnimator;
+
+        [SerializeField]
+        private string _teleportBoolParameter = "IsAsleep";
+
+        private Coroutine _teleportRoutine;
+
         private Mover mover;
         float currentVerticalSpeed = 0f;
         bool isGrounded;
+        private bool _isTeleporting = false;
         public float movementSpeed = 7f;
         public float jumpSpeed = 10f;
         public float gravity = 10f;
@@ -30,69 +46,202 @@ namespace CMF
         // Use this for initialization
         void Start()
         {
-            tr = transform;
-            mover = GetComponent<Mover>();
             moveAction = InputSystem.actions.FindAction("Move");
             jumpAction = InputSystem.actions.FindAction("Jump");
 
-            GameEvents.OnTeleportRequested += Teleport;
+            GameEvents.OnPlayerTeleportRequested += Teleport;
+            GameEvents.OnPlayerHardTeleportRequested += HardTeleport;
+        }
+
+        private void Awake()
+        {
+            tr = transform;
+            mover = GetComponent<Mover>();
+            GameManager.Instance.OnLoadSave += OnSaveLoaded;
         }
 
         void FixedUpdate()
         {
-            //Run initial mover ground check;
             mover.CheckForGround();
 
-            //If character was not grounded int the last frame and is now grounded, call 'OnGroundContactRegained' function;
-            if (isGrounded == false && mover.IsGrounded() == true)
+            if (!isGrounded && mover.IsGrounded())
                 OnGroundContactRegained(lastVelocity);
 
-            //Check whether the character is grounded and store result;
             isGrounded = mover.IsGrounded();
 
-            Vector3 _velocity = Vector3.zero;
+            Vector3 velocity = Vector3.zero;
 
-            //Add player movement to velocity;
-            _velocity += CalculateMovementDirection() * movementSpeed;
+            // Only allow movement when not teleporting
+            if (!_isTeleporting)
+            {
+                velocity += CalculateMovementDirection() * movementSpeed;
 
-            //Handle gravity;
+                if (isGrounded &&
+                    GameManager.Instance.PlayerControllerEnabled &&
+                    jumpAction.IsPressed() &&
+                    !GameItems.HasItem("God’s Femur"))
+                {
+                    OnJumpStart();
+                    currentVerticalSpeed = jumpSpeed;
+                    isGrounded = false;
+                }
+            }
+
+            // Gravity always runs
             if (!isGrounded)
             {
                 currentVerticalSpeed -= gravity * Time.deltaTime;
             }
-            else
+            else if (currentVerticalSpeed < 0f)
             {
-                if (currentVerticalSpeed <= 0f)
-                    currentVerticalSpeed = 0f;
+                currentVerticalSpeed = 0f;
             }
 
-            // Handle jumping;
-            if (isGrounded && GameManager.Instance.PlayerControllerEnabled && jumpAction.IsPressed())
-           {
-                OnJumpStart();
-                currentVerticalSpeed = jumpSpeed;
-                isGrounded = false;
-            }
+            velocity += tr.up * currentVerticalSpeed;
 
-            //Add vertical velocity;
-            _velocity += tr.up * currentVerticalSpeed;
-
-            //Save current velocity for next frame;
-            lastVelocity = _velocity;
+            lastVelocity = velocity;
 
             mover.SetExtendSensorRange(isGrounded);
-            mover.SetVelocity(_velocity);
+            mover.SetVelocity(velocity);
         }
 
         private void Teleport(Vector3 newPosition)
         {
-            transform.position = newPosition;
-            currentVerticalSpeed = 0f;
-            lastVelocity = Vector3.zero;
-            mover.SetVelocity(Vector3.zero);
-            GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
+            if (_teleportRoutine != null)
+            {
+                StopCoroutine(_teleportRoutine);
+            }
+
+            _teleportRoutine = StartCoroutine(TeleportRoutine(newPosition));
         }
 
+        private IEnumerator TeleportRoutine(Vector3 newPosition)
+        {
+            _isTeleporting = true;
+
+            if (_playerAnimator != null)
+            {
+                // Start Idle -> Stand Up -> Sleep sequence
+                _playerAnimator.SetBool(_teleportBoolParameter, true);
+
+                // Wait until the sleep animation is reached
+                yield return new WaitUntil(() =>
+                {
+                    AnimatorStateInfo state = _playerAnimator.GetCurrentAnimatorStateInfo(0);
+
+                    return state.IsName("Sleep") ||
+                           state.IsName("Base Layer.Sleep");
+                });
+
+                // Stay Sleep before fading
+                yield return new WaitForSeconds(2f);
+            }
+
+            GameManager.Instance.SetPlayerActive(false);
+
+            // Fade to black
+            if (_fadeCamera != null)
+            {
+                _fadeCamera.Priority = 2;
+                _fadeCamera.Prioritize();
+            }
+
+            // Give fade time to complete
+            yield return new WaitForSeconds(1.5f);
+
+
+            // Actual teleport
+            currentVerticalSpeed = 0f;
+            lastVelocity = Vector3.zero;
+
+            mover.Teleport(newPosition);
+
+            yield return new WaitForFixedUpdate();
+
+
+            // Reset camera position
+            if (_playerCamera != null)
+            {
+                Vector3 targetPos = new Vector3(
+                    0,
+                    transform.position.y + 5,
+                    transform.position.z - 10
+                );
+
+                _playerCamera.ForceCameraPosition(
+                    targetPos,
+                    _playerCamera.transform.rotation
+                );
+            }
+
+
+            // Unfade
+            if (_fadeCamera != null)
+            {
+                _fadeCamera.Priority = -1;
+            }
+
+            // Wait 2 seconds after fade finishes before waking up
+            yield return new WaitForSeconds(2f);
+
+
+            // Trigger Sleep -> Stand Up -> Idle
+            if (_playerAnimator != null)
+            {
+                _playerAnimator.SetBool(_teleportBoolParameter, false);
+
+                // Give animator a frame to process transition
+                yield return null;
+
+                // Wait until back at Idle
+                yield return new WaitUntil(() =>
+                {
+                    AnimatorStateInfo state = _playerAnimator.GetCurrentAnimatorStateInfo(0);
+                    return state.IsName("Idle");
+                });
+            }
+
+
+            _isTeleporting = false;
+
+            GameManager.Instance.SetPlayerActive(true);
+
+            GameEvents.CompletePlayerTeleport();
+        }
+
+        public void OnSaveLoaded()
+        {
+            HardTeleport(GameManager.HubSpawnLocation);
+        }
+
+        public void HardTeleport(Vector3 newPosition)
+        {
+            _isTeleporting = true;
+
+            currentVerticalSpeed = 0f;
+            lastVelocity = Vector3.zero;
+
+            mover.Teleport(newPosition);
+
+            // Force camera to update immediately
+            if (_playerCamera != null)
+            {
+                Vector3 targetPos = new Vector3(
+                    0,
+                    transform.position.y + 5,
+                    transform.position.z - 10
+                );
+
+                _playerCamera.ForceCameraPosition(
+                    targetPos,
+                    _playerCamera.transform.rotation
+                );
+            }
+
+            _isTeleporting = false;
+
+            GameEvents.CompletePlayerTeleport();
+        }
         private Vector3 CalculateMovementDirection()
         {
             if (!GameManager.Instance.PlayerControllerEnabled) return Vector3.zero;
@@ -168,7 +317,7 @@ namespace CMF
 
         private void OnDestroy()
         {
-            GameEvents.OnTeleportRequested -= Teleport;
+            GameEvents.OnPlayerTeleportRequested -= Teleport;
         }
 
     }

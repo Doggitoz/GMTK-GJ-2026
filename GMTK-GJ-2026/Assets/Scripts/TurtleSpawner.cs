@@ -10,8 +10,17 @@ public class TurtleSpawner : MonoBehaviour
 
     private void OnEnable()
     {
-        GameManager.Instance.OnGameStart += SpawnTurtle;
-        GameManager.Instance.OnGameStop += DestroyTurtle;
+        if (GameManager.Instance == null)
+        {
+            var manager = GameObject.FindFirstObjectByType<GameManager>();
+            manager.OnGameStart += SpawnTurtle;
+            manager.OnGameStop += DestroyTurtle;
+        } else
+        {
+            GameManager.Instance.OnGameStart += SpawnTurtle;
+            GameManager.Instance.OnGameStop += DestroyTurtle;
+        }
+        ;
     }
 
     private void OnDisable()

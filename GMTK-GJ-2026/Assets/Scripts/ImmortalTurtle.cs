@@ -3,13 +3,15 @@ using System.Collections.Specialized;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class ImmortalTurtle : MonoBehaviour,IInteractable
+public class ImmortalTurtle : MonoBehaviour, IInteractable
 {
     [SerializeField]
     private Transform _playerTransform;
 
     [SerializeField]
     private NavMeshAgent _agent;
+
+    public bool ShowInteractionIndicator => false;
 
     private void Awake()
     {

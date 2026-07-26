@@ -9,6 +9,8 @@ public class BasicInteractable : MonoBehaviour, IInteractable
     public UnityEvent MouseDown;
     public UnityEvent MouseUp;
 
+    public bool ShowInteractionIndicator => true;
+
     public void OnInteractorDown(Transform interactor)
     {
         if (SHOULD_LOG) Debug.Log("Mouse Down");

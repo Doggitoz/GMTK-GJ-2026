@@ -3,10 +3,40 @@ using System;
 
 public static class GameEvents
 {
-    public static event Action<Vector3> OnTeleportRequested;
+    public static event Action<Vector3> OnPlayerTeleportRequested;
+    public static event Action<Vector3> OnPlayerHardTeleportRequested;
+    public static event Action OnPlayerTeleportCompleted;
+    public static event Action OnBreakClock;
+    public static event Action OnLose;
+    public static event Action OnWin;
 
-    public static void RequestTeleport(Vector3 position)
+    public static void RequestPlayerTeleport(Vector3 position)
     {
-        OnTeleportRequested?.Invoke(position);
+        OnPlayerTeleportRequested?.Invoke(position);
+    }
+
+    public static void RequestHardPlayerTeleport(Vector3 position)
+    {
+        OnPlayerHardTeleportRequested?.Invoke(position);
+    }
+
+    public static void CompletePlayerTeleport()
+    {
+        OnPlayerTeleportCompleted?.Invoke();
+    }
+
+    public static void TriggerClockBreak()
+    {
+        OnBreakClock?.Invoke();
+    }
+
+    public static void TriggerLose()
+    {
+        OnLose?.Invoke();
+    }
+
+    public static void TriggerWin()
+    {
+        OnWin?.Invoke();
     }
 }
