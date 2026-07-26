@@ -4,34 +4,35 @@ public class ClockAudio : MonoBehaviour
 {
 
     [SerializeField]
-    private FMODUnity.EventReference tickSound;
+    private FMODUnity.EventReference teleportSound;
     [SerializeField]
-    private FMODUnity.EventReference music;
+    private FMODUnity.EventReference clockBreakSound;
     private bool firstTime;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
-        Clock.TimeManager.Instance.OnSecondChanged += CallTickSound;
-        firstTime = true;
+        GameEvents.OnLose += teleport;
+        GameEvents.OnWin += teleport;
+        GameManager.Instance.OnTutorialStart += teleport;
+        GameEvents.OnBreakClock += clockBreak;
+
     }
 
     private void OnDestroy()
     {
-        if (Clock.TimeManager.Instance != null)
-        {
-            Clock.TimeManager.Instance.OnSecondChanged -= CallTickSound;
-        }
+        GameEvents.OnLose -= teleport;
+        GameEvents.OnWin -= teleport;
+        GameManager.Instance.OnTutorialStart -= teleport;
     }
 
-    private void CallTickSound(int second)
+    private void teleport()
     {
-        FMODUnity.RuntimeManager.PlayOneShot(tickSound, transform.position);
-        if (firstTime && second == 59)
-        {
-            FMODUnity.RuntimeManager.PlayOneShot(music, transform.position);
-            firstTime = false;
-        }
+        FMODUnity.RuntimeManager.PlayOneShot(teleportSound, transform.position);
+    }
 
+    private void clockBreak()
+    {
+        FMODUnity.RuntimeManager.PlayOneShot(clockBreakSound, transform.position);
     }
 
 
