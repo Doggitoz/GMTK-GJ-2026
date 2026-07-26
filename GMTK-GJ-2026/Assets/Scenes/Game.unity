@@ -2855,6 +2855,10 @@ PrefabInstance:
       propertyPath: damageOnFail
       value: 70
       objectReference: {fileID: 0}
+    - target: {fileID: 3882298127146509514, guid: 7a1f155d9d4836443bb7a4e115ebb6d9, type: 3}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3903789801219702168, guid: 7a1f155d9d4836443bb7a4e115ebb6d9, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -2922,6 +2926,10 @@ PrefabInstance:
     - target: {fileID: 7355533903245870005, guid: 7a1f155d9d4836443bb7a4e115ebb6d9, type: 3}
       propertyPath: m_VersionIndex
       value: 1468
+      objectReference: {fileID: 0}
+    - target: {fileID: 7817345340982099491, guid: 7a1f155d9d4836443bb7a4e115ebb6d9, type: 3}
+      propertyPath: m_Interpolate
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
