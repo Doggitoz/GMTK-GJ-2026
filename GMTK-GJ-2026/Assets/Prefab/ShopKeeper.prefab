@@ -1734,6 +1734,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5940633641645013891}
     m_Modifications:
+    - target: {fileID: 417567277390600353, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 417567277390600353, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 417567277390600353, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 417567277390600353, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 977673693230294893, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
       propertyPath: ItemName
       value: Eye of Horus
@@ -1829,6 +1845,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6256989026563469693, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8121987371373623315, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8121987371373623315, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8121987371373623315, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8121987371373623315, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1982,6 +2014,22 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 3f98b56fb6eb9934ab45bbae02031dfc, type: 3}
+    - target: {fileID: 417567277390600353, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 417567277390600353, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 417567277390600353, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 417567277390600353, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 977673693230294893, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
       propertyPath: ItemName
       value: "God\u2019s Femur"
@@ -2077,6 +2125,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6256989026563469693, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8121987371373623315, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8121987371373623315, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8121987371373623315, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8121987371373623315, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -2258,6 +2322,22 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 67c062465229a284a98bd6ef77a3984b, type: 3}
+    - target: {fileID: 417567277390600353, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 417567277390600353, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 417567277390600353, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 417567277390600353, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 977673693230294893, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
       propertyPath: ItemName
       value: Tortoise Totem
@@ -2355,6 +2435,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8121987371373623315, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8121987371373623315, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8121987371373623315, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8121987371373623315, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2388,6 +2484,22 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 77f45f2216a4a9349b9ee628a9f29c40, type: 3}
+    - target: {fileID: 417567277390600353, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 417567277390600353, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 417567277390600353, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 417567277390600353, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 977673693230294893, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
       propertyPath: ItemName
       value: "Gambler\u2019s Bet"
@@ -2485,6 +2597,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8121987371373623315, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8121987371373623315, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8121987371373623315, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8121987371373623315, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2518,6 +2646,22 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: f611578c5168daf4b818fa5f2619748b, type: 3}
+    - target: {fileID: 417567277390600353, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 417567277390600353, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 417567277390600353, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 417567277390600353, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 977673693230294893, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
       propertyPath: ItemName
       value: Disembodied Right-hand
@@ -2615,6 +2759,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8121987371373623315, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8121987371373623315, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8121987371373623315, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8121987371373623315, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2648,6 +2808,22 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 328a78e9c94b05e449aad8c5eee3d28c, type: 3}
+    - target: {fileID: 417567277390600353, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 417567277390600353, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 417567277390600353, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 417567277390600353, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 977673693230294893, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
       propertyPath: ItemName
       value: Lucky Break
@@ -2743,6 +2919,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6256989026563469693, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8121987371373623315, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8121987371373623315, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8121987371373623315, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8121987371373623315, guid: ab61692d2e4e10848a52f58ae191159f, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

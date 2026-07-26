@@ -4,6 +4,8 @@ public class MONEYMANAGER : MonoBehaviour
 {
     public int MONEY = 0;
     public static MONEYMANAGER Instance;
+    [SerializeField]
+    GameObject _balance;
 
     private void Awake()
     {
@@ -11,6 +13,8 @@ public class MONEYMANAGER : MonoBehaviour
         {
             Instance = this;
             QuestionDialogueTrigger.OnCorrectAnswer += AddMoney;
+            GameManager.Instance.OnGameStart += HideBalance;
+            GameManager.Instance.OnGameStop += ShowBalance;
 
         } else
         {
@@ -38,10 +42,28 @@ public class MONEYMANAGER : MonoBehaviour
     public void LoseMoney(int amount)
     {
         MONEY -= amount;
+        MONEY = Mathf.Clamp(MONEY, 0, 999);
     }
 
     public void AddMoney(int amount)
     {
         MONEY += amount;
+        MONEY = Mathf.Clamp(MONEY, 0, 999);
+    }
+
+    [ContextMenu("Add $100")]
+    public void AddHundred()
+    {
+        AddMoney(100);
+    }
+
+    private void HideBalance()
+    {
+        _balance.SetActive(false);
+    }
+
+    private void ShowBalance()
+    {
+        _balance.SetActive(true);
     }
 }
