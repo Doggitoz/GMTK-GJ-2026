@@ -9,6 +9,9 @@ public class TutorialRunner : MonoBehaviour
     Narration.Canvas NarrationCanvas;
     [SerializeField]
     Narration.Script TutorialScript;
+
+    [SerializeField]
+    private Animator _playerAnimator;
     GameManager _gameManager => GameManager.Instance;
     void Start()
     {
@@ -43,13 +46,14 @@ public class TutorialRunner : MonoBehaviour
         yield return NarrationCanvas.PlayScript(TutorialScript);
 
         // Set player animation to sleep
-
+        _playerAnimator.SetBool("IsAsleep", true);
         // Enable NPC
 
         // Disable black canvas
         NarrationCanvas.SetActive(false);
-
+        yield return new WaitForSeconds(1f);
         // Player animation to get up
+        _playerAnimator.SetBool("IsAsleep", false);
 
         // NPC dialogue automatically triggered for introduction
         /* smthn smthn leslie real script here
