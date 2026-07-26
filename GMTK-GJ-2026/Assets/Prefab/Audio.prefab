@@ -12,6 +12,9 @@ GameObject:
   - component: {fileID: 7160550893309165566}
   - component: {fileID: 5978642181653186409}
   - component: {fileID: 736822597917395055}
+  - component: {fileID: 1686007409172380368}
+  - component: {fileID: 1265530714509674990}
+  - component: {fileID: 7078808563648471822}
   m_Layer: 0
   m_Name: Audio
   m_TagString: Untagged
@@ -90,7 +93,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5670464994393129521}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: afe92d6615411014eaaaca4215d36e74, type: 3}
   m_Name: 
@@ -101,7 +104,7 @@ MonoBehaviour:
       Data2: 1234572872
       Data3: 513449380
       Data4: 1798045133
-    Path: event:/SFX/ClockTick
+    Path: event:/SFX/Clock/ClockTick
   music:
     Guid:
       Data1: 1767075729
@@ -109,3 +112,66 @@ MonoBehaviour:
       Data3: 1517334152
       Data4: 704449280
     Path: event:/Music/Music
+--- !u!114 &1686007409172380368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5670464994393129521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioEventEmitter
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1767075729
+      Data2: 1192648430
+      Data3: 1517334152
+      Data4: 704449280
+    Path: event:/Music/Music
+  Event: 
+  EventPlayTrigger: 1
+  EventStopTrigger: 2
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+--- !u!114 &1265530714509674990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5670464994393129521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b0e04e2572f9a940a47465f6f3c2f00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioGlobalParameterTrigger
+  CollisionTag: 
+  Parameter: Music_Region
+  TriggerEvent: 1
+  Value: 1
+--- !u!114 &7078808563648471822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5670464994393129521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b0e04e2572f9a940a47465f6f3c2f00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioGlobalParameterTrigger
+  CollisionTag: 
+  Parameter: Music_Region
+  TriggerEvent: 0
+  Value: 2

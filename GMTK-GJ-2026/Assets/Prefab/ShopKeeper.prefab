@@ -1726,6 +1726,13 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  selectSound:
+    Guid:
+      Data1: 239592513
+      Data2: 1339123638
+      Data3: -1011175000
+      Data4: 223824019
+    Path: event:/SFX/Hub/GrabItem
 --- !u!1001 &72221084249471265
 PrefabInstance:
   m_ObjectHideFlags: 0

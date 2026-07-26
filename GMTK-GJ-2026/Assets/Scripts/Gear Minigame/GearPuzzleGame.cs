@@ -136,6 +136,10 @@ public class GearPuzzleGame : MonoBehaviour
     // caused it, without having to guess.
     public UnityEvent onMinigameClosed = new UnityEvent();
 
+    [SerializeField] private FMODUnity.EventReference gearSoundEvent;
+    private FMOD.Studio.EventInstance gearSoundInstance;
+    [SerializeField] private FMODUnity.EventReference gearShiftSoundEvent;
+
     [System.Serializable]
     public class BoolUnityEvent : UnityEvent<bool> { }
 
@@ -189,6 +193,8 @@ public class GearPuzzleGame : MonoBehaviour
         EnsureEventSystem();
         BuildUI();
         minigameRoot.SetActive(false);
+
+        gearSoundInstance = FMODUnity.RuntimeManager.CreateInstance(gearSoundEvent);
     }
 
     void Update()
@@ -231,6 +237,7 @@ public class GearPuzzleGame : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
+        gearSoundInstance.start();
     }
 
     /// <summary>
@@ -244,6 +251,7 @@ public class GearPuzzleGame : MonoBehaviour
 
         minigameRoot.SetActive(false);
         isOpen = false;
+        gearSoundInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
 
         if (manageCursorState)
         {
@@ -346,6 +354,7 @@ public class GearPuzzleGame : MonoBehaviour
 
     public void OnGearClicked(int index)
     {
+        FMODUnity.RuntimeManager.PlayOneShot(gearShiftSoundEvent, transform.position);
         if (hasWon) return;
 
         Gear g = gears[index];

@@ -351,6 +351,23 @@ MonoBehaviour:
   movementSpeed: 7
   jumpSpeed: 5
   gravity: 10
+  jumpSoundEvent:
+    Guid:
+      Data1: -391932694
+      Data2: 1093991497
+      Data3: -1119552335
+      Data4: -952141769
+    Path: event:/SFX/Player/JumpWhoosh
+  landSoundEvent:
+    Guid:
+      Data1: 2053697200
+      Data2: 1193515886
+      Data3: -1886352479
+      Data4: -153023890
+    Path: event:/SFX/Player/Landing
+  muteFootSounds:
+    Name: 
+    Value: 0
   cameraTransform: {fileID: 0}
 --- !u!114 &2132564976584129316
 MonoBehaviour:
@@ -468,6 +485,7 @@ GameObject:
   - component: {fileID: 2289903616455606465}
   - component: {fileID: 5368146412869051735}
   - component: {fileID: 2471024936728854284}
+  - component: {fileID: 8741059004276284896}
   m_Layer: 0
   m_Name: Square
   m_TagString: Untagged
@@ -585,6 +603,46 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8741059004276284896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3873075982857283661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 713a8e7b0a8ae2d4cb5d05e84f01f2ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  footstepEvent:
+    Guid:
+      Data1: 1618643182
+      Data2: 1185978287
+      Data3: 1686205326
+      Data4: 183534155
+    Path: event:/SFX/Player/Footstep
+  standUpEvent:
+    Guid:
+      Data1: 2024952149
+      Data2: 1153175252
+      Data3: 201365153
+      Data4: 564600701
+    Path: event:/SFX/Player/Shuffle
+  inhaleEvent:
+    Guid:
+      Data1: -73475304
+      Data2: 1270185839
+      Data3: -1125285711
+      Data4: 780050295
+    Path: event:/SFX/Player/SFX_Player_Inhale
+  exhaleEvent:
+    Guid:
+      Data1: -830823257
+      Data2: 1184886813
+      Data3: 1888266150
+      Data4: -772005870
+    Path: event:/SFX/Player/SFX_Player_Exhale
 --- !u!1 &4620986354342405204
 GameObject:
   m_ObjectHideFlags: 0
