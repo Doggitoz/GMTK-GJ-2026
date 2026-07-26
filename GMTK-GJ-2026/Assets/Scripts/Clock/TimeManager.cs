@@ -11,8 +11,7 @@ namespace Clock
         public event Action<int> OnMinuteChanged;
         public event Action OnTimeExpired;
 
-        [SerializeField]
-        private int startingSeconds = 3600;
+        private int startingSeconds => GameItems.HasItem("Lucky Break") ? 3600/2 : 3600;
 
         private float _timer;
         private int _previousSecond = -1;
