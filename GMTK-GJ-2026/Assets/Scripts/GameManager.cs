@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static readonly Vector3 ClockSpawnLocation = new Vector3(0, 1.5f, -10);
+    public static readonly Vector3 HubSpawnLocation = new Vector3(100, 1.5f, 0);
+
     // Remove this later
     [SerializeField]
     private bool _startOnRuntime;
