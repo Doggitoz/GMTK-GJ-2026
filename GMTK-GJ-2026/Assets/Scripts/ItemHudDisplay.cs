@@ -61,8 +61,6 @@ public class ItemHudDisplay : MonoBehaviour
 
     private void Rebuild()
     {
-        Debug.Log("Calling rebuild");
-        Debug.Log(JsonUtility.ToJson(GameItems.Items));
         ClearChildren(_iconBar);
         foreach (var entry in _catalog)
         {
