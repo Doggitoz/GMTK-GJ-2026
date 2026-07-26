@@ -10,8 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4390483235463925985}
   - component: {fileID: 1288936342294359869}
+  - component: {fileID: 785940160817680282}
   - component: {fileID: 7791256353071003429}
   - component: {fileID: 4149571456518682143}
+  - component: {fileID: 758347925071042092}
   - component: {fileID: 398199619988815335}
   - component: {fileID: 6314517617072635724}
   - component: {fileID: 225810253400124660}
@@ -66,6 +68,22 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &785940160817680282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 811706662113903938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39c2c882f32660f408d1f0386eaea0c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TutorialRunner
+  TutorialDisabled: 0
+  NarrationCanvas: {fileID: 7791256353071003429}
+  TutorialScript: {fileID: 4149571456518682143}
+  _playerAnimator: {fileID: 0}
 --- !u!114 &7791256353071003429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,15 +113,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Script
   ScriptList:
-  - ScriptLine: This is a test to how this will work.
+  - ScriptLine: "\u2026"
+    TimeToType: 0.5
+  - ScriptLine: "\u2026\u2026\u2026"
+    TimeToType: 1
+  - ScriptLine: "What is this\u2026 emptiness? "
     TimeToType: 2
-  - ScriptLine: Really really really long dialog script lines should also gracefully
-      be typed faster than other boxes.
+  - ScriptLine: 'You feel cold, trapped, and tired. '
     TimeToType: 2
-  - ScriptLine: Same with short!
+  - ScriptLine: "There was a reason you needed to be here, in this place\u2026 "
     TimeToType: 2
-  - ScriptLine: Good luck playing the game!
+  - ScriptLine: "But\u2026 w h y?"
     TimeToType: 2
+  - ScriptLine: 'And most importantly, '
+    TimeToType: 2
+  - ScriptLine: What time is it?
+    TimeToType: 2
+--- !u!114 &758347925071042092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 811706662113903938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d68de4fe32b39e746a62267e0eff7768, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Narration.Script
+  ScriptList:
+  - ScriptLine: short version so i can test
+    TimeToType: 1
 --- !u!225 &398199619988815335
 CanvasGroup:
   m_ObjectHideFlags: 0
