@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2920804714495505204}
+  - component: {fileID: 4541179055501849756}
+  - component: {fileID: 8657396859184303757}
   m_Layer: 0
   m_Name: Shop V1
   m_TagString: Untagged
@@ -43,6 +45,39 @@ Transform:
   - {fileID: 6162734355876941817}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4541179055501849756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 853197889579827832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fc50f3d053555748b764194593bd456, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MONEYMANAGER
+  MONEY: 999
+--- !u!114 &8657396859184303757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 853197889579827832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce130c81667526744b151107797162af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SHOPKEEPERDIALOGUE
+  _shopkeepers:
+  - {fileID: 1109954958690021986}
+  - {fileID: 701985452353599939}
+  - {fileID: 5124300543386533375}
+  - {fileID: 7748296016139223315}
+  - {fileID: 4703617836736598591}
+  - {fileID: 8826989998783940938}
+  - {fileID: 4992087125710815850}
 --- !u!1 &1299583936581355964
 GameObject:
   m_ObjectHideFlags: 0
@@ -2813,7 +2848,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8459470310935579780, guid: a1ce274033387944ca1c18fc9e7a0da1, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8902269428249800082, guid: a1ce274033387944ca1c18fc9e7a0da1, type: 3}
       propertyPath: ItemName
