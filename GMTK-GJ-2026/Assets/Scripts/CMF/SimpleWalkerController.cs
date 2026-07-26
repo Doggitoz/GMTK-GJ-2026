@@ -36,7 +36,6 @@ namespace CMF
 
         void FixedUpdate()
         {
-            if (!GameManager.Instance.PlayerControllerEnabled) return;
             //Run initial mover ground check;
             mover.CheckForGround();
 
@@ -64,7 +63,7 @@ namespace CMF
             }
 
             // Handle jumping;
-            if (isGrounded && jumpAction.IsPressed())
+            if (isGrounded && GameManager.Instance.PlayerControllerEnabled && jumpAction.IsPressed())
            {
                 OnJumpStart();
                 currentVerticalSpeed = jumpSpeed;
@@ -86,10 +85,13 @@ namespace CMF
             transform.position = newPosition;
             currentVerticalSpeed = 0f;
             lastVelocity = Vector3.zero;
+            mover.SetVelocity(Vector3.zero);
+            GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
         }
 
         private Vector3 CalculateMovementDirection()
         {
+            if (!GameManager.Instance.PlayerControllerEnabled) return Vector3.zero;
             //If no character input script is attached to this object, return no input;
             //if (characterInput == null)
                 //return Vector3.zero;
