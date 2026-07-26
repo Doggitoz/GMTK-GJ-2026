@@ -51,6 +51,8 @@ MonoBehaviour:
   panelWidth: 300
   panelHeight: 700
   panelColor: {r: 0.08, g: 0.09, b: 0.12, a: 0.97}
+  customPanelSprite: {fileID: 0}
+  panelSpriteIsSliced: 0
   backdropColor: {r: 0, g: 0, b: 0, a: 0.6}
   canvasSortingOrder: 999
   manageCursorState: 1
@@ -58,43 +60,46 @@ MonoBehaviour:
   colorPartial: {r: 0.95, g: 0.8, b: 0.35, a: 1}
   colorConnected: {r: 0.4, g: 0.85, b: 0.5, a: 1}
   colorOverlap: {r: 0.9, g: 0.3, b: 0.3, a: 1}
-  colorIn: {r: 1, g: 1, b: 1, a: 1}
-  colorOut: {r: 1, g: 1, b: 1, a: 1}
-  colorIconInactive: {r: 0.45, g: 0.45, b: 0.48, a: 0.7}
+  colorFixedGearNormal: {r: 0.55, g: 0.55, b: 0.6, a: 1}
+  colorFixedGearConnected: {r: 0.4, g: 0.85, b: 0.5, a: 1}
+  colorFixedGearOverlap: {r: 0.9, g: 0.3, b: 0.3, a: 1}
   turnSpeedDegPerSec: 140
   minClickDiameter: 64
   customGearSprite: {fileID: 21300000, guid: 17d2caa90da9a4b2d986ab1bb9507080, type: 3}
   gearTextureSize: 128
   gearTeeth: 6
-  customInIconSprite: {fileID: 21300000, guid: a0721aee33fcb40b58a1523305bfb546, type: 3}
-  customOutIconSprite: {fileID: 21300000, guid: fccf3415184cc4be2b702235ee7f8367, type: 3}
-  arrowTextureSize: 124
-  iconSize: 30
   titleText: 
-  inLabelText: IN
-  outLabelText: OUT
   winMessageText: WIN!
   showSizeLabel: 0
   sizeLabelFormat: 
-  rowsFilledLabel: rows connected
   customFont: {fileID: 12800000, guid: b1a5557f6207f42938720b20526cc593, type: 3}
   titleFontSize: 26
-  markerLabelFontSize: 18
-  statusFontSize: 15
   winFontSize: 40
   gearSizeLabelFontSize: 13
   titleColor: {r: 1, g: 1, b: 1, a: 1}
-  statusColor: {r: 0.85, g: 0.85, b: 0.9, a: 1}
   gearLabelColor: {r: 0, g: 0, b: 0, a: 1}
   winOverlayColor: {r: 0, g: 0, b: 0, a: 0.65}
   winTextColor: {r: 1, g: 1, b: 1, a: 1}
-  maxAnchorDistance: 4
   onMinigameComplete:
     m_PersistentCalls:
       m_Calls: []
   onMinigameClosed:
     m_PersistentCalls:
       m_Calls: []
+  gearSoundEvent:
+    Guid:
+      Data1: -480572084
+      Data2: 1282573389
+      Data3: -1258270824
+      Data4: 1835453731
+    Path: event:/SFX/Clock/GearGame
+  gearShiftSoundEvent:
+    Guid:
+      Data1: 2122716641
+      Data2: 1305342689
+      Data3: 949302947
+      Data4: 1544357009
+    Path: event:/SFX/Clock/GearShift
 --- !u!114 &4213532975438365611
 MonoBehaviour:
   m_ObjectHideFlags: 0

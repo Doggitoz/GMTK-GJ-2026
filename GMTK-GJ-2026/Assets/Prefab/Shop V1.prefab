@@ -344,6 +344,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AutoDoor
   _animator: {fileID: 4183095539207588622}
   _boolParameterName: IsOpen
+  doorOpenSound:
+    Guid:
+      Data1: 2018454894
+      Data2: 1315947881
+      Data3: -340912483
+      Data4: -237169791
+    Path: event:/SFX/Hub/DoorOpen
+  closeDoorSound:
+    Guid:
+      Data1: 972414338
+      Data2: 1331929450
+      Data3: -1555660660
+      Data4: 932722754
+    Path: event:/SFX/Hub/DoorClose
 --- !u!114 &4091284277347118788
 MonoBehaviour:
   m_ObjectHideFlags: 0

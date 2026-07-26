@@ -11,6 +11,8 @@ public class ShopKeeper : MonoBehaviour, IInteractable
     public UnityEvent OpenShop;
     public UnityEvent CloseShop;
 
+    [SerializeField] private FMODUnity.EventReference selectSound;
+
     private void Awake()
     {
         CloseShop?.Invoke();    
@@ -23,6 +25,7 @@ public class ShopKeeper : MonoBehaviour, IInteractable
             return;
         }
         FullSelect = true;
+        FMODUnity.RuntimeManager.PlayOneShot(selectSound, transform.position);
     }
 
     public void OnInteractorHover(Transform interactor)

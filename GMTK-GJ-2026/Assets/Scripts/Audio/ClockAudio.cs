@@ -9,7 +9,7 @@ public class ClockAudio : MonoBehaviour
     private FMODUnity.EventReference music;
     private bool firstTime;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    private void Start()
+    /*private void Start()
     {
         Clock.TimeManager.Instance.OnSecondChanged += CallTickSound;
         firstTime = true;
@@ -18,7 +18,7 @@ public class ClockAudio : MonoBehaviour
     private void OnDestroy()
     {
         Clock.TimeManager.Instance.OnSecondChanged -= CallTickSound;
-    }
+    } 
 
     // Update is called once per frame
     void Update()
@@ -35,5 +35,7 @@ public class ClockAudio : MonoBehaviour
             firstTime = false;
         }
 
-    }
+    }*/
+
+
 }

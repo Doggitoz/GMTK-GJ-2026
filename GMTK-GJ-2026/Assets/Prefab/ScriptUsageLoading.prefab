@@ -46,4 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ScriptUsageLoading
   Banks:
   - Master
-  Scene: Game
+  Scene: MainMenu
