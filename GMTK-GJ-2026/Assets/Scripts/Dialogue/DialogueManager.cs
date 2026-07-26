@@ -15,7 +15,7 @@ using System;
 /// </summary>
 public enum Character
 {
-    Turtle = 0,
+    Dial = 0,
     Rat = 1,
     Player = 2,
     Shopkeeper = 3

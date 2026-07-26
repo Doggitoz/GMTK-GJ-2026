@@ -44,16 +44,14 @@ public class TriggerInteractor : MonoBehaviour
 
         foreach (var interactable in _selectedInteractables)
         {
-            if (interactable != null)
-                interactable.OnInteractorStay(transform);
+            interactable.OnInteractorStay(transform);
         }
 
         if (wasReleasedThisFrame)
         {
             foreach (var interactable in _selectedInteractables)
             {
-                if (interactable != null)
-                    interactable.OnInteractorUp(transform);
+                interactable.OnInteractorUp(transform);
             }
 
             _selectedInteractables.Clear();
@@ -69,8 +67,9 @@ public class TriggerInteractor : MonoBehaviour
 
         foreach (var interactable in _currentInteractables)
         {
+            var unityObj = interactable as UnityEngine.Object;
             // Handles destroyed Unity objects
-            if (interactable == null)
+            if (unityObj == null)
             {
                 _toRemove.Add(interactable);
                 continue;
@@ -95,7 +94,8 @@ public class TriggerInteractor : MonoBehaviour
         // Clean up selected objects that were destroyed without being in _currentInteractables.
         foreach (var interactable in _selectedInteractables)
         {
-            if (interactable == null)
+            var unityObj = interactable as UnityEngine.Object;
+            if (unityObj == null)
                 _toRemove.Add(interactable);
         }
 

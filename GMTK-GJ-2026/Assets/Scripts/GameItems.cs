@@ -9,9 +9,11 @@ public static class GameItems
 
     private static readonly Dictionary<string, Dictionary<ItemStat, float>> Effects = new()
     {
-        ["JackalopePaw"] = new() { [ItemStat.ClockSpeed] = 2f, [ItemStat.Deterioration] = 2f },
-        ["TortoiseCharm"] = new() { [ItemStat.ClockSpeed] = 0.5f, [ItemStat.Repair] = 2f },
+        ["Lucky Break"] = new() { [ItemStat.ClockSpeed] = 2f, [ItemStat.Deterioration] = 2f },
+        ["Tortoise Totem"] = new() { [ItemStat.ClockSpeed] = 0.5f, [ItemStat.Repair] = 2f },
     };
+
+    public static IReadOnlyDictionary<ItemStat, float> GetEffects(string name) => Effects.TryGetValue(name, out var e) ? e : null;
 
     public static float GetMultiplier(ItemStat stat)
     {

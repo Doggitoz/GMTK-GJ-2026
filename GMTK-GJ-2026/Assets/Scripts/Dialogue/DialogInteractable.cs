@@ -6,13 +6,24 @@ public class DialogInteractable : MonoBehaviour, IInteractable
     [SerializeField]
     private DialogueLine[] lines;
 
+    [SerializeField]
+    private bool _randomlySelectSingleLine = false;
+
     public UnityEvent OnDialogueEnd;
 
     public void Interact()
     {
         if (DialogueManager.Instance != null)
         {
-            DialogueManager.Instance.StartDialogue(lines);
+            if (_randomlySelectSingleLine)
+            {
+                int index = Random.Range(0, lines.Length);
+                DialogueManager.Instance.StartDialogue(new DialogueLine[] { lines[index] });
+            } else
+            {
+                DialogueManager.Instance.StartDialogue(lines);
+            }
+            
             DialogueManager.Instance.OnDialogEnd += EndDialog;
         }
             

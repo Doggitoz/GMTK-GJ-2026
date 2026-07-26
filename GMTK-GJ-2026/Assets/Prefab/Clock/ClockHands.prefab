@@ -423,6 +423,7 @@ MonoBehaviour:
   rotationAxis: {x: 0, y: 1, z: 0}
   counterClockwise: 1
   smooth: 1
+  collisionBox: {fileID: 5045092991806671731}
 --- !u!65 &5045092991806671731
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1447,6 +1448,7 @@ MonoBehaviour:
   rotationAxis: {x: 0, y: 1, z: 0}
   counterClockwise: 1
   smooth: 0
+  collisionBox: {fileID: 8308627231992565311}
 --- !u!65 &8308627231992565311
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2242,6 +2244,7 @@ MonoBehaviour:
   rotationAxis: {x: 0, y: 1, z: 0}
   counterClockwise: 1
   smooth: 1
+  collisionBox: {fileID: 0}
 --- !u!1 &8589687805846000568
 GameObject:
   m_ObjectHideFlags: 0
