@@ -11,7 +11,7 @@ public class ShopItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public RectTransform ItemIcon;
     
     public bool IsPurchased = false;
-    public float Cost;
+    public int Cost;
 
     public RectTransform _purchaseDialogObject;
 
@@ -26,6 +26,12 @@ public class ShopItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         {
             _purchaseDialogObject?.gameObject.SetActive(false);
             ToggleItem(ItemName);
+            return;
+        
+        }
+
+        if (!MONEYMANAGER.Instance.CanAfford(Cost))
+        {
             return;
         }
 
@@ -42,6 +48,7 @@ public class ShopItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         if (IsPurchased) return;
 
         // Subtract Cost from Resource
+        MONEYMANAGER.Instance.LoseMoney(Cost);
 
         GameItems.AddItem(ItemName);
 

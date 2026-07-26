@@ -60,7 +60,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!114 &7071317772233310418
 MonoBehaviour:
@@ -148,6 +148,7 @@ GameObject:
   m_Component:
   - component: {fileID: 996591006106626163}
   - component: {fileID: 7688246485338991932}
+  - component: {fileID: 4468195312742957884}
   m_Layer: 5
   m_Name: MoneyCounter
   m_TagString: Untagged
@@ -203,6 +204,19 @@ MonoBehaviour:
   m_ChildScaleWidth: 1
   m_ChildScaleHeight: 1
   m_ReverseArrangement: 0
+--- !u!114 &4468195312742957884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3636149043315404230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14375572543a4cc4eb04ddfb0b8c584e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MONEYDISPLAY
+  _text: {fileID: 2247874600922404174}
 --- !u!1 &4120498330896711832
 GameObject:
   m_ObjectHideFlags: 0
