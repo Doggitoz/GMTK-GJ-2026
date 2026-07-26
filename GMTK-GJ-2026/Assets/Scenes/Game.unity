@@ -1412,7 +1412,7 @@ GameObject:
   - component: {fileID: 1240675543}
   - component: {fileID: 1240675542}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: TeleportCube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1434,6 +1434,8 @@ MonoBehaviour:
   _player: {fileID: 455907965}
   _playerCamera: {fileID: 1160123092}
   _fadeCamera: {fileID: 337209714}
+  _playerAnimator: {fileID: 1245427630}
+  _teleportBoolParameter: IsAsleep
 --- !u!114 &1240675543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1557,6 +1559,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1245427630 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2471024936728854284, guid: 5244d7ff201fe1b43a4d7b904897ac1e, type: 3}
+  m_PrefabInstance: {fileID: 6062487136002437812}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1291361575
 Mesh:
   m_ObjectHideFlags: 0
@@ -1953,6 +1960,8 @@ MonoBehaviour:
   _player: {fileID: 455907965}
   _playerCamera: {fileID: 1160123092}
   _fadeCamera: {fileID: 337209714}
+  _playerAnimator: {fileID: 1245427630}
+  _teleportBoolParameter: IsAsleep
 --- !u!4 &1392527249
 Transform:
   m_ObjectHideFlags: 0
