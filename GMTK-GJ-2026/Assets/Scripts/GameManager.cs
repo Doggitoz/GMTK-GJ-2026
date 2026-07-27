@@ -25,8 +25,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private bool _disableTutorial;
 
-    private Save.Data SaveData => Save.Manager.Instance != null
-        ? Save.Manager.Instance.CurrentSave
+    private Save.SaveData SaveData => Save.SaveManager.Instance != null
+        ? Save.SaveManager.Instance.CurrentSave
         : null;
 
     void Awake()

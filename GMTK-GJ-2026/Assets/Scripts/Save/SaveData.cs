@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Save
 {
     [Serializable]
-    public class Data
+    public class SaveData
     {
         public bool completedTutorial;
         public bool beatGame;

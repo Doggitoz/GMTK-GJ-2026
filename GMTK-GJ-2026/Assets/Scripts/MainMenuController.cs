@@ -10,7 +10,7 @@ public class MainMenuController : MonoBehaviour
 
     private void Start()
     {
-        _continueButton.SetActive(Save.Manager.Instance.HasSave());
+        _continueButton.SetActive(Save.SaveManager.Instance.HasSave());
     }
 
     public void ContinueGame()
@@ -20,7 +20,7 @@ public class MainMenuController : MonoBehaviour
 
     public void NewGame()
     {
-        Save.Manager.Instance.NewGame();
+        Save.SaveManager.Instance.NewGame();
         LoadScene();
     }
 

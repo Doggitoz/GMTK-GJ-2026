@@ -3,15 +3,15 @@ using UnityEngine;
 
 namespace Save
 {
-    public class Manager : MonoBehaviour
+    public class SaveManager : MonoBehaviour
     {
-        public static Manager Instance { get; private set; }
+        public static SaveManager Instance { get; private set; }
 
         private const string SaveFileName = "save.json";
 
         private string SavePath => Path.Combine(Application.persistentDataPath, SaveFileName);
 
-        public Save.Data CurrentSave { get; private set; }
+        public Save.SaveData CurrentSave { get; private set; }
 
 
         private void Awake()
@@ -31,7 +31,7 @@ namespace Save
 
         public void NewGame()
         {
-            CurrentSave = new Save.Data();
+            CurrentSave = new Save.SaveData();
             GameItems.Items.Clear();
             SaveGame();
         }
@@ -51,14 +51,14 @@ namespace Save
         {
             if (!File.Exists(SavePath))
             {
-                CurrentSave = new Save.Data();
+                CurrentSave = new Save.SaveData();
                 GameItems.Items.Clear();
                 return;
             }
 
             string json = File.ReadAllText(SavePath);
 
-            CurrentSave = JsonUtility.FromJson<Save.Data>(json);
+            CurrentSave = JsonUtility.FromJson<Save.SaveData>(json);
 
             GameItems.Items.Clear();
             foreach (var item in CurrentSave.unlockedItems)
@@ -77,7 +77,7 @@ namespace Save
                 File.Delete(SavePath);
             }
 
-            CurrentSave = new Save.Data();
+            CurrentSave = new Save.SaveData();
             GameItems.Items.Clear();
 
             Debug.Log("Save deleted");
@@ -98,7 +98,7 @@ namespace Save
         public void CompleteGame()
         {
             if (CurrentSave == null)
-                CurrentSave = new Save.Data();
+                CurrentSave = new Save.SaveData();
 
             CurrentSave.beatGame = true;
 

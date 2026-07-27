@@ -180,7 +180,7 @@ public class TutorialRunner : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
 
-        Save.Manager.Instance.CompleteTutorial();
+        Save.SaveManager.Instance.CompleteTutorial();
         FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Music_Region", 3, false);
         GameEvents.RequestPlayerTeleport(GameManager.HubSpawnLocation);
         _gameManager.EndTutorial();

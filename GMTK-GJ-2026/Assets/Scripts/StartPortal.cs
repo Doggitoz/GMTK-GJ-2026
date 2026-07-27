@@ -3,9 +3,10 @@ using System.Collections;
 
 public class StartPortal : MonoBehaviour, IInteractable
 {
-    [SerializeField] private ConfirmationUI confirmationUI;
+    [SerializeField] private UI.ConfirmationSelector confirmationUI;
 
-    private bool _debounce = false;
+    [SerializeField]
+    private bool _debounce;
     private bool _teleportFinished;
 
     public bool ShowInteractionIndicator => true;

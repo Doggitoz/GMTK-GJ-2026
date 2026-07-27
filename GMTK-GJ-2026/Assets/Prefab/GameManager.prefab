@@ -284,7 +284,6 @@ GameObject:
   - component: {fileID: 5404847735641391672}
   - component: {fileID: 4813284144588708629}
   - component: {fileID: 8073512909954330855}
-  - component: {fileID: 9147454876559426282}
   - component: {fileID: 1175703030577716392}
   m_Layer: 0
   m_Name: GameManager
@@ -418,18 +417,6 @@ MonoBehaviour:
   OnGameReset:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &9147454876559426282
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5299819189394008759}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0465d7d73f43a9469c0bf6b42875f2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AWARDMONEEY
 --- !u!114 &1175703030577716392
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,5 +1,5 @@
 using UnityEngine;
-public class WindupUI : MonoBehaviour
+public class WindupSpriteAnimator : MonoBehaviour
 {
     [SerializeField] private Sprite[] slices;
 

@@ -14,7 +14,7 @@ public class TRIALTRACKER : MonoBehaviour
 
     public void OnCompleteGame()
     {
-        Save.Manager.Instance.CompleteGame();
+        Save.SaveManager.Instance.CompleteGame();
 
         if (GameItems.Items.Contains("Lucky Break"))
         {
