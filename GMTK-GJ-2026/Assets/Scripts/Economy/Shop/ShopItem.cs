@@ -2,12 +2,12 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ShopItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler 
+public class ShopItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public string ItemName;
     [TextArea]
     public string ItemDescription;
-    
+
     public RectTransform ItemIcon;
 
     public bool IsPurchased => Save.SaveManager.Instance.HasUnlockedItem(ItemName);
@@ -27,7 +27,7 @@ public class ShopItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             _purchaseDialogObject?.gameObject.SetActive(false);
             ToggleItem(ItemName);
             return;
-        
+
         }
 
         if (!Economy.Currency.CurrencyManager.Instance.CanAfford(Cost))
@@ -50,7 +50,7 @@ public class ShopItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         // Subtract Cost from Resource
         Economy.Currency.CurrencyManager.Instance.LoseMoney(Cost);
 
-        GameItems.AddItem(ItemName);
+        Services.Inventory.AddItem(ItemName);
         Save.SaveManager.Instance.UnlockItem(ItemName);
 
         var dialogYesButton = _purchaseDialogObject.GetChild(0).GetComponent<Button>();
@@ -62,12 +62,13 @@ public class ShopItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     private void ToggleItem(string item)
     {
-        if (GameItems.HasItem(item))
+        if (Services.Inventory.Contains(item))
         {
-            GameItems.RemoveItem(item);
-        } else
+            Services.Inventory.RemoveItem(item);
+        }
+        else
         {
-            GameItems.AddItem(item);
+            Services.Inventory.AddItem(item);
         }
 
         UpdateVisual();
@@ -81,10 +82,11 @@ public class ShopItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             return;
         }
 
-        if (GameItems.HasItem(ItemName))
+        if (Services.Inventory.Contains(ItemName))
         {
             ItemIcon.GetComponent<Image>().color = Color.white;
-        } else
+        }
+        else
         {
             ItemIcon.GetComponent<Image>().color = Color.gray;
         }

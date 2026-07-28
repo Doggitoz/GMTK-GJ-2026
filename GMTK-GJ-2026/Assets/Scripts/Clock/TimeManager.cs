@@ -13,7 +13,7 @@ namespace Clock
 
         private const int defaultStartTime = 90;
 
-        private int startingSeconds => GameItems.HasItem("Lucky Break") ? Mathf.RoundToInt(defaultStartTime * 0.8f) : defaultStartTime;
+        private int startingSeconds => Services.Inventory.Contains("Lucky Break") ? Mathf.RoundToInt(defaultStartTime * 0.8f) : defaultStartTime;
 
         private float _timer;
         private int _previousSecond = -1;
@@ -23,7 +23,7 @@ namespace Clock
         public int Hours => RemainingSeconds / 3600;
         public int Minutes => (RemainingSeconds % 3600) / 60;
         public int Seconds => RemainingSeconds % 60;
-        public float TimeScale => _timeScale * GameItems.GetMultiplier(ItemStat.ClockSpeed);
+        public float TimeScale => _timeScale * Services.Inventory.CalculateModifier(Enums.ItemStat.ClockSpeed);
         public float RemainingTimer => _timer;
         public float ElapsedTime => startingSeconds - _timer;
         public float NormalizedTime => Mathf.Clamp01(ElapsedTime / startingSeconds);

@@ -32,7 +32,7 @@ namespace Save
         public void NewGame()
         {
             CurrentSave = new Save.SaveData();
-            GameItems.Items.Clear();
+            Services.Inventory.Clear();
             SaveGame();
         }
 
@@ -52,7 +52,7 @@ namespace Save
             if (!File.Exists(SavePath))
             {
                 CurrentSave = new Save.SaveData();
-                GameItems.Items.Clear();
+                Services.Inventory.Clear();
                 return;
             }
 
@@ -60,10 +60,10 @@ namespace Save
 
             CurrentSave = JsonUtility.FromJson<Save.SaveData>(json);
 
-            GameItems.Items.Clear();
+            Services.Inventory.Clear();
             foreach (var item in CurrentSave.unlockedItems)
             {
-                GameItems.AddItem(item);
+                Services.Inventory.AddItem(item);
             }
 
             Debug.Log("Game loaded");
@@ -78,7 +78,7 @@ namespace Save
             }
 
             CurrentSave = new Save.SaveData();
-            GameItems.Items.Clear();
+            Services.Inventory.Clear();
 
             Debug.Log("Save deleted");
         }
@@ -102,7 +102,7 @@ namespace Save
 
             CurrentSave.beatGame = true;
 
-            foreach (var item in GameItems.Items)
+            foreach (var item in Services.Inventory.Items)
             {
                 if (!CurrentSave.completedTrial.Contains(item))
                 {
