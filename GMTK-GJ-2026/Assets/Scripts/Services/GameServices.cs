@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameServices : MonoBehaviour
@@ -43,10 +44,9 @@ public class GameServices : MonoBehaviour
 
     public void NewGame()
     {
-        Inventory.Clear();
-        Progress.Reset();
-        LoadCurrency(0);
-        SaveGame();
+        Save.Delete();
+        ApplySaveData(Save.CurrentSave);
+        Save.Save();
     }
 
     public void DeleteSave()
@@ -67,7 +67,12 @@ public class GameServices : MonoBehaviour
 
     private void ApplySaveData(Save.SaveData saveData)
     {
-        Inventory.LoadSaveData(saveData.unlockedItems);
+        if (saveData == null)
+        {
+            saveData = new Save.SaveData();
+        }
+
+        Inventory.LoadSaveData(saveData.unlockedItems ?? new List<string>());
         Progress.LoadSaveData(saveData);
         LoadCurrency(saveData.money);
     }
@@ -76,9 +81,8 @@ public class GameServices : MonoBehaviour
     {
         return new Save.SaveData
         {
-            completedTutorial = Progress.CompletedTutorial,
-            beatGame = Progress.BeatGame,
-            completedTrial = Progress.GetCompletedTrialsSaveData(),
+            progressFlags = Progress.GetProgressFlags(),
+            completedTrials = Progress.GetCompletedTrials(),
             unlockedItems = Inventory.GetSaveData(),
             money = GetMoney()
         };
