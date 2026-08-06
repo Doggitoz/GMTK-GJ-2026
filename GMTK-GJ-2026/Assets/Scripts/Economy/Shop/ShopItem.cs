@@ -10,7 +10,7 @@ public class ShopItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public RectTransform ItemIcon;
 
-    public bool IsPurchased => Services.Inventory.HasItem(ItemName);
+    public bool IsPurchased => Services.Inventory.IsUnlocked(ItemName);
     public int Cost;
 
     public RectTransform _purchaseDialogObject;
@@ -25,7 +25,8 @@ public class ShopItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         if (IsPurchased)
         {
             _purchaseDialogObject?.gameObject.SetActive(false);
-            ToggleItem(ItemName);
+            Services.Inventory.ToggleEquipped(ItemName);
+            UpdateVisual();
             return;
 
         }
@@ -51,7 +52,7 @@ public class ShopItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             return;
 
         Services.Currency.SubtractMoney(Cost);
-        Services.Inventory.AddItem(ItemName);
+        Services.Inventory.UnlockItem(ItemName);
         Services.Game.SaveGame();
 
         var dialogYesButton = _purchaseDialogObject
@@ -64,20 +65,6 @@ public class ShopItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         UpdateVisual();
     }
 
-    private void ToggleItem(string item)
-    {
-        if (Services.Inventory.HasItem(item))
-        {
-            Services.Inventory.RemoveItem(item);
-        }
-        else
-        {
-            Services.Inventory.AddItem(item);
-        }
-
-        UpdateVisual();
-    }
-
     private void UpdateVisual()
     {
         if (!IsPurchased)
@@ -86,14 +73,9 @@ public class ShopItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             return;
         }
 
-        if (Services.Inventory.HasItem(ItemName))
-        {
-            ItemIcon.GetComponent<Image>().color = Color.white;
-        }
-        else
-        {
-            ItemIcon.GetComponent<Image>().color = Color.gray;
-        }
+        ItemIcon.GetComponent<Image>().color = Services.Inventory.IsEquipped(ItemName)
+            ? Color.white
+            : Color.gray;
     }
 
     public void OnPointerEnter(PointerEventData eventData)

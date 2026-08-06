@@ -1,40 +1,74 @@
 using System.Collections.Generic;
-using System.Linq;
 
 public class InventoryService
 {
-    private readonly InventoryState _state;
+    private readonly InventoryState _unlockedState;
+    private readonly HashSet<string> _equippedItems;
 
     public InventoryService()
     {
-        _state = new InventoryState();
+        _unlockedState = new InventoryState();
+        _equippedItems = new HashSet<string>();
     }
 
-    public IReadOnlyCollection<string> Items => _state.Items;
+    public IReadOnlyCollection<string> Items => _equippedItems;
+    public IReadOnlyCollection<string> UnlockedItems => _unlockedState.Items;
 
     public void LoadFromSaveData(List<string> items)
     {
-        _state.Clear();
+        _unlockedState.Clear();
+        _equippedItems.Clear();
 
         foreach (var item in items)
         {
-            _state.Add(item);
+            _unlockedState.Add(item);
         }
     }
 
     public bool HasItem(string item)
     {
-        return _state.Contains(item);
+        // Back-compat: "has item" means currently equipped/active.
+        return _equippedItems.Contains(item);
     }
 
     public void AddItem(string name)
     {
-        _state.Add(name);
+        // Back-compat: treat AddItem as unlock, not auto-equip.
+        _unlockedState.Add(name);
     }
 
     public void RemoveItem(string name)
     {
-        _state.Remove(name);
+        // Back-compat: avoid removing ownership; this now unequips only.
+        _equippedItems.Remove(name);
+    }
+
+    public bool IsUnlocked(string item)
+    {
+        return _unlockedState.Contains(item);
+    }
+
+    public bool IsEquipped(string item)
+    {
+        return _equippedItems.Contains(item);
+    }
+
+    public void UnlockItem(string name)
+    {
+        _unlockedState.Add(name);
+    }
+
+    public void ToggleEquipped(string name)
+    {
+        if (!_unlockedState.Contains(name))
+        {
+            return;
+        }
+
+        if (!_equippedItems.Add(name))
+        {
+            _equippedItems.Remove(name);
+        }
     }
 
     public float CalculateModifier(Enums.ItemStat stat)
@@ -57,23 +91,25 @@ public class InventoryService
 
     public void Clear()
     {
-        _state.Clear();
+        _unlockedState.Clear();
+        _equippedItems.Clear();
     }
 
     // Persistance boundary
 
     public List<string> GetSaveData()
     {
-        return new List<string>(_state.Items);
+        return new List<string>(_unlockedState.Items);
     }
 
     public void LoadSaveData(List<string> items)
     {
-        _state.Clear();
+        _unlockedState.Clear();
+        _equippedItems.Clear();
 
         foreach (string item in items)
         {
-            _state.Add(item);
+            _unlockedState.Add(item);
         }
     }
 }

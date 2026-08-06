@@ -12,9 +12,8 @@ public class GameTimer : MonoBehaviour
         UpdateTimer(TimeManager.Instance.Minutes, TimeManager.Instance.Seconds);
     }
 
-    public void UpdateTimer(int minutes,int seconds)
+    public void UpdateTimer(int minutes, int seconds)
     {
-        Debug.Log("meow");
         int mtens = (minutes / 10) % 10;
         int mones = (minutes % 10);
 
