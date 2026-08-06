@@ -4,8 +4,9 @@ namespace Economy.Currency
 {
     public class CurrencyManager : MonoBehaviour
     {
-        public int MONEY => Save.SaveManager.Instance.CurrentSave.money;
+        public int MONEY => Services.Currency?.Money ?? 0;
         public static CurrencyManager Instance;
+
         [SerializeField]
         GameObject _balance;
 
@@ -15,9 +16,12 @@ namespace Economy.Currency
             {
                 Instance = this;
                 QuestionDialogueTrigger.OnCorrectAnswer += AddMoney;
-                GameManager.Instance.OnGameStart += HideBalance;
-                GameManager.Instance.OnGameStop += ShowBalance;
-                GameManager.Instance.OnTutorialEnd += ShowBalance;
+                if (GameManager.Instance != null)
+                {
+                    GameManager.Instance.OnGameStart += HideBalance;
+                    GameManager.Instance.OnGameStop += ShowBalance;
+                    GameManager.Instance.OnTutorialEnd += ShowBalance;
+                }
 
             }
             else
@@ -25,40 +29,42 @@ namespace Economy.Currency
                 Destroy(this);
                 return;
             }
-
-
         }
 
         private void OnDestroy()
         {
             if (Instance == this)
             {
-                Destroy(this);
                 QuestionDialogueTrigger.OnCorrectAnswer -= AddMoney;
+                if (GameManager.Instance != null)
+                {
+                    GameManager.Instance.OnGameStart -= HideBalance;
+                    GameManager.Instance.OnGameStop -= ShowBalance;
+                    GameManager.Instance.OnTutorialEnd -= ShowBalance;
+                }
+
+                Instance = null;
             }
         }
 
         public bool CanAfford(int price)
         {
-            return MONEY >= price;
+            return Services.Currency != null && Services.Currency.CanAfford(price);
+        }
+
+        public void LoadSaveData(int amount)
+        {
+            Services.Currency?.LoadSaveData(amount);
         }
 
         public void LoseMoney(int amount)
         {
-            Save.SaveManager.Instance.CurrentSave.money -= amount;
-            Save.SaveManager.Instance.CurrentSave.money =
-                Mathf.Clamp(Save.SaveManager.Instance.CurrentSave.money, 0, 999);
-
-            Save.SaveManager.Instance.SaveGame();
+            Services.Currency?.SubtractMoney(amount);
         }
 
         public void AddMoney(int amount)
         {
-            Save.SaveManager.Instance.CurrentSave.money += amount;
-            Save.SaveManager.Instance.CurrentSave.money =
-                Mathf.Clamp(Save.SaveManager.Instance.CurrentSave.money, 0, 999);
-
-            Save.SaveManager.Instance.SaveGame();
+            Services.Currency?.AddMoney(amount);
         }
 
         [ContextMenu("Add $100")]
@@ -69,12 +75,12 @@ namespace Economy.Currency
 
         private void HideBalance()
         {
-            _balance.SetActive(false);
+            _balance?.SetActive(false);
         }
 
         private void ShowBalance()
         {
-            _balance.SetActive(true);
+            _balance?.SetActive(true);
         }
     }
 }

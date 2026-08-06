@@ -31,7 +31,7 @@ public class RustSpot : MonoBehaviour, IInteractable
         _pool.Release(gameObject);
     }
 
-    public static float growthRate => GameItems.HasItem("RustSlow") ? 0.1f : 0.3f;
+    public static float growthRate => Services.Inventory.HasItem("RustSlow") ? 0.1f : 0.3f;
 
     public bool ShowInteractionIndicator => true;
 
@@ -83,11 +83,11 @@ public class RustSpot : MonoBehaviour, IInteractable
             rustCleaningSound.start();
             _cleaningStarted = true;
         }
-            
+
         float delta = cleanRate * Time.deltaTime * ClockCondition.RepairTimeScale;
 
         _visuals.localScale -= Vector3.one * delta;
- 
+
         if (_visuals.localScale.x <= minScale)
         {
             CleanRust();

@@ -2,15 +2,15 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ShopItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler 
+public class ShopItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public string ItemName;
     [TextArea]
     public string ItemDescription;
-    
+
     public RectTransform ItemIcon;
 
-    public bool IsPurchased => Save.SaveManager.Instance.HasUnlockedItem(ItemName);
+    public bool IsPurchased => Services.Inventory.IsUnlocked(ItemName);
     public int Cost;
 
     public RectTransform _purchaseDialogObject;
@@ -25,12 +25,13 @@ public class ShopItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         if (IsPurchased)
         {
             _purchaseDialogObject?.gameObject.SetActive(false);
-            ToggleItem(ItemName);
+            Services.Inventory.ToggleEquipped(ItemName);
+            UpdateVisual();
             return;
-        
+
         }
 
-        if (!Economy.Currency.CurrencyManager.Instance.CanAfford(Cost))
+        if (!Services.Currency.CanAfford(Cost))
         {
             return;
         }
@@ -45,30 +46,21 @@ public class ShopItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void PurchaseItem()
     {
-        if (IsPurchased) return;
+        if (IsPurchased)
+            return;
+        if (!Services.Currency.CanAfford(Cost))
+            return;
 
-        // Subtract Cost from Resource
-        Economy.Currency.CurrencyManager.Instance.LoseMoney(Cost);
+        Services.Currency.SubtractMoney(Cost);
+        Services.Inventory.UnlockItem(ItemName);
+        Services.Game.SaveGame();
 
-        GameItems.AddItem(ItemName);
-        Save.SaveManager.Instance.UnlockItem(ItemName);
+        var dialogYesButton = _purchaseDialogObject
+            .GetChild(0)
+            .GetComponent<Button>();
 
-        var dialogYesButton = _purchaseDialogObject.GetChild(0).GetComponent<Button>();
         dialogYesButton.onClick.RemoveAllListeners();
         _purchaseDialogObject?.gameObject.SetActive(false);
-
-        UpdateVisual();
-    }
-
-    private void ToggleItem(string item)
-    {
-        if (GameItems.HasItem(item))
-        {
-            GameItems.RemoveItem(item);
-        } else
-        {
-            GameItems.AddItem(item);
-        }
 
         UpdateVisual();
     }
@@ -81,13 +73,9 @@ public class ShopItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             return;
         }
 
-        if (GameItems.HasItem(ItemName))
-        {
-            ItemIcon.GetComponent<Image>().color = Color.white;
-        } else
-        {
-            ItemIcon.GetComponent<Image>().color = Color.gray;
-        }
+        ItemIcon.GetComponent<Image>().color = Services.Inventory.IsEquipped(ItemName)
+            ? Color.white
+            : Color.gray;
     }
 
     public void OnPointerEnter(PointerEventData eventData)

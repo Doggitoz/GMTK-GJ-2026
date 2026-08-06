@@ -66,7 +66,7 @@ namespace UI
             ClearChildren(_iconBar);
             foreach (var entry in _catalog)
             {
-                if (!GameItems.HasItem(entry.itemKey)) continue;
+                if (!Services.Inventory.HasItem(entry.itemKey)) continue;
                 var icon = Instantiate(_iconPrefab, _iconBar);
                 icon.sprite = entry.icon;
             }
@@ -75,7 +75,7 @@ namespace UI
             ClearChildren(_detailsList);
             foreach (var entry in _catalog)
             {
-                if (!GameItems.HasItem(entry.itemKey)) continue;
+                if (!Services.Inventory.HasItem(entry.itemKey)) continue;
                 var line = Instantiate(_detailEntryPrefab, _detailsList);
                 line.text = $"<b>{entry.displayName}</b>\n{DescribeEffects(entry.itemKey)}";
             }
@@ -83,7 +83,7 @@ namespace UI
 
         private static string DescribeEffects(string key)
         {
-            var effects = GameItems.GetEffects(key);
+            var effects = ItemDatabase.GetEffects(key);
             if (effects == null) return "No modifiers";
 
             var sb = new StringBuilder();
@@ -95,11 +95,11 @@ namespace UI
             return sb.ToString().TrimEnd();
         }
 
-        private static string Pretty(ItemStat stat) => stat switch
+        private static string Pretty(Enums.ItemStat stat) => stat switch
         {
-            ItemStat.ClockSpeed => "Clock Speed",
-            ItemStat.Deterioration => "Deterioration",
-            ItemStat.Repair => "Repair",
+            Enums.ItemStat.ClockSpeed => "Clock Speed",
+            Enums.ItemStat.Deterioration => "Deterioration",
+            Enums.ItemStat.Repair => "Repair",
             _ => stat.ToString()
         };
 

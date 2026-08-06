@@ -81,7 +81,7 @@ namespace CMF
                 if (isGrounded &&
                     GameManager.Instance.PlayerControllerEnabled &&
                     jumpAction.IsPressed() &&
-                    !GameItems.HasItem("God’s Femur"))
+                    !Services.Inventory.HasItem("Godï¿½s Femur"))
                 {
                     OnJumpStart();
                     currentVerticalSpeed = jumpSpeed;
@@ -249,7 +249,7 @@ namespace CMF
             if (!GameManager.Instance.PlayerControllerEnabled) return Vector3.zero;
             //If no character input script is attached to this object, return no input;
             //if (characterInput == null)
-                //return Vector3.zero;
+            //return Vector3.zero;
 
             Vector3 _direction = Vector3.zero;
             var input = moveAction.ReadValue<Vector2>();
@@ -283,7 +283,7 @@ namespace CMF
             //Call 'OnLand' delegate function;
             if (OnLand != null)
                 OnLand(_collisionVelocity);
-                
+
         }
 
         //This function is called when the controller has started a jump;
@@ -294,7 +294,7 @@ namespace CMF
             //Call 'OnJump' delegate function;
             if (OnJump != null)
                 OnJump(lastVelocity);
-                
+
         }
 
         //Return the current velocity of the character;
