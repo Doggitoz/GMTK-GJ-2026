@@ -31,7 +31,7 @@ public class RustSpot : MonoBehaviour, IInteractable
         _pool.Release(gameObject);
     }
 
-    public static float growthRate => Services.Inventory.Contains("RustSlow") ? 0.1f : 0.3f;
+    public static float growthRate => Services.Inventory.HasItem("RustSlow") ? 0.1f : 0.3f;
 
     public bool ShowInteractionIndicator => true;
 

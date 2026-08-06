@@ -83,13 +83,13 @@ public class TutorialRunner : MonoBehaviour
             new DialogueLine[]
             {
                 CreateMysteryDialogue("A voice whispers to you, screaming in from all sides."),
-                CreateMysteryDialogue("From every face, from every indicator…"),
+                CreateMysteryDialogue("From every face, from every indicatorï¿½"),
                 CreateMysteryDialogue("And somehow, from the cogs and tickers themselves."),
-                CreateMysteryDialogue("It’s vibration, ancient, unknowable and crying out like a newborn babe."),
-                CreateMysteryDialogue("Somehow… you know it,"),
-                CreateMysteryDialogue("As the slithering…"),
-                CreateMysteryDialogue("Velvety…"),
-                CreateMysteryDialogue("Articulation of the Watcher…"),
+                CreateMysteryDialogue("Itï¿½s vibration, ancient, unknowable and crying out like a newborn babe."),
+                CreateMysteryDialogue("Somehowï¿½ you know it,"),
+                CreateMysteryDialogue("As the slitheringï¿½"),
+                CreateMysteryDialogue("Velvetyï¿½"),
+                CreateMysteryDialogue("Articulation of the Watcherï¿½"),
                 CreateMysteryDialogue("Yog-Sothoth.")
             }
         );
@@ -103,9 +103,9 @@ public class TutorialRunner : MonoBehaviour
         yield return PlayDialogue(
             new DialogueLine[]
             {
-                CreateYogSlothothDialogue("Greetings… Ward…"),
-                CreatePlayerDialogue("…Is it a time here?"),
-                CreateYogSlothothDialogue("It is… now, and never, and forever."),
+                CreateYogSlothothDialogue("Greetingsï¿½ Wardï¿½"),
+                CreatePlayerDialogue("ï¿½Is it a time here?"),
+                CreateYogSlothothDialogue("It isï¿½ now, and never, and forever."),
                 CreateYogSlothothDialogue("The season of your final ordeal begins now."),
                 CreateYogSlothothDialogue("We need not delay your suffering...")
             }
@@ -121,7 +121,7 @@ public class TutorialRunner : MonoBehaviour
             {
                 CreateYogSlothothDialogue("You shall be tried in increments according to your earthly progression."),
                 CreateYogSlothothDialogue("Survive the revolution of time, and in your final hour, you may yet be saved."),
-                CreateYogSlothothDialogue("Your death, however, cannot be helped if you don’t maintain your pace."),
+                CreateYogSlothothDialogue("Your death, however, cannot be helped if you donï¿½t maintain your pace."),
                 CreateYogSlothothDialogue("This clock is subject to the degradation of time, as all mortal constructs are."),
                 CreateYogSlothothDialogue("But, if your will is strong, may yet persevere."),
             }
@@ -154,7 +154,7 @@ public class TutorialRunner : MonoBehaviour
         yield return PlayDialogue(
             new DialogueLine[]
             {
-                CreateYogSlothothDialogue("And leap through time, or go mad trying…"),
+                CreateYogSlothothDialogue("And leap through time, or go mad tryingï¿½"),
                 CreateMysteryDialogue("Jump over the minute and second hand."),
                 CreateMysteryDialogue("Survive until the hour hand strikes 12.")
             }
@@ -171,8 +171,8 @@ public class TutorialRunner : MonoBehaviour
         yield return PlayDialogue(
             new DialogueLine[]
             {
-                CreateYogSlothothDialogue("And don’t forget… to go    i n s a n e"),
-                CreateYogSlothothDialogue("I’d love to watch a mortal squirm…")
+                CreateYogSlothothDialogue("And donï¿½t forgetï¿½ to go    i n s a n e"),
+                CreateYogSlothothDialogue("Iï¿½d love to watch a mortal squirmï¿½")
             }
         );
         _yogiBearCam.Priority = -100;
@@ -180,7 +180,8 @@ public class TutorialRunner : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
 
-        Save.SaveManager.Instance.CompleteTutorial();
+        Services.Progress.CompleteTutorial();
+        Services.Game.SaveGame();
         FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Music_Region", 3, false);
         GameEvents.RequestPlayerTeleport(GameManager.HubSpawnLocation);
         _gameManager.EndTutorial();

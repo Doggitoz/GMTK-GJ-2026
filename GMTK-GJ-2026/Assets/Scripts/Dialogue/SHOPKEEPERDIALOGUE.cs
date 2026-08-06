@@ -7,12 +7,13 @@ public class SHOPKEEPERDIALOGUE : MonoBehaviour
 
     public void UpdateDialogue()
     {
-        int trialCount = Save.SaveManager.Instance.CurrentSave.completedTrial.Count;
+        int trialCount = Services.Progress.CompletedTrialCount;
         if (highestDialogueSeen < trialCount)
         {
             highestDialogueSeen += 1;
             _shopkeepers[highestDialogueSeen].SetActive(true);
-        } else
+        }
+        else
         {
             _shopkeepers[^1].SetActive(true);
         }

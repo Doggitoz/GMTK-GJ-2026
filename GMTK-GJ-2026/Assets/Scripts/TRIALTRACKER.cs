@@ -14,9 +14,10 @@ public class TRIALTRACKER : MonoBehaviour
 
     public void OnCompleteGame()
     {
-        Save.SaveManager.Instance.CompleteGame();
+        Services.Progress.CompleteGame(Services.Inventory.Items);
+        Services.Game.SaveGame();
 
-        if (Services.Inventory.Contains("Lucky Break"))
+        if (Services.Inventory.HasItem("Lucky Break"))
         {
             // Do ending sequence
         }

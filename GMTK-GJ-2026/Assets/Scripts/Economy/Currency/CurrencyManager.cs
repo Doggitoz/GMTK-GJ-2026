@@ -4,8 +4,11 @@ namespace Economy.Currency
 {
     public class CurrencyManager : MonoBehaviour
     {
-        public int MONEY => Save.SaveManager.Instance.CurrentSave.money;
+        public int MONEY => _money;
         public static CurrencyManager Instance;
+
+        private int _money;
+
         [SerializeField]
         GameObject _balance;
 
@@ -29,6 +32,11 @@ namespace Economy.Currency
 
         }
 
+        private void Start()
+        {
+            Services.Game.InitializeCurrency(this);
+        }
+
         private void OnDestroy()
         {
             if (Instance == this)
@@ -43,22 +51,25 @@ namespace Economy.Currency
             return MONEY >= price;
         }
 
+        public void LoadSaveData(int amount)
+        {
+            _money = Mathf.Clamp(amount, 0, 999);
+        }
+
         public void LoseMoney(int amount)
         {
-            Save.SaveManager.Instance.CurrentSave.money -= amount;
-            Save.SaveManager.Instance.CurrentSave.money =
-                Mathf.Clamp(Save.SaveManager.Instance.CurrentSave.money, 0, 999);
+            _money -= amount;
+            _money = Mathf.Clamp(_money, 0, 999);
 
-            Save.SaveManager.Instance.SaveGame();
+            Services.Game.SaveGame();
         }
 
         public void AddMoney(int amount)
         {
-            Save.SaveManager.Instance.CurrentSave.money += amount;
-            Save.SaveManager.Instance.CurrentSave.money =
-                Mathf.Clamp(Save.SaveManager.Instance.CurrentSave.money, 0, 999);
+            _money += amount;
+            _money = Mathf.Clamp(_money, 0, 999);
 
-            Save.SaveManager.Instance.SaveGame();
+            Services.Game.SaveGame();
         }
 
         [ContextMenu("Add $100")]

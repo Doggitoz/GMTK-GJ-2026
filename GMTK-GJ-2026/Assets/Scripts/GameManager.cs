@@ -25,10 +25,6 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private bool _disableTutorial;
 
-    private Save.SaveData SaveData => Save.SaveManager.Instance != null
-        ? Save.SaveManager.Instance.CurrentSave
-        : null;
-
     void Awake()
     {
         VerifySingleton();
@@ -36,7 +32,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        if (_disableTutorial || SaveData?.completedTutorial == true)
+        if (_disableTutorial || Services.Progress.CompletedTutorial)
         {
             LoadSave();
         }

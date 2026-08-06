@@ -12,6 +12,6 @@ public class EnableWithItem : MonoBehaviour
     bool _shouldInvert;
     void Update()
     {
-        _targetObject.SetActive(_shouldInvert ? !Services.Inventory.Contains(_itemName) : Services.Inventory.Contains(_itemName));
+        _targetObject.SetActive(_shouldInvert ? !Services.Inventory.HasItem(_itemName) : Services.Inventory.HasItem(_itemName));
     }
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 public class InventoryService
 {
@@ -11,7 +12,17 @@ public class InventoryService
 
     public IReadOnlyCollection<string> Items => _state.Items;
 
-    public bool Contains(string item)
+    public void LoadFromSaveData(List<string> items)
+    {
+        _state.Clear();
+
+        foreach (var item in items)
+        {
+            _state.Add(item);
+        }
+    }
+
+    public bool HasItem(string item)
     {
         return _state.Contains(item);
     }
@@ -47,5 +58,22 @@ public class InventoryService
     public void Clear()
     {
         _state.Clear();
+    }
+
+    // Persistance boundary
+
+    public List<string> GetSaveData()
+    {
+        return new List<string>(_state.Items);
+    }
+
+    public void LoadSaveData(List<string> items)
+    {
+        _state.Clear();
+
+        foreach (string item in items)
+        {
+            _state.Add(item);
+        }
     }
 }

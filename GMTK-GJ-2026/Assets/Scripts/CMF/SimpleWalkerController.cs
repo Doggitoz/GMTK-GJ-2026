@@ -81,7 +81,7 @@ namespace CMF
                 if (isGrounded &&
                     GameManager.Instance.PlayerControllerEnabled &&
                     jumpAction.IsPressed() &&
-                    !Services.Inventory.Contains("God�s Femur"))
+                    !Services.Inventory.HasItem("God�s Femur"))
                 {
                     OnJumpStart();
                     currentVerticalSpeed = jumpSpeed;

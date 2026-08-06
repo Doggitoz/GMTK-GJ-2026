@@ -10,7 +10,7 @@ public class ShopItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public RectTransform ItemIcon;
 
-    public bool IsPurchased => Save.SaveManager.Instance.HasUnlockedItem(ItemName);
+    public bool IsPurchased => Services.Inventory.HasItem(ItemName);
     public int Cost;
 
     public RectTransform _purchaseDialogObject;
@@ -45,15 +45,19 @@ public class ShopItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void PurchaseItem()
     {
-        if (IsPurchased) return;
+        if (IsPurchased)
+            return;
+        if (!Economy.Currency.CurrencyManager.Instance.CanAfford(Cost))
+            return;
 
-        // Subtract Cost from Resource
         Economy.Currency.CurrencyManager.Instance.LoseMoney(Cost);
-
         Services.Inventory.AddItem(ItemName);
-        Save.SaveManager.Instance.UnlockItem(ItemName);
+        Services.Game.SaveGame();
 
-        var dialogYesButton = _purchaseDialogObject.GetChild(0).GetComponent<Button>();
+        var dialogYesButton = _purchaseDialogObject
+            .GetChild(0)
+            .GetComponent<Button>();
+
         dialogYesButton.onClick.RemoveAllListeners();
         _purchaseDialogObject?.gameObject.SetActive(false);
 
@@ -62,7 +66,7 @@ public class ShopItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     private void ToggleItem(string item)
     {
-        if (Services.Inventory.Contains(item))
+        if (Services.Inventory.HasItem(item))
         {
             Services.Inventory.RemoveItem(item);
         }
@@ -82,7 +86,7 @@ public class ShopItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             return;
         }
 
-        if (Services.Inventory.Contains(ItemName))
+        if (Services.Inventory.HasItem(ItemName))
         {
             ItemIcon.GetComponent<Image>().color = Color.white;
         }

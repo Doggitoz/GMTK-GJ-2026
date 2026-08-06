@@ -13,7 +13,7 @@ namespace Clock
 
         private const int defaultStartTime = 90;
 
-        private int startingSeconds => Services.Inventory.Contains("Lucky Break") ? Mathf.RoundToInt(defaultStartTime * 0.8f) : defaultStartTime;
+        private int startingSeconds => Services.Inventory.HasItem("Lucky Break") ? Mathf.RoundToInt(defaultStartTime * 0.8f) : defaultStartTime;
 
         private float _timer;
         private int _previousSecond = -1;

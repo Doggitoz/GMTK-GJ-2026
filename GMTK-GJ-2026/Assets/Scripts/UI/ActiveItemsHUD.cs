@@ -66,7 +66,7 @@ namespace UI
             ClearChildren(_iconBar);
             foreach (var entry in _catalog)
             {
-                if (!Services.Inventory.Contains(entry.itemKey)) continue;
+                if (!Services.Inventory.HasItem(entry.itemKey)) continue;
                 var icon = Instantiate(_iconPrefab, _iconBar);
                 icon.sprite = entry.icon;
             }
@@ -75,7 +75,7 @@ namespace UI
             ClearChildren(_detailsList);
             foreach (var entry in _catalog)
             {
-                if (!Services.Inventory.Contains(entry.itemKey)) continue;
+                if (!Services.Inventory.HasItem(entry.itemKey)) continue;
                 var line = Instantiate(_detailEntryPrefab, _detailsList);
                 line.text = $"<b>{entry.displayName}</b>\n{DescribeEffects(entry.itemKey)}";
             }

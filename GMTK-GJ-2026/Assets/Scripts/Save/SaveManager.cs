@@ -1,4 +1,3 @@
-using System.IO;
 using UnityEngine;
 
 namespace Save
@@ -7,11 +6,7 @@ namespace Save
     {
         public static SaveManager Instance { get; private set; }
 
-        private const string SaveFileName = "save.json";
-
-        private string SavePath => Path.Combine(Application.persistentDataPath, SaveFileName);
-
-        public Save.SaveData CurrentSave { get; private set; }
+        public Save.SaveData CurrentSave => Services.Game.GetCurrentSaveSnapshot();
 
 
         private void Awake()
@@ -24,107 +19,64 @@ namespace Save
 
             Instance = this;
             DontDestroyOnLoad(gameObject);
-
-            LoadGame();
         }
 
 
         public void NewGame()
         {
-            CurrentSave = new Save.SaveData();
-            Services.Inventory.Clear();
-            SaveGame();
+            Services.Game.NewGame();
         }
 
 
         public void SaveGame()
         {
-            string json = JsonUtility.ToJson(CurrentSave, true);
-
-            File.WriteAllText(SavePath, json);
-
-            Debug.Log($"Game saved: {SavePath}");
+            Services.Game.SaveGame();
         }
 
 
         public void LoadGame()
         {
-            if (!File.Exists(SavePath))
-            {
-                CurrentSave = new Save.SaveData();
-                Services.Inventory.Clear();
-                return;
-            }
-
-            string json = File.ReadAllText(SavePath);
-
-            CurrentSave = JsonUtility.FromJson<Save.SaveData>(json);
-
-            Services.Inventory.Clear();
-            foreach (var item in CurrentSave.unlockedItems)
-            {
-                Services.Inventory.AddItem(item);
-            }
-
-            Debug.Log("Game loaded");
+            Services.Game.LoadServices();
         }
 
 
         public void DeleteSave()
         {
-            if (File.Exists(SavePath))
-            {
-                File.Delete(SavePath);
-            }
-
-            CurrentSave = new Save.SaveData();
-            Services.Inventory.Clear();
-
-            Debug.Log("Save deleted");
+            Services.Game.DeleteSave();
         }
 
 
         public bool HasSave()
         {
-            return File.Exists(SavePath);
+            return Services.Save.HasSave();
         }
 
         public void CompleteTutorial()
         {
-            CurrentSave.completedTutorial = true;
-            SaveGame();
+            Services.Progress.CompleteTutorial();
+            Services.Game.SaveGame();
         }
 
         public void CompleteGame()
         {
-            if (CurrentSave == null)
-                CurrentSave = new Save.SaveData();
-
-            CurrentSave.beatGame = true;
-
-            foreach (var item in Services.Inventory.Items)
-            {
-                if (!CurrentSave.completedTrial.Contains(item))
-                {
-                    CurrentSave.completedTrial.Add(item);
-                }
-            }
-
-            SaveGame();
+            Services.Progress.CompleteGame(Services.Inventory.Items);
+            Services.Game.SaveGame();
         }
 
         public bool HasUnlockedItem(string item)
         {
-            return CurrentSave.unlockedItems.Contains(item);
+            return Services.Inventory.HasItem(item);
         }
 
         public void UnlockItem(string item)
         {
-            if (CurrentSave.unlockedItems.Contains(item))
+            if (Services.Inventory.HasItem(item))
+            {
                 return;
+            }
 
-            CurrentSave.unlockedItems.Add(item);
-            SaveGame();
+            Services.Inventory.AddItem(item);
+            Services.Game.SaveGame();
         }
     }
 }

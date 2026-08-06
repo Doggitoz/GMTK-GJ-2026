@@ -24,7 +24,7 @@ public class RustSpotSpawner : MonoBehaviour
         _currentSpawnFrequency / SpawnRateMultiplier;
 
     private float SpawnRateMultiplier =>
-    Services.Inventory.Contains("Eye of Horus") ? 2f : 1f;
+    Services.Inventory.HasItem("Eye of Horus") ? 2f : 1f;
     private GameManager _gameManager => GameManager.Instance;
 
     private void Awake()
