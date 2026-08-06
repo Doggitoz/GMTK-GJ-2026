@@ -15,7 +15,7 @@ public class ProgressService
         _completedTrials.Clear();
     }
 
-    public void LoadSaveData(Save.SaveData saveData)
+    public void LoadSaveData(SaveData saveData)
     {
         Reset();
 

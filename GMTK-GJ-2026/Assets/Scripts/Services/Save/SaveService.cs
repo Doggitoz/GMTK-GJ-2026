@@ -10,7 +10,7 @@ public class SaveService
         SaveKey
     );
 
-    public Save.SaveData CurrentSave { get; private set; }
+    public SaveData CurrentSave { get; private set; }
 
 
     public bool HasSave()
@@ -19,11 +19,11 @@ public class SaveService
     }
 
 
-    public Save.SaveData Load()
+    public SaveData Load()
     {
         if (!File.Exists(SavePath))
         {
-            CurrentSave = new Save.SaveData();
+            CurrentSave = new SaveData();
             return CurrentSave;
         }
 
@@ -31,11 +31,11 @@ public class SaveService
         string json = File.ReadAllText(SavePath);
 
         CurrentSave =
-            JsonUtility.FromJson<Save.SaveData>(json);
+            JsonUtility.FromJson<SaveData>(json);
 
         if (CurrentSave == null)
         {
-            CurrentSave = new Save.SaveData();
+            CurrentSave = new SaveData();
         }
 
         return CurrentSave;
@@ -46,7 +46,7 @@ public class SaveService
     {
         if (CurrentSave == null)
         {
-            CurrentSave = new Save.SaveData();
+            CurrentSave = new SaveData();
         }
 
         string json =
@@ -64,15 +64,15 @@ public class SaveService
             File.Delete(SavePath);
         }
 
-        CurrentSave = new Save.SaveData();
+        CurrentSave = new SaveData();
     }
 
 
-    public void SetCurrentSave(Save.SaveData saveData)
+    public void SetCurrentSave(SaveData saveData)
     {
         if (saveData == null)
         {
-            CurrentSave = new Save.SaveData();
+            CurrentSave = new SaveData();
             return;
         }
 
@@ -84,7 +84,7 @@ public class SaveService
     {
         if (CurrentSave == null)
         {
-            CurrentSave = new Save.SaveData();
+            CurrentSave = new SaveData();
         }
     }
 }

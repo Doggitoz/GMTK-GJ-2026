@@ -8,16 +8,22 @@ public class GameServices : MonoBehaviour
     public InventoryService Inventory { get; private set; }
     public ProgressService Progress { get; private set; }
 
-    private void Awake()
+    private bool VerifySingleton()
     {
-        if (Instance != null)
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
-            return;
+            return false;
         }
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+        return true;
+    }
+
+    private void Awake()
+    {
+        if (!VerifySingleton()) return;
 
         Save = new SaveService();
         Inventory = new InventoryService();
@@ -37,7 +43,7 @@ public class GameServices : MonoBehaviour
         Save.Save();
     }
 
-    public Save.SaveData GetCurrentSaveSnapshot()
+    public SaveData GetCurrentSaveSnapshot()
     {
         return CreateSaveSnapshot();
     }
@@ -65,11 +71,11 @@ public class GameServices : MonoBehaviour
         currencyManager.LoadSaveData(Save.CurrentSave?.money ?? 0);
     }
 
-    private void ApplySaveData(Save.SaveData saveData)
+    private void ApplySaveData(SaveData saveData)
     {
         if (saveData == null)
         {
-            saveData = new Save.SaveData();
+            saveData = new SaveData();
         }
 
         Inventory.LoadSaveData(saveData.unlockedItems ?? new List<string>());
@@ -77,9 +83,9 @@ public class GameServices : MonoBehaviour
         LoadCurrency(saveData.money);
     }
 
-    private Save.SaveData CreateSaveSnapshot()
+    private SaveData CreateSaveSnapshot()
     {
-        return new Save.SaveData
+        return new SaveData
         {
             progressFlags = Progress.GetProgressFlags(),
             completedTrials = Progress.GetCompletedTrials(),
