@@ -30,7 +30,7 @@ public class ShopItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         }
 
-        if (!Economy.Currency.CurrencyManager.Instance.CanAfford(Cost))
+        if (!Services.Currency.CanAfford(Cost))
         {
             return;
         }
@@ -47,10 +47,10 @@ public class ShopItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         if (IsPurchased)
             return;
-        if (!Economy.Currency.CurrencyManager.Instance.CanAfford(Cost))
+        if (!Services.Currency.CanAfford(Cost))
             return;
 
-        Economy.Currency.CurrencyManager.Instance.LoseMoney(Cost);
+        Services.Currency.SubtractMoney(Cost);
         Services.Inventory.AddItem(ItemName);
         Services.Game.SaveGame();
 

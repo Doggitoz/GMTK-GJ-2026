@@ -7,6 +7,7 @@ public class GameServices : MonoBehaviour
     public SaveService Save { get; private set; }
     public InventoryService Inventory { get; private set; }
     public ProgressService Progress { get; private set; }
+    public CurrencyService Currency { get; private set; }
 
     private bool VerifySingleton()
     {
@@ -28,6 +29,7 @@ public class GameServices : MonoBehaviour
         Save = new SaveService();
         Inventory = new InventoryService();
         Progress = new ProgressService();
+        Currency = new CurrencyService();
 
         LoadServices();
     }
@@ -61,16 +63,6 @@ public class GameServices : MonoBehaviour
         ApplySaveData(Save.CurrentSave);
     }
 
-    public void InitializeCurrency(Economy.Currency.CurrencyManager currencyManager)
-    {
-        if (currencyManager == null)
-        {
-            return;
-        }
-
-        currencyManager.LoadSaveData(Save.CurrentSave?.money ?? 0);
-    }
-
     private void ApplySaveData(SaveData saveData)
     {
         if (saveData == null)
@@ -80,7 +72,7 @@ public class GameServices : MonoBehaviour
 
         Inventory.LoadSaveData(saveData.unlockedItems ?? new List<string>());
         Progress.LoadSaveData(saveData);
-        LoadCurrency(saveData.money);
+        Currency.LoadSaveData(saveData.money);
     }
 
     private SaveData CreateSaveSnapshot()
@@ -90,27 +82,7 @@ public class GameServices : MonoBehaviour
             progressFlags = Progress.GetProgressFlags(),
             completedTrials = Progress.GetCompletedTrials(),
             unlockedItems = Inventory.GetSaveData(),
-            money = GetMoney()
+            money = Currency.GetSaveData()
         };
-    }
-
-    private void LoadCurrency(int amount)
-    {
-        if (Economy.Currency.CurrencyManager.Instance == null)
-        {
-            return;
-        }
-
-        Economy.Currency.CurrencyManager.Instance.LoadSaveData(amount);
-    }
-
-    private int GetMoney()
-    {
-        if (Economy.Currency.CurrencyManager.Instance == null)
-        {
-            return 0;
-        }
-
-        return Economy.Currency.CurrencyManager.Instance.MONEY;
     }
 }

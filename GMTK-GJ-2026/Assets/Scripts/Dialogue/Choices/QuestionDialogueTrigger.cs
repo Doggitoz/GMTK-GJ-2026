@@ -105,6 +105,7 @@ public class QuestionDialogueTrigger : MonoBehaviour
         }
 
         OnCorrectAnswer?.Invoke(currencyReward);
+        Services.Game?.SaveGame();
         PlayDialogueThen(correctResponseLines, ShowTopicChoice);
     }
 

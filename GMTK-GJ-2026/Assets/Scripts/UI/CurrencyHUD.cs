@@ -9,7 +9,7 @@ namespace UI
         TMP_Text _text;
         private void Update()
         {
-            _text.text = Economy.Currency.CurrencyManager.Instance.MONEY.ToString();
+            _text.text = (Services.Currency?.Money ?? 0).ToString();
         }
     }
 }
